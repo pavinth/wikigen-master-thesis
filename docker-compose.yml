@@ -1,0 +1,17 @@
+version: '3'
+services:
+  database:
+    image: postgres:10.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=wiki
+      - POSTGRES_PASSWORD=wiki
+  app_server:
+    build: .
+    command: ./tools/run_server.sh
+    volumes:
+      - .:/wiki/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
