@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{% static 'res/images/logo.png' %}">
+    <link rel='stylesheet' href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/preloading/preloading.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui-1.12.1/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/wikigen.css' %}">
+
+    <!-- Title Page-->
+    <title>Article Selection</title>
+    <!-- CSS References -->
+
+</head>
+
+<body>
+<div class="loader" style="display: none;"></div>
+
+<!-- Website title -->
+<!-- Main content div which is replaced during the navigation -->
+<div id="particles-js"></div>
+<div id="WikiGen_content"></div>
+<div id="loading_dialog" title="Loading">
+    <div id="edit_stats_loading" style="height: 110px; margin-left:40%;"></div>
+</div>
+<div id="loader-wrapper">
+    <div id="loader"></div>
+
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-bottom"></div>
+
+</div>
+<table style="float:right;" cellspacing="15" width=50 cellpadding=5>
+    <tr>
+        <td>
+
+            <div id="login">
+                <button class="sign-in" id="user-log-in"
+                        onclick="window.location.href='http://0.0.0.0:8000/login-page/' "><i class="fas fa-sign-in-alt"
+                                                                                             style="font-size:30px;position:relative;margin-left:10px;padding:10px;color:white;cursor:pointer;"></i>
+                    <p style="color:white;font-size:20px;position:relative;top:10px;left:20px;">Login</p></button>
+            </div>
+        </td>
+        <td>
+            <div id="register">
+                <button class="sign-in" onclick="window.location.href='http://0.0.0.0:8000/registration-page/' "
+                        id="new-user-registration"><i class="fas fa-user-plus"
+                                                      style="font-size:30px;position:relative;margin-left:10px;padding:10px;color:white;cursor:pointer;"></i>
+                    <p style="color:white;font-size:20px;position:relative;top:10px;left:20px;">Register</p></button>
+            </div>
+        </td>
+        <td>
+            <div class="logged-in-user" style="display:none;">
+                <i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;color:white;"></i>
+
+                <div class="dropdown-content">
+                    <a href="/#/"><i class="fas fa-user"
+                                     style="color:#ff7f2a;font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
+                        <p id="lusername" style="text-align:center;"></p></a>
+                    <a href="http://0.0.0.0:8000/dashboard-page/" rel="noopener noreferrer">
+                        <i class="fas fa-calendar"
+                           style="color:#ff7f2a;font-size:20px;margin-left:10px;position:relative;top:20px;cursor: pointer;"></i>
+                        <p style=" text-align:center;cursor:pointer;">Dashboard</p></a>
+                    <a href="/#/"><i class="fas fa-sign-out-alt"
+                                     style="color:#ff7f2a;font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
+                        <p id="logout-submit" style="text-align:center;">Logout</p></a>
+                </div>
+
+            </div>
+
+        </td>
+    </tr>
+</table>
+<div id="maindiv" style="width:100%;height: 100%;">
+    <div style="margin-left:5em;"></div>
+    <table class="function_table" style='max-width:100%;max-height:100%;margin: 12% auto 1%;overflow-x:auto'>
+        <tr>
+            <td>
+                <div style="max-width:100%;max-height:100%;">
+                    <div style="text-align: center;margin-top:-80px;">
+                        <img src="{% static 'res/images/wikigen_logo.png' %}" width="253" height="92"
+                             id="wiki_main_page_logo" alt="mainlogo">
+                    </div>
+
+                    <br>
+                    <br>
+                    <br>
+                    <p style="position:relative;line-height: 10pt; left:30px;"><span
+                            style="font-size:2vw;color: white; "> &nbsp;&nbsp;&nbsp;WikiGen is an analytical tool that provides different  <a
+                            href="http://en.wikipedia.org" target="_blank" style="font-size:2vw;">Wikipedia </a>articles statistics. </span>
+                    </p>
+                    <br>
+                    <p><span style="font-size:2vw;color: white; ">It aims to explore the dynamic nature of the process of forming social representations.</span>
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+
+    <table class="function_table"
+           style='max-width:100%;max-height:100%;margin-left: auto;margin-right: auto;overflow-x:auto'>
+        <tr>
+            <td>
+                <div style="max-width:100%;max-height:100%;">
+                    <table border="0" align="center">
+                        <tr>
+                            <td>
+                                <p style="position:relative;line-height: 10pt;">
+                                    <span style="color: white;font-size:1vw;">Select Wikipedia article to analyze:</span>
+                                </p>
+                            </td>
+                            <td>
+                                <i class="fa fa-info-circle"
+                                   style="font-size:20px;color:white;top:-7px;position:relative;" id="selection_i"
+                                   title="view how to search Wikipedia Article"></i>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <div id="search_div" style="margin-bottom:1%;margin-top:2%;">
+                        <form action="" id='search_form' method='get'>
+                            <input id='searchbar' placeholder='Search..' type='text'/>
+                            <button id='searchbtn' type='submit'>
+                                <span><i class="fa fa-search "
+                                         style="font-size:35px;position:relative; bottom:-5px;"></i></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <table border="0" align="center">
+                    <tr>
+                        <td>
+                            <div id="selected_language" style="position:relative;">
+
+                                <font size="3" color="white">Selected Wikipedia language: <font size="3" color="white">
+
+                                </font><span> </span></font>
+                            </div>
+                        </td>
+                        <td>
+                            <i class="fas fa-caret-square-down" id="change_language"
+                               style=" font-size:20px;color:white;top:1px;position:relative;"
+                               title="click to change Wikipedia language"></i>
+
+                        </td>
+                    </tr>
+                </table>
+
+                <div id="language_changer" align="center" disply="none">
+                    <div id="lang_loading_start"><br><font size="3" color="white">Wait for languages to be
+                        loaded:</font></div>
+                    <div id="inner_lang_div_start" align="center">
+                          <span align="center">
+                              <table border="0" style="position:relative;left:300px;">
+                                  <tr>
+                                  <td>
+
+                                       <label for="select_language_start"><span
+                                               style="font-size: 14px; color: white; position:relative;left:-70px;margin-top:10px; ">Select Wikipedia language: </span></label>
+                                      <input id="select_language_start"
+                                             style="position:relative; left:-70px;margin-top:10px;"/>
+
+                                  </td>
+                                  <td>
+
+                                       <i class="fas fa-caret-square-right"
+                                          style="font-size: 23px; color:white; position:relative;left:-70px;margin-top:10px;"
+                                          id="select_language_b_start" title="change to this language"></i>
+
+                                  </td>
+                                  </tr>
+                              </table>
+                          </span>
+                    </div>
+                </div>
+
+
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<div id="no_query" title="No article">
+    <p>Please type in the name of an article to be analyzed.</p>
+</div>
+
+<div id="no_article" title="Unable to Find">
+    <p>An article with this name could not be found.</p>
+</div>
+
+
+<div id="selection_i_dialog" class="help_dialog" title="Article selection">
+    <p>To select an article you need to enter the <b>exact name</b> of a Wikipedia article.</p>
+
+    <p>There are three ways to find out the exact case-sensitive name of the article:</p>
+
+    <p style="margin-left: 2em;"><b>1)</b> The surest way to find out the exact name of the Wikipedia article is to open
+        the article in the browser and look at the link displayed in the address field. The name of the article is the
+        last part of the link after the last &ldquo;/&rdquo;. See screenshot below.</p>
+    <center><img src="{% static 'res/images/article_name.png' %}" border="2"></center>
+    <br>
+    <p style="margin-left: 2em;"><b>2)</b> When you browse through Wikipedia directly or within the application you can
+        always click on any internal Wikipedia link and copy the address as it is shown on the screenshot below.</p>
+    <center><img src="{% static 'res/images/copy_link.png' %}" border="2"></center>
+    <br>
+    <p style="margin-left: 2em;"><b>3)</b> Guess the correct article name. Most Wikipedia articles have the same name as
+        the subject of the article. For example &ldquo;Barack Obama&rdquo; is the exact name of the Wikipedia article
+        for the U.S. president. Nevertheless, some articles have non-trivial names. For example, the exact name for the
+        article devoted to Apple corporation is &ldquo;Apple Inc.<br></p>
+
+    <p style="margin-left: 2em;">After you have copied the link you can paste it into the <b>WikiGen</b> search field
+        and remove the first part of the link leaving the exact name of the article</p>
+
+    <p>After you have selected the article, <b>WikiGen</b> applicaton will start. It will display the Wikipedia article
+        and allow switching between different functionalities the application provides.</p>
+
+</div>
+
+
+<!--jquery script -->
+<script src="{% static 'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'css/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+<script src="{% static 'css/preloading/modernizer-2.6.2.min.js' %}"></script>
+<script src="{% static 'css/preloading/main.js' %}"></script>
+<script src="{% static 'js/jquery-related/jquery.spin.js' %}"></script>
+
+
+<script src="{% static 'js/wikigen-frontend/wikigen_config.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_statistics.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_utils.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_ploting.js' %}" type="application/javascript"></script>
+<!--particles script-->
+<script src="{% static 'js/particles/particles.js' %}"></script>
+<script src="{% static 'js/particles/particles_app.js' %}"></script>
+
+<!-- Spin Scripts -->
+<script src="{% static 'js/jquery-related/spin.min.js' %}"></script>
+<script src="{% static 'js/login/login.js' %}"></script>
+<script src="{% static 'js/registration/registration.js' %}"></script>
+<script src="{% static 'js/user/profile.js' %}"></script>
+<script src="{% static 'js/src-frontend/article_selection.js' %}" type="application/javascript"></script>
+
+
+</body>
+</html>

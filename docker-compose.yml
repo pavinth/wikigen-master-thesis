@@ -6,6 +6,8 @@ services:
     environment:
       - POSTGRES_USER=wiki
       - POSTGRES_PASSWORD=wiki
+    volumes:
+      - app_data
   app_server:
     build: .
     command: ./tools/run_server.sh
@@ -15,3 +17,5 @@ services:
       - "8000:8000"
     depends_on:
       - database
+volumes:
+  app_data:

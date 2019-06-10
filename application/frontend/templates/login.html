@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{% static 'res/images/logo.png' %}">
+    <title>Login</title>
+
+    <!-- Font Icon -->
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
+    <link rel="stylesheet" href="{% static 'js/login/fonts/material-icon/css/material-design-iconic-font.css' %}">
+    <link rel="stylesheet" href="{% static 'css/wikigen.css' %}">
+    <link rel="stylesheet" href="{% static 'css/material.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/login/login-registration.css' %}">
+
+
+</head>
+<body>
+
+	<img  style="float:left; margin-left: 50px;margin-top:-60px; top:30px;" src = "{% static 'res/images/wiki_name.png' %}"  id="wikigen-logo"  alt="wikigen">
+    <h2 id="LoginSuccessful"></h2>
+    <div id="particles-js"></div>
+        <div class="main">
+             <section class="signup">
+
+        <div class="container">
+            <div class="signup-content">
+                <div id="login-form" class="login-form">
+                    <img src="{% static 'res/images/logo.png' %}" style="margin-left:180px;" alt="logo">
+                    <i class="fas fa-times" style=font-size:25px;position:absolute;left:670px;top:0;color:#fff;"
+                       aria-hidden="true"></i>
+
+                    <h2 class="form-title" style="margin-top:20px;">Login</h2>
+                    <div class="form-group">
+                        <label for="username"></label><input type="text" class="form-input" name="username"
+                                                             id="username" placeholder="User Name"
+                                                             data-errormsg="userNameErrorMsg"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"></label><input type="password" class="form-input" name="password"
+                                                             id="password" placeholder="Password"
+                                                             data-errormsg="passwordErrorMsg"/>
+                        <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="remember-me" id="remember-me" class="agree-term"/>
+                        <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" id="login-submit" class="form-submit"
+                               style="cursor:pointer;  background-color:#7c807d;" value="Login"/>
+                    </div>
+                </div>
+                <p class="login-here">
+                    Dont have an an account ? <a href="/registration-page/" class="login-here-link">Sign Up</a>
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- JS -->
+<script src="{% static 'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
+
+<script src="{% static 'js/particles/particles.js' %}"></script>
+<script src="{% static 'js/particles/particles_app.js' %}"></script>
+<script src="{% static 'js/login/login.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,1070 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{% static 'res/images/logo.png' %}">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
+    <link rel="stylesheet" href="{% static 'css/jquery-ui-1.12.1/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/material.min.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/wikigen.css' %}">
+
+
+    <!-- Title Page-->
+    <title>Edit Statistics</title>
+
+</head>
+<body style="background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);">
+
+<div id="top_div_2">
+    <img style="float:left; margin-left: 20px; padding:10px; margin-top: 5px;"
+         src="{% static 'res/images/wiki_name.png' %}" id="wikigen-logo" alt="wikigen">
+    <span id="selected_article"></span> &emsp;
+    <button type="button" id="change_article">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Change Article<i class="fas fa-angle-double-left"
+                                                       style="font-size:16px;float:right;margin-left:15px;"></i>
+    </button>
+</div>
+
+<div class="logged-in-user" style="display:none;">
+    <i class="fas fa-user-circle "
+       style="font-size:35px;margin-left:120px;position:relative; top:-80px;color:white;"></i>
+    <div class="dropdown-content" style="position:absolute;top:-45px;">
+        <a href="/#/"><i class="fas fa-user"
+                         style="color:#ff7f2a;font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
+            <p id="lusername" style="text-align:center;"></p></a>
+        <a onclick="window.location.href='http://0.0.0.0:8000/dashboard-page/'">
+            <i class="fas fa-calendar"
+               style="color:#ff7f2a;font-size:20px;margin-left:10px;position:relative;top:20px;"></i>
+            <p style=" text-align:center;cursor:pointer;">Dashboard</p></a>
+        <a href="/#/"><i class="fas fa-sign-out-alt"
+                         style="color:#ff7f2a;font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
+            <p id="logout-submit" style="text-align:center;">Logout</p></a>
+    </div>
+
+</div>
+
+<nav id="tabs">
+    <ol style="margin-top:-30px;">
+        <li class="tabs-item"><a href="/article-page/" id="article_tab_link"> <i class="fab fa-wikipedia-w"
+                                                                                 style="font-size:15px;margin-right:10px;"></i>Article</a>
+        </li>
+        <li class="tabs-item"><a href="/edit-page/" id="edit_tab_link"> <i class="far fa-chart-bar"
+                                                                           style="font-size:15px;margin-right:10px;"></i>Collaboration
+        </a></li>
+        <li class="tabs-item"><a href="/anchor-page/" id="anchor_tab_link"> <i class="fab fa-autoprefixer"
+                                                                               style="font-size:15px;margin-right:10px;"></i>Anchoring
+        </a></li>
+        <li class="tabs-item"><a href="/blink-page/" id="blink_tab_link"> <i class="fas fa-chart-line"
+                                                                             style="font-size:15px;margin-right:10px;"></i>Objectification</a>
+        </li>
+        <li class="tabs-item"><a href="/about-page/" id="about_tab_link"> <i class="fas fa-university"
+                                                                             style="font-size:15px;;margin-right:10px;"></i>About</a>
+        </li>
+
+    </ol>
+
+
+    <div id="article_tab">
+        <div id="article_tab_content">
+        </div>
+    </div>
+
+    <div id="edits_tab">
+        <div id="edit_tab_content"></div>
+    </div>
+
+    <div id="anchor_tab">
+        <div id="anchor_tab_content">
+        </div>
+    </div>
+
+    <div id="blink_tab">
+        <div id="blink_tab_content">
+        </div>
+    </div>
+
+    <div id="about_tab">
+        <div id="about_tab_content">
+        </div>
+    </div>
+</nav>
+
+<!-- edit statistics page-->
+<div id="edit_description_accordion" class="accordition_element">
+    <h3 id="edit_description_accordion_header">Tab description (click to expand)</h3>
+    <div style="font-size:16px;text-align:justify;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+        <p>Press <b>Generate Editing Statistics</b> to generate editing statistics. Editing statistics provide data
+            about the distribution of revisions and editors for the chosen article over time.
+            The data can be for example used in order to identify patterns related to effects of external events on the
+            phenomenon under study.</p>
+        <hr style="border: none;height: 3px; color: #333;background-color: #333;">
+    </div>
+</div>
+<div id="generate_edit_button">
+    <br>
+    <p>Select time frame for the analysis. You can leave time frame selection fields blank to analyse the entire period,
+        for which data on Wikipedia exist.</p>
+    <div>
+        <p>
+            <label for="e_datepicker_from"></label>
+            <input type="text" id="e_datepicker_from" name="from" placeholder="Date From"
+                   style="margin-left:10px; line-height: 1.8;font-size:16px;border:solid 1px #484848;border-radius: 4px;">
+            <label for="e_datepicker_until">&nbsp;&nbsp;</label>
+            <input type="text" id="e_datepicker_until" name="to" placeholder="Date From"
+                   style=" line-height: 1.8;font-size:16px;border:solid 1px #484848;border-radius: 4px;">
+        </p>
+    </div>
+    <br>
+    <button id="generate_edit_stat">Generate Collaboration Statistics</button>
+    <br>
+    <style>
+        #generate_edit_stat {
+            display: flex;
+            padding: 10px 45px;
+            text-decoration: none;
+            font: 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            color: white;
+            background: rgba(39, 39, 39, 0.83);
+            transition: 2s;
+            box-shadow: 3px 3px 0 rgb(105, 103, 103);
+            transform: skewX(-1deg);
+        }
+
+        #generate_edit_stat:focus {
+            outline: none;
+        }
+
+        #generate_edit_stat:hover {
+            transition: 0.5s;
+            box-shadow: 5px 5px 0 rgb(231, 136, 28);
+        }
+    </style>
+
+</div>
+
+<div id="edit_stats_loading_form" style="margin-top: 1em;">
+    <div id="edit_progressbar_div"><p style="margin:2px;">Wait for analysis to complete:<span> </span></p></div>
+    <div id="edit_progressbar"></div>
+</div>
+<div style="margin-top: 1em;">
+    <div id="edit_results">
+        <p><b>Article Collaboration Results:</b></p>
+
+        <!------------------------------------------------------------------------------------------------------------------------------------>
+        <div id="revision_map_part" class="accordition_element">
+            <h3 id="revision_map_part_header"><b>Revision Map</b> (click to expand)</h3>
+            <div>
+                <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;" id="revision_map_i"></i>
+                <br>
+                <div style="margin-top: 1em;">
+                    <div id="chart_ph_6" style="width:100%;height:400px;"></div>
+                    <br>
+                    <div id="chart_ph_6_overview" style="width:98%;height:80px;margin:1em;"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div style="margin-top: 1em;" id="edits_part_" class="accordition_element">
+            <h3 id="edits_part_header"><b>Edits Statistics</b> (click to expand)</h3>
+            <div>
+                <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                   id="revision_stats_i"></i>
+                <div style="margin-top: 1em">
+                    <div id="edits_yearly_accordion" class="accordition_element">
+                        <h3 id="edits_yearly_accordion_header">Yearly revisions statistics (click to expand)</h3>
+                        <div>
+                            <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                               id="revisions_y_stats_i"></i>
+                            <ol class=" charts_icons" style="float:right;">
+                                <i class="fas fa-chart-line" id="line-chart"
+                                   style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-chart-bar" id="bar-chart"
+                                   style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-circle" id="point-chart"
+                                   style="font-size:24px;margin-right:20px;"> </i>
+                            </ol>
+                            <div style="margin-top: 1em;margin-left: 1.5em;"><p>Choose edit type:
+                                <p></div>
+                            <div style="margin-top: 1em;">
+                                <div id="edit_graph_type" style="margin-left: 1.5em;">
+                                    <input type="radio" id="comb_edits" name="radio1" checked="checked"><label
+                                        for="comb_edits">Combined</label>
+                                    <input type="radio" id="o_edits" name="radio1"><label for="o_edits">Overall</label>
+                                    <input type="radio" id="d_edits" name="radio1"><label for="d_edits">Distinct</label>
+                                    <input type="radio" id="dm_edits" name="radio1"><label for="dm_edits">Major
+                                    Distinct</label>
+                                    <input type="checkbox" id="no_bots" name="radio1"><label for="no_bots"
+                                                                                             style="margin-left: 1em;">No
+                                    Bots</label>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 1em;">
+                                <div id="chart_ph_1" style="width:100%;height:400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1em">
+                    <div id="edit_details_accordion" class="accordition_element">
+                        <h3 id="detailed_view_header">Detailed Revisions Statistics (click to expand)</h3>
+                        <div>
+                            <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                               id="revisions_m_stats_i"></i>
+                            <ol class=" charts_icons" style="float:right;">
+                                <i class="fas fa-chart-line" style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-chart-bar" style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-circle" style="font-size:24px;margin-right:20px;"> </i>
+                            </ol>
+                            <br>
+                            <div style="margin-top: 1em;margin-left: 1.5em;"><p>Choose edit type:
+                                <p></div>
+                            <div style="margin-top: 1em;">
+                                <div id="edit_graph_type2" style="margin-left: 1.5em;">
+                                    <input type="radio" id="m_comb_edits" name="radio2" checked="checked"><label
+                                        for="m_comb_edits">Combined</label>
+                                    <input type="radio" id="m_o_edits" name="radio2"><label
+                                        for="m_o_edits">Overall</label>
+                                    <input type="radio" id="m_d_edits" name="radio2"><label
+                                        for="m_d_edits">Distinct</label>
+                                    <input type="radio" id="m_dm_edits" name="radio2"><label for="m_dm_edits">Major
+                                    Distinct</label>
+                                    <input type="checkbox" id="no_bots3" name="radio2"><label for="no_bots3"
+                                                                                              style="margin-left: 1em;">No
+                                    Bots</label>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 1em;">
+                                <div id="chart_ph_3" style="width:100%;height:400px;"></div>
+                                <br>
+                                <br>
+                                <div id="chart_ph_3_overview" style="width:99%;height:80px;margin-left:10px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1em">
+                    <div id="edit_stats_accordion" class="accordition_element">
+                        <h3 id="edit_stat_header">Edits Statistics: measures (click to expand)</h3>
+                        <div>
+                            <table border="0">
+                                <tr>
+                                    <td style="padding:0 15px 0 15px;">
+                                        <div id="edit_stats_content1" class="vl"></div>
+                                    </td>
+                                    <td style="padding:5px 15px 0 15px;">
+                                        <div id="edit_stats_content2"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br>
+
+        <div id="editors_part" class="accordition_element">
+            <h3 id="editors_part_header"><b>Editors Statistics</b> (click to expand)</h3>
+            <div>
+                <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px; margin-bottom:10px;"
+                   id="editors_stats_i"></i>
+                <br>
+                <div id="editors_y_stats" class="accordition_element">
+                    <h3 id="editors_y_stats_header">Yearly Editors Statistics (click to expand)</h3>
+                    <div>
+                        <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                           id="editors_stats_y_i"></i>
+                        <ol class=" charts_icons" style="float:right;">
+                            <i class="fas fa-chart-line" style="font-size:24px;margin-right:20px;"> </i>
+                            <i class="far fa-chart-bar" style="font-size:24px;margin-right:20px;"> </i>
+                            <i class="far fa-circle" style="font-size:24px;margin-right:20px;"> </i>
+                        </ol>
+                        <br>
+
+                        <div style="margin-top: 1em;margin-left: 1.5em;"><p>Choose editor type:
+                            <p></div>
+                        <div style="margin-top: 1em;">
+                            <div id="editors_graph_type" style="margin-left:1.5em;">
+                                <input type="radio" id="co_editors" name="radio3" checked="checked"><label
+                                    for="co_editors">Combined Editors</label>
+                                <input type="radio" id="o_editors" name="radio3"><label for="o_editors">Overall
+                                Editors</label>
+                                <input type="radio" id="r_editors" name="radio3"><label for="r_editors">Registered
+                                Editors</label>
+                                <input type="radio" id="a_editors" name="radio3"><label for="a_editors">Anonymous
+                                Editors</label>
+                                <input type="radio" id="b_editors" name="radio3"><label for="b_editors">Bot
+                                Editors</label>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1em;">
+                            <div id="chart_ph_2" style="width:100%;height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1em">
+                    <div id="editors_details_accordion" class="accordition_element">
+                        <h3 id="detailed_editors_header">Detailed Editors Statistics (click to expand)</h3>
+                        <div>
+                            <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                               id="editors_m_stats_i"></i>
+                            <ol class=" charts_icons" style="float:right;">
+                                <i class="fas fa-chart-line" style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-chart-bar" style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-circle" style="font-size:24px;margin-right:20px;"> </i>
+                            </ol>
+                            <br>
+                            <div style="margin-top: 1em;margin-left: 1em;"><p>Choose editor type:
+                                <p></div>
+                            <div style="margin-top: 1em;">
+                                <div id="editors_graph_type2" style="margin-left: 1em;">
+                                    <input type="radio" id="m_co_editors" name="radio4" checked="checked"><label
+                                        for="m_co_editors">Combined Editors</label>
+                                    <input type="radio" id="m_o_editors" name="radio4"><label for="m_o_editors">Overall
+                                    Editors</label>
+                                    <input type="radio" id="m_r_editors" name="radio4"><label for="m_r_editors">Registered
+                                    Editors</label>
+                                    <input type="radio" id="m_a_editors" name="radio4"><label for="m_a_editors">Anonymous
+                                    Editors</label>
+                                    <input type="radio" id="m_b_editors" name="radio4"><label for="m_b_editors">Bot
+                                    Editors</label>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 1em;">
+                                <div id="chart_ph_5" style="width:100%;height:400px;"></div>
+                                <br>
+                                <br>
+                                <div id="chart_ph_5_overview" style="width:99%;height:80px;margin-left:10px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1em;">
+                    <div id="editors_stats_accordion" class="accordition_element">
+                        <h3 id="editor_stat_header">Editors Statistics: measures (click to expand)</h3>
+                        <div>
+                            <table border="0">
+                                <tr>
+                                    <td style="padding:0 15px 0 15px;">
+                                        <div id="editors_stats_content1" class="vl"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div id="edits_editor_part" class="accordition_element">
+            <h3 id="edits_editor_part_header"><b>Edits per Editor Statistics</b> (click to expand)</h3>
+            <div>
+                <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;" id="e_e_i"></i>
+                <br>
+                <div style="margin-top: 1em;">
+                    <div id="e_e_accordion" class="accordition_element">
+                        <h3 id="e_e_accordion_header">Yearly Edits\Editor Statistics:</h3>
+                        <div>
+                            <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                               id="e_e_graph_i"></i>
+                            <br>
+                            <div style="margin-top: 1em;">
+                                <div id="chart_ph_4" style="width:100%;height:400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style="margin-top: 1em;">
+                    <div id="ratios_accordion" class="accordition_element">
+                        <h3 id="edit_editor_stat_header">Detailed Edits\Editor Statistics:</h3>
+                        <div>
+                            <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                               id="e_e_m_graph_i"></i>
+                            <br>
+                            <div style="margin-top: 1em;">
+                                <div id="chart_ph_7" style="width:100%;height:400px;"></div>
+                                <br>
+                                <div id="chart_ph_7_overview" style="width:99%;height:80px;margin-left:10px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="revision_stats_i_dialog" class="help_dialog" title="Edits statistics">
+    <p>Edits statistics section consists of three parts: </p>
+
+    <p style="margin-left: 2em;"><b>First</b> part (Yearly revisions statistics): yearly data for the distribution of
+        edits (Details in the corresponding section).</p>
+
+    <p style="margin-left: 2em;"><b>Second</b> part (Detailed revisions statistics): detailed view on revisions
+        distribution on a monthly basis (Details in the corresponding section).</p>
+
+    <p style="margin-left: 2em;"><b>Third</b> part (Edits statistics: measures): measures for the whole period of time
+        such as the overall amount of revisions existing for an article.</p>
+
+    <p>Every part has its own section which can be opened or closed by clicking on it.</p>
+</div>
+
+<div id="revisions_y_stats_i_dialog" class="help_dialog" title="Yearly revision statistics">
+    <p>This section contains a graph representing the amount of revisions over all years the article existed on the
+        Wikipedia platform. </p>
+
+    <p>Every revision is an edit of an article. But not every edit is a revision. Several revisions can be considered as
+        one edit.</p>
+
+    <p>There are three different types of edits you can choose from:</p>
+
+    <p><b style="margin-left: 2em;">Overall</b>: all existing revisions of the article</p>
+
+    <p style="margin-left: 2em;"><b>Distinct</b>: all revisions of the article where a sequence of chronologically
+        succeeding revisions by the same author is counted as one edit</p>
+
+    <p style="margin-left: 2em;"><b>Major distinct</b>: distinct edits according to the above definition excluding all
+        minor edits. A minor edit is a flag on a revision which is set by the user to signalize that no significant
+        changes were made to the article. See definition of minor edit here: <a
+                href="http://en.wikipedia.org/wiki/Help:Minor_edit" target="_blank">http://en.wikipedia.org/wiki/Help:Minor_edit</a>
+    </p>
+    <p>The option <b>Combined</b> will show all three different revision types: overall, distinct and major distinct.
+    </p>
+
+    <p><b>No bots</b> option, when chosen, will remove all revisions made by bots for any of the chosen revision type.
+        See definition of bots here: <a href="https://en.wikipedia.org/wiki/Wikipedia:Bots" target="_blank">https://en.wikipedia.org/wiki/Wikipedia:Bots</a>
+    </p>
+
+    <p>When a revision type is selected, the corresponding data will be displayed in the graph.</p>
+
+    <p>Clicking on any data object in the graph will call a tooltip window displaying the exact value for the data
+        object.</p>
+</div>
+
+<div id="revisions_m_stats_i_dialog" class="help_dialog" title="Detailed revision statistics">
+    <p>The graph contained in this section provides a more detailed view on the revisions distribution by including
+        monthly data.</p>
+
+    <p>Monthly data is provided for all three types of edits (overall, distinct and major distinct)</p>
+
+    <p><b>No bots</b> option: when chosen, will remove all revisions made by bots for all edit types.</p>
+
+    <p>The graph is interactive. You can choose the time frame of your interest by either selecting the corresponding
+        range (mouse click and drag) on the actual graph or on the small overview graph below the actual graph. Use
+        overview graph too zoom out.</p>
+
+    <p>Clicking on any data object in the graph will call a tooltip window displaying the exact value for the data
+        object.</p>
+</div>
+
+<div id="editors_stats_i_dialog" class="help_dialog" title="Editors statistics">
+    <p>Edits statistics section consists of three parts: </p>
+
+    <p style="margin-left: 2em;"><b>First</b> part (Yearly editors statistics): yearly data for the distribution of
+        editors (Details in the corresponding section).</p>
+
+    <p style="margin-left: 2em;"><b>Second</b> part (Detailed editors statistics):detailed view on editors distribution
+        on a monthly basis (Details in the corresponding section).</p>
+
+    <p style="margin-left: 2em;"><b>Third</b> part (Editors statistics: measures): measures for the whole period of time
+        such as the overall amount of distinct editors who worked on the article.</p>
+
+    <p>Every part has its own section which can be opened or closed by clicking on it.</p>
+</div>
+
+<div id="editors_stats_y_i_dialog" class="help_dialog" title="Yearly editors statistics">
+    <p>This section contains a graph representing the amount of editors over all years the article existed on the
+        Wikipedia platform. </p>
+
+    <p>There are four different types of editors you can choose from:</p>
+
+    <p style="margin-left: 2em;"><b>Overall</b>: all distinct editors who used to edit the article</p>
+
+    <p style="margin-left: 2em;"><b>Registered</b>: all distinct editors who made edits using a registered Wikipedia
+        account </p>
+
+    <p style="margin-left: 2em;"><b>Anonymous</b>: all distinct editors who made edits anonymously without using an
+        account</p>
+
+    <p style="margin-left: 2em;"><b>Bots</b>: all distinct bot editors. Note that all bots are registered. See
+        definition of bots here: <a href="https://en.wikipedia.org/wiki/Wikipedia:Bots">https://en.wikipedia.org/wiki/Wikipedia:Bots</a>
+    </p>
+
+    <p>The option <b>Combined editors</b> will show all four different editor types: overall, registered, anonymous and
+        bots.</p>
+
+    <p>When an editor type is selected, the corresponding data will be displayed in the graph.</p>
+
+    <p>Clicking on any data object in the graph will call a tooltip window displaying the exact value for the data
+        object.</p>
+
+</div>
+
+<div id="editors_m_stats_i_dialog" class="help_dialog" title="Detailed editors statistics">
+    <p>The graph contained in this section provides a more detailed view on the distribution of editors by including
+        monthly data.</p>
+
+    <p>All four types of editors are indicated in the graph.</p>
+
+    <p><b>No bots</b> option, when chosen, will remove all revisions made by bots for all revision types.</p>
+
+    <p>The graph is interactive. You can choose the time frame of your interest by either selecting the corresponding
+        range (mouse click and drag) on the actual graph or on the small overview graph below the actual graph. Use
+        overview graph too zoom out.</p>
+
+    <p>Clicking on any data object in the graph will call a tooltip window displaying the exact value for the data
+        object</p>
+
+</div>
+
+<div id="e_e_i_dialog" class="help_dialog" title="Edits per editor statistics">
+    <p>Edits per editor section consists of two parts: </p>
+
+    <p style="margin-left: 2em;"><b>First</b> part(Edits\Editors Graph): a graph showing the monthly and yearly data for
+        the amount of edits per editor (Details in the corresponding section).</p>
+
+    <p style="margin-left: 2em;"><b>Second</b> part(Edits\Editors Ratios): ratios showing edits per editor for different
+        types of edits\editor combinations such as total amount of edits for per anonymous editor.</p>
+
+    <p>Every part has its own section which can be opened by clicking on it.</p>
+
+</div>
+
+<div id="e_e_graph_i_dialog" class="help_dialog" title="Edits per editor graph">
+    <p>This section contains a graph which shows the number of distinct major edits per user over time. </p>
+
+    <p>Note that the number of distinct major edits in the corresponding time period is not divided by the total amount
+        of users in the same period of time. Instead, only those users who made those major distinct edits are
+        considered.</p>
+
+    <p>The graph is interactive. You can choose the time frame of your interest by either selecting the corresponding
+        range (mouse click and drag) on the actual graph or on the small overview graph below the actual graph. Use
+        overview graph too zoom out.</p>
+
+    <p>Clicking on any data object in the graph will call a tooltip window displaying the exact value for the data
+        object</p>
+
+</div>
+
+<div id="revision_map_i_dialog" class="help_dialog" title="Edits per editor graph">
+    <p>This section contains a graph which displays <b>all revisions</b> available for the article on a time axis. Every
+        revision is represented as a <b>gray thin vertical line crossing the time axis</b> at the time point where the
+        corresponding revision was made. This graph has two aims:</p>
+
+    <p style="margin-left: 2em;">1) Indicating periods of time where the most revisions were made and gaps in time
+        within which no revisions less made. </p>
+
+    <p style="margin-left: 2em;">2) <b>Navigation</b> between revisions by allowing to click on any revision which will
+        switch to the article section displaying the content of the corresponding historical revision. </p>
+
+    <p>Note that given a high number of revisions the whole time frame might appear as a completely <b>filled area</b>.
+        You will have to zoom in order to see distinct revisions.</p>
+
+    <p>To use the navigation functionality you have to find the revision of your interest first by using interactive
+        graph, zooming in and hovering the mouse over the points located on the top of each vertical line corresponding
+        to a revision. It will display the date of the revision. If you have found the revision of your interest, click
+        on the point. The article tab will open with the corresponding historical content of the article.</p>
+
+    <p>The graph is interactive. You can choose the time frame of your interest by either selecting the corresponding
+        range (mouse click and drag) on the actual graph or on the small overview graph below the actual graph. Use
+        overview graph too zoom out.</p>
+</div>
+
+<div id="e_e_m_graph_i_dialog" class="help_dialog" title="Edits per editor graph">
+    <p>The graph include monthly data for edits per editor statistics.</p>
+</div>
+<!------------------------------------------------------------------------------------------------------------------------------------------>
+
+<!--talk page-->
+
+
+<div style="margin-top: 1em;">
+    <div id="talk_edit_results">
+        <br>
+        <br>
+        <p><b>Talk Collaboration Results:</b></p>
+
+        <!------------------------------------------------------------------------------------------------------------------------------------>
+        <div id="talk_revision_map_part" class="accordition_element">
+            <h3 id="talk_revision_map_part_header"><b>Revision Map</b> (click to expand)</h3>
+            <div>
+                <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                   id="talk_revision_map_i"></i>
+                <br>
+                <div style="margin-top: 1em;">
+                    <div id="talk_chart_ph_6" style="width:100%;height:400px;"></div>
+                    <div id="talk_chart_ph_6_overview" style="width:98%;height:80px;margin:1em;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 1em;" id="talk_edits_part" class="accordition_element">
+            <h3 id="talk_edits_part_header"><b>Edits Statistics</b> (click to expand)</h3>
+            <div>
+                <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                   id="talk_revision_stats_i"></i>
+                <div style="margin-top: 1em">
+                    <div id="talk_edits_yearly_accordion" class="accordition_element">
+                        <h3 id="talk_edits_yearly_accordion_header">Yearly revisions statistics (click to expand)</h3>
+                        <div>
+                            <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                               id="talk_revisions_y_stats_i"></i>
+                            <ol class=" charts_icons" style="float:right;">
+                                <i class="fas fa-chart-line" style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-chart-bar" style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-circle" style="font-size:24px;margin-right:20px;"> </i>
+                            </ol>
+                            <div style="margin-top: 1em;margin-left: 1.5em;"><p>Choose edit type:
+                                <p></div>
+                            <div style="margin-top: 1em;">
+                                <div id="talk_edit_graph_type" style="margin-left: 1.5em;">
+                                    <input type="radio" id="talk_comb_edits" name="radio11" checked="checked"><label
+                                        for="talk_comb_edits">Combined</label>
+                                    <input type="radio" id="talk_o_edits" name="radio11"><label for="talk_o_edits">Overall</label>
+                                    <input type="radio" id="talk_d_edits" name="radio11"><label for="talk_d_edits">Distinct</label>
+                                    <input type="radio" id="talk_dm_edits" name="radio11"><label for="talk_dm_edits">Major
+                                    Distinct</label>
+                                    <input type="checkbox" id="talk_no_bots" name="radio11"><label for="talk_no_bots"
+                                                                                                   style="margin-left: 1em;">No
+                                    Bots</label>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 1em;">
+                                <div id="talk_chart_ph_1" style="width:100%;height:400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1em">
+                    <div id="talk_edit_details_accordion" class="accordition_element">
+                        <h3 id="talk_detailed_view_header">Detailed Revisions Statistics (click to expand)</h3>
+                        <div>
+                            <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                               id="talk_revisions_m_stats_i"></i>
+                            <ol class=" charts_icons" style="float:right;">
+                                <i class="fas fa-chart-line" style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-chart-bar" style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-circle" style="font-size:24px;margin-right:20px;"> </i>
+                            </ol>
+                            <br>
+                            <div style="margin-top: 1em;margin-left: 1.5em;"><p>Choose edit type:
+                                <p></div>
+                            <div style="margin-top: 1em;">
+                                <div id="talk_edit_graph_type2" style="margin-left: 1.5em;">
+                                    <input type="radio" id="talk_m_comb_edits" name="radio12" checked="checked"><label
+                                        for="talk_m_comb_edits">Combined</label>
+                                    <input type="radio" id="talk_m_o_edits" name="radio12"><label for="talk_m_o_edits">Overall</label>
+                                    <input type="radio" id="talk_m_d_edits" name="radio12"><label for="talk_m_d_edits">Distinct</label>
+                                    <input type="radio" id="talk_m_dm_edits" name="radio12"><label
+                                        for="talk_m_dm_edits">Major Distinct</label>
+                                    <input type="checkbox" id="talk_no_bots3" name="radio12"><label for="talk_no_bots3"
+                                                                                                    style="margin-left: 1em;">No
+                                    Bots</label>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 1em;">
+                                <div id="talk_chart_ph_3" style="width:100%;height:400px;"></div>
+                                <br>
+                                <br>
+                                <div id="talk_chart_ph_3_overview"
+                                     style="width:99%;height:80px;margin-left:10px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1em">
+                    <div id="talk_edit_stats_accordion" class="accordition_element">
+                        <h3 id="talk_edit_stat_header">Edits Statistics: measures (click to expand)</h3>
+                        <div>
+                            <table border="0">
+                                <tr>
+                                    <td style="padding:0 15px 0 15px;">
+                                        <div id="talk_edit_stats_content1" class="vl"></div>
+                                    </td>
+                                    <td style="padding:5px 15px 5px 15px;">
+                                        <div id="talk_edit_stats_content2"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br>
+
+        <div id="talk_editors_part" class="accordition_element">
+            <h3 id="talk_editors_part_header"><b>Editors Statistics</b> (click to expand)</h3>
+            <div>
+                <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;margin-bottom:10px;"
+                   id="talk_editors_stats_i"></i>
+                <br>
+                <div id="talk_editors_y_stats" class="accordition_element">
+                    <h3 id="talk_editors_y_stats_header">Yearly Editors Statistics (click to expand)</h3>
+                    <div>
+                        <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                           id="talk_editors_stats_y_i"></i>
+                        <ol class=" charts_icons" style="float:right;">
+                            <i class="fas fa-chart-line" style="font-size:24px;margin-right:20px;"> </i>
+                            <i class="far fa-chart-bar" style="font-size:24px;margin-right:20px;"> </i>
+                            <i class="far fa-circle" style="font-size:24px;margin-right:20px;"> </i>
+                        </ol>
+                        <br>
+                        <div style="margin-top: 1em;margin-left: 1.5em;"><p>Choose editor type:
+                            <p></div>
+                        <div style="margin-top: 1em;">
+                            <div id="talk_editors_graph_type" style="margin-left: 1.5em;">
+                                <input type="radio" id="talk_co_editors" name="radio13" checked="checked"><label
+                                    for="talk_co_editors">Combined Editors</label>
+                                <input type="radio" id="talk_o_editors" name="radio13"><label for="talk_o_editors">Overall
+                                Editors</label>
+                                <input type="radio" id="talk_r_editors" name="radio13"><label for="talk_r_editors">Registered
+                                Editors</label>
+                                <input type="radio" id="talk_a_editors" name="radio13"><label for="talk_a_editors">Anonymous
+                                Editors</label>
+                                <input type="radio" id="talk_b_editors" name="radio13"><label for="talk_b_editors">Bot
+                                Editors</label>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1em;">
+                            <div id="talk_chart_ph_2" style="width:100%;height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1em">
+                    <div id="talk_editors_details_accordion" class="accordition_element">
+                        <h3 id="talk_detailed_editors_header">Detailed Editors Statistics (click to expand)</h3>
+                        <div>
+                            <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                               id="talk_editors_m_stats_i"></i>
+                            <ol class=" charts_icons" style="float:right;">
+                                <i class="fas fa-chart-line" style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-chart-bar" style="font-size:24px;margin-right:20px;"> </i>
+                                <i class="far fa-circle" style="font-size:24px;margin-right:20px;"> </i>
+                            </ol>
+                            <br>
+                            <div style="margin-top: 1em;margin-left: 1em;"><p>Choose editor type:
+                                <p></div>
+                            <div style="margin-top: 1em;">
+                                <div id="talk_editors_graph_type2" style="margin-left: 1em;">
+                                    <input type="radio" id="talk_m_co_editors" name="radio14" checked="checked"><label
+                                        for="talk_m_co_editors">Combined Editors</label>
+                                    <input type="radio" id="talk_m_o_editors" name="radio14"><label
+                                        for="talk_m_o_editors">Overall Editors</label>
+                                    <input type="radio" id="talk_m_r_editors" name="radio14"><label
+                                        for="talk_m_r_editors">Registered Editors</label>
+                                    <input type="radio" id="talk_m_a_editors" name="radio14"><label
+                                        for="talk_m_a_editors">Anonymous Editors</label>
+                                    <input type="radio" id="talk_m_b_editors" name="radio14"><label
+                                        for="talk_m_b_editors">Bot Editors</label>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 1em;">
+                                <div id="talk_chart_ph_5" style="width:100%;height:400px;"></div>
+                                <br>
+                                <br>
+                                <div id="talk_chart_ph_5_overview"
+                                     style="width:99%;height:80px;margin-left:10px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1em;">
+                    <div id="talk_editors_stats_accordion" class="accordition_element">
+                        <h3 id="talk_editor_stat_header">Editors Statistics: measures (click to expand)</h3>
+                        <div>
+                            <table border="0">
+                                <tr>
+                                    <td style="padding:0 15px 0 15px;">
+                                        <div id="talk_editors_stats_content1" class="vl"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div id="talk_edits_editor_part" class="accordition_element">
+            <h3 id="talk_edits_editor_part_header"><b>Edits per Editor Statistics</b> (click to expand)</h3>
+            <div>
+                <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;" id="talk_e_e_i"></i>
+                <br>
+                <div style="margin-top: 1em;">
+                    <div id="talk_e_e_accordion" class="accordition_element">
+                        <h3 id="talk_e_e_accordion_header">Yearly Edits\Editor Statistics:</h3>
+                        <div>
+                            <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                               id="talk_e_e_graph_i"></i>
+                            <br>
+                            <div style="margin-top: 1em;">
+                                <div id="talk_chart_ph_4" style="width:100%;height:400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1em;">
+                    <div id="talk_ratios_accordion" class="accordition_element">
+                        <h3 id="talk_edit_editor_stat_header">Detailed Edits\Editor Statistics:</h3>
+                        <div>
+                            <i class="fa fa-info-circle" title="click to get info" style="font-size: 20px;"
+                               id="talk_e_e_m_graph_i"></i>
+                            <br>
+                            <div style="margin-top: 1em;">
+                                <div id="talk_chart_ph_7" style="width:100%;height:400px;"></div>
+                                <br>
+                                <div id="talk_chart_ph_7_overview"
+                                     style="width:99%;height:80px;margin-left:10px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a id="to-top-button"></a>
+<br>
+<br>
+
+<div id="talk_revision_stats_i_dialog" class="help_dialog" title="Edits Statistics">
+    <p>Edits statistics section consists of three parts: </p>
+
+    <p style="margin-left: 2em;"><b>First</b> part (Yearly revisions statistics): yearly data for the distribution of
+        edits (Details in the corresponding section).</p>
+
+    <p style="margin-left: 2em;"><b>Second</b> part (Detailed revisions statistics): detailed view on revisions
+        distribution on a monthly basis (Details in the corresponding section).</p>
+
+    <p style="margin-left: 2em;"><b>Third</b> part (Edits statistics: measures): measures for the whole period of time
+        such as the overall amount of revisions existing for an article.</p>
+
+    <p>Every part has its own section which can be opened or closed by clicking on it.</p>
+</div>
+
+<div id="talk_revisions_y_stats_i_dialog" class="help_dialog" title="Yearly Revision Statistics">
+    <p>This section contains a graph representing the amount of revisions over all years the article existed on the
+        Wikipedia platform. </p>
+
+    <p>Every revision is an edit of an article. But not every edit is a revision. Several revisions can be considered as
+        one edit.</p>
+
+    <p>There are three different types of edits you can choose from:</p>
+
+    <p><b style="margin-left: 2em;">Overall</b>: all existing revisions of the article</p>
+
+    <p style="margin-left: 2em;"><b>Distinct</b>: all revisions of the article where a sequence of chronologically
+        succeeding revisions by the same author is counted as one edit</p>
+
+    <p style="margin-left: 2em;"><b>Major distinct</b>: distinct edits according to the above definition excluding all
+        minor edits. A minor edit is a flag on a revision which is set by the user to signalize that no significant
+        changes were made to the article. See definition of minor edit here: <a
+                href="http://en.wikipedia.org/wiki/Help:Minor_edit" target="_blank">http://en.wikipedia.org/wiki/Help:Minor_edit</a>
+    </p>
+    <p>The option <b>Combined</b> will show all three different revision types: overall, distinct and major distinct.
+    </p>
+
+    <p><b>No bots</b> option, when chosen, will remove all revisions made by bots for any of the chosen revision type.
+        See definition of bots here: <a href="https://en.wikipedia.org/wiki/Wikipedia:Bots" target="_blank">https://en.wikipedia.org/wiki/Wikipedia:Bots</a>
+    </p>
+
+    <p>When a revision type is selected, the corresponding data will be displayed in the graph.</p>
+
+    <p>Clicking on any data object in the graph will call a tooltip window displaying the exact value for the data
+        object.</p>
+</div>
+
+<div id="talk_revisions_m_stats_i_dialog" class="help_dialog" title="Detailed Revision Statistics">
+    <p>The graph contained in this section provides a more detailed view on the revisions distribution by including
+        monthly data.</p>
+
+    <p>Monthly data is provided for all three types of edits (overall, distinct and major distinct)</p>
+
+    <p><b>No bots</b> option: when chosen, will remove all revisions made by bots for all edit types.</p>
+
+    <p>The graph is interactive. You can choose the time frame of your interest by either selecting the corresponding
+        range (mouse click and drag) on the actual graph or on the small overview graph below the actual graph. Use
+        overview graph too zoom out.</p>
+
+    <p>Clicking on any data object in the graph will call a tooltip window displaying the exact value for the data
+        object.</p>
+</div>
+
+<div id="talk_editors_stats_i_dialog" class="help_dialog" title="Editors Statistics">
+    <p>Edits statistics section consists of three parts: </p>
+
+    <p style="margin-left: 2em;"><b>First</b> part (Yearly editors statistics): yearly data for the distribution of
+        editors (Details in the corresponding section).</p>
+
+    <p style="margin-left: 2em;"><b>Second</b> part (Detailed editors statistics):detailed view on editors distribution
+        on a monthly basis (Details in the corresponding section).</p>
+
+    <p style="margin-left: 2em;"><b>Third</b> part (Editors statistics: measures): measures for the whole period of time
+        such as the overall amount of distinct editors who worked on the article.</p>
+
+    <p>Every part has its own section which can be opened or closed by clicking on it.</p>
+</div>
+
+<div id="talk_editors_stats_y_i_dialog" class="help_dialog" title="Yearly Editors Statistics">
+    <p>This section contains a graph representing the amount of editors over all years the article existed on the
+        Wikipedia platform. </p>
+
+    <p>There are four different types of editors you can choose from:</p>
+
+    <p style="margin-left: 2em;"><b>Overall</b>: all distinct editors who used to edit the article</p>
+
+    <p style="margin-left: 2em;"><b>Registered</b>: all distinct editors who made edits using a registered Wikipedia
+        account </p>
+
+    <p style="margin-left: 2em;"><b>Anonymous</b>: all distinct editors who made edits anonymously without using an
+        account</p>
+
+    <p style="margin-left: 2em;"><b>Bots</b>: all distinct bot editors. Note that all bots are registered. See
+        definition of bots here: <a href="https://en.wikipedia.org/wiki/Wikipedia:Bots">https://en.wikipedia.org/wiki/Wikipedia:Bots</a>
+    </p>
+
+    <p>The option <b>Combined editors</b> will show all four different editor types: overall, registered, anonymous and
+        bots.</p>
+
+    <p>When an editor type is selected, the corresponding data will be displayed in the graph.</p>
+
+    <p>Clicking on any data object in the graph will call a tooltip window displaying the exact value for the data
+        object.</p>
+
+</div>
+
+<div id="talk_editors_m_stats_i_dialog" class="help_dialog" title="Detailed Editors Statistics">
+    <p>The graph contained in this section provides a more detailed view on the distribution of editors by including
+        monthly data.</p>
+
+    <p>All four types of editors are indicated in the graph.</p>
+
+    <p><b>No bots</b> option, when chosen, will remove all revisions made by bots for all revision types.</p>
+
+    <p>The graph is interactive. You can choose the time frame of your interest by either selecting the corresponding
+        range (mouse click and drag) on the actual graph or on the small overview graph below the actual graph. Use
+        overview graph too zoom out.</p>
+
+    <p>Clicking on any data object in the graph will call a tooltip window displaying the exact value for the data
+        object</p>
+
+</div>
+
+<div id="talk_e_e_i_dialog" class="help_dialog" title="Edits per Editor Statistics">
+    <p>Edits per editor section consists of two parts: </p>
+
+    <p style="margin-left: 2em;"><b>First</b> part(Edits\Editors Graph): a graph showing the monthly and yearly data for
+        the amount of edits per editor (Details in the corresponding section).</p>
+
+    <p style="margin-left: 2em;"><b>Second</b> part(Edits\Editors Ratios): ratios showing edits per editor for different
+        types of edits\editor combinations such as total amount of edits for per anonymous editor.</p>
+
+    <p>Every part has its own section which can be opened by clicking on it.</p>
+
+</div>
+
+<div id="talk_e_e_graph_i_dialog" class="help_dialog" title="Edits per Editor Graph">
+    <p>This section contains a graph which shows the number of distinct major edits per user over time. </p>
+
+    <p>Note that the number of distinct major edits in the corresponding time period is not divided by the total amount
+        of users in the same period of time. Instead, only those users who made those major distinct edits are
+        considered.</p>
+
+    <p>The graph is interactive. You can choose the time frame of your interest by either selecting the corresponding
+        range (mouse click and drag) on the actual graph or on the small overview graph below the actual graph. Use
+        overview graph too zoom out.</p>
+
+    <p>Clicking on any data object in the graph will call a tooltip window displaying the exact value for the data
+        object</p>
+
+</div>
+
+<div id="talk_revision_map_i_dialog" class="help_dialog" title="Edits per Editor Graph">
+    <p>This section contains a graph which displays <b>all revisions</b> available for the article on a time axis. Every
+        revision is represented as a <b>gray thin vertical line crossing the time axis</b> at the time point where the
+        corresponding revision was made. This graph has two aims:</p>
+
+    <p style="margin-left: 2em;">1) Indicating periods of time where the most revisions were made and gaps in time
+        within which no revisions less made. </p>
+
+    <p style="margin-left: 2em;">2) <b>Navigation</b> between revisions by allowing to click on any revision which will
+        switch to the article section displaying the content of the corresponding historical revision. </p>
+
+    <p>Note that given a high number of revisions the whole time frame might appear as a completely <b>filled area</b>.
+        You will have to zoom in order to see distinct revisions.</p>
+
+    <p>To use the navigation functionality you have to find the revision of your interest first by using interactive
+        graph, zooming in and hovering the mouse over the points located on the top of each vertical line corresponding
+        to a revision. It will display the date of the revision. If you have found the revision of your interest, click
+        on the point. The article tab will open with the corresponding historical content of the article.</p>
+
+    <p>The graph is interactive. You can choose the time frame of your interest by either selecting the corresponding
+        range (mouse click and drag) on the actual graph or on the small overview graph below the actual graph. Use
+        overview graph too zoom out.</p>
+</div>
+
+<div id="talk_e_e_m_graph_i_dialog" class="help_dialog" title="Edits per Editor Graph">
+    <p>The graph include monthly data for edits per editor statistics.</p>
+</div>
+<br>
+
+
+<script src="{% static 'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'css/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+
+<script src="{% static 'js/src-frontend/get_article_name.js' %}"></script>
+
+<script src="{% static 'js/flot/jquery.flot.js' %}"></script>
+<script src="{% static 'js/flot/jquery.flot.multi.js' %}"></script>
+<script src="{% static 'js/flot/jquery.flot.selection.js' %}"></script>
+<script src="{% static 'js/flot/jquery.flot.dashes.js' %}"></script>
+<script src="{% static 'js/flot/jquery.flot.resize.js' %}"></script>
+
+
+<script src="{% static 'js/wikigen-frontend/wikigen_config.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_ploting.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_statistics.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_utils.js' %}" type="application/javascript"></script>
+
+
+<!-- Page specific js -->
+<script src="{% static 'js/login/login.js' %}"></script>
+<script src="{% static 'js/registration/registration.js' %}"></script>
+<script src="{% static 'js/user/profile.js' %}"></script>
+<script src="{% static 'js/src-frontend/edit_statistics.js' %}"></script>
+
+</body>
+</html>

@@ -25,7 +25,7 @@ SECRET_KEY = 'aj@%wn!fa7+3b)8y_gd_@@(vzm3&bfp&v)^w56q%oyx71asomh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -34,10 +34,11 @@ PROJECT_APPS = [
     'application.api',
     'application.stats',
     'application.utils',
+    'application.registration',
+    'application.frontend',
 ]
 
 THIRD_PARTY_APPS = [
-    'autofixture',
     'django_filters',
     'rest_framework',
     'rest_framework_swagger',
@@ -69,7 +70,7 @@ ROOT_URLCONF = 'wiki.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,7 +136,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
@@ -145,5 +145,7 @@ MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
     'DATE_FORMAT': '%Y-%m-%d',
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 500,
 }

@@ -1,0 +1,295 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	 <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="{% static 'res/images/logo.png' %}">
+    <link rel='stylesheet'  href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
+    <link rel="stylesheet"  href="{% static 'css/jquery-ui-1.12.1/jquery-ui.css' %}">
+    <link rel="stylesheet"  href="{% static 'css/material.min.css' %}">
+    <link rel="stylesheet"  href="{% static 'css/wikigen.css' %}">
+
+
+	<!-- Title Page-->
+    <title>Comparision</title>
+
+</head>
+<body style="background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);">
+
+<div id="top_div_2">
+	<img  style="float:left; margin-left: 20px; padding:10px; margin-top: 5px;" src = "{% static 'res/images/wiki_name.png' %}"  id="wikigen-logo"  alt="wikigen">
+	<span id="selected_article"></span> &emsp;
+	<button type="button" id="change_article">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Change Article<i class="fas fa-angle-double-left" style="font-size:16px;float:right;margin-left:15px;"></i></button>
+</div>
+
+<div class="logged-in-user"  style="display:none;" >
+	<i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;position:relative; top:-80px;color:white;"></i>
+		<div class = "dropdown-content" style="position:absolute;top:-45px;" >
+			<a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i> <p id="lusername" style="text-align:center;"></p></a>
+			<a onclick = "window.location.href='http://0.0.0.0:8000/dashboard-page/'">
+				<i class="fas fa-calendar" style="font-size:20px;margin-left:10px;position:relative;top:20px;"></i>
+				<p style=" text-align:center;cursor:pointer;">Dashboard</p></a>
+			<a href="/#/"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
+				<p id="logout-submit" style="text-align:center;">Logout</p></a>
+		</div>
+
+	</div>
+
+<nav id="tabs">
+	<ol style="margin-top:-30px;">
+		<li class="tabs-item"><a href="/article-page/" id="article_tab_link"> <i  class="fab fa-wikipedia-w" style="font-size:15px;margin-right:10px;"></i>Article</a></li>
+		<li class="tabs-item"><a href="/edit-page/" id="edit_tab_link"> <i class="far fa-chart-bar" style="font-size:15px;margin-right:10px;"></i>Collaboration </a></li>
+		<li class="tabs-item"><a href="/anchor-page/" id="anchor_tab_link"> <i class="fab fa-autoprefixer" style="font-size:15px;margin-right:10px;"></i>Anchoring </a></li>
+		<li class="tabs-item"><a href="/blink-page/" id="blink_tab_link"> <i class="fas fa-chart-line" style="font-size:15px;margin-right:10px;"></i>Objectification</a></li>
+		<li class="tabs-item"><a href="/comparison-page/" id="comp_tab_link"> <i class="fa fa-tasks" style="font-size:15px;;margin-right:10px;"></i>Comparison</a></li>
+		<li class="tabs-item"><a href="/about-page/" id="about_tab_link"> <i class="fas fa-university" style="font-size:15px;;margin-right:10px;"></i>About</a></li>
+
+	</ol>
+
+
+
+	<div id="article_tab">
+		<div id="article_tab_content">
+		</div>
+	</div>
+
+	<div id="edits_tab">
+		<div id="edit_tab_content"></div>
+	</div>
+
+	<div id="anchor_tab">
+		<div id="anchor_tab_content">
+		</div>
+	</div>
+
+	<div id="blink_tab">
+		<div id="blink_tab_content">
+		</div>
+	</div>
+
+
+	<div id="comp_tab">
+		<div id="comp_tab_content">
+		</div>
+	</div>
+
+	<div id="about_tab">
+		<div id="about_tab_content">
+		</div>
+	</div>
+</nav>
+
+
+<div id="comp_description_accordion" class="accordition_element">
+	<h3 id="comp_description_accordion_header">Tab description (click to expand)</h3>
+	<div  style="font-size:16px;text-align:justify;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+		<p>Press <b>Generate Comparison Graph</b> to generate a standardized graph for major statistics used in the tool. Using the graph, it is possible to compare two or more statistics on the single standardized graph.
+			<br><br>
+			<span style="color: #4155ba; "><b>Note:</b></span>the corresponding statistics must be generated in the individual tabs (editing and anchoring statistics) in order to be used in this graph.</p>
+		<hr style="border: none;height: 3px; color: #333;background-color: #333;">
+	</div>
+</div>
+
+<div id="generate_reference_button">
+	<br>
+	<button id="generate_comp_stat">Generate Comparison Graph</button>
+	<br>
+	<style>
+		#generate_comp_stat{
+			display: flex;
+			padding: 10px 45px;
+			text-decoration: none;
+			font:18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+			color: white;
+			background: rgb(101, 58, 194);
+			transition: 2s;
+			box-shadow: 3px 3px 0 rgb(105, 103, 103);
+			transform: skewX(-1deg);
+		}
+
+		#generate_comp_stat:focus {
+			outline: none;
+		}
+
+		#generate_comp_stat:hover {
+			transition: 0.5s;
+			box-shadow: 5px 5px 0 rgb(231, 136, 28);
+		}
+	</style>
+</div>
+<div id="comp_results">
+	<p><b>Comparison Result:</b></p>
+	<div id="comp_graph_part" class="accordition_element">
+		<h3 id="comp_graph_part_header"><b>Edits Comparison Graph</b> (click to expand)</h3>
+		<div>
+			<i class="fa fa-info-circle" title="click to get info" style="font-size: 20px; position:relative; top:10px;" id = "comp_graph_i"></i>
+			<ol class=" charts_icons"  style ="float:right; position:relative; top:20px;">
+				<i class="fas fa-chart-line" style="font-size:24px;margin-right:20px;"> </i>
+				<i class="far fa-chart-bar" style="font-size:24px;margin-right:20px;"> </i>
+				<i class="far fa-circle"   style="font-size:24px;margin-right:20px;"> </i>
+			</ol>
+			<div style="margin-top: 1em;margin-left: 2em;"><p><b>Choose statistics to compare:</b></p></div>
+			<div style="margin-top: 1em;">
+				<div id="graph_type" style="margin-left:2em;">
+					<input type="checkbox" id="g_edits" name="checkbox"><label for="g_edits">Edits</label>
+					<input type="checkbox" id="g_editors" name="checkbox"><label for="g_editors">Editors</label>
+					<input type="checkbox" id="g_editseditor" name="checkbox"><label for="g_editseditor">Edits\Editor</label>
+					<input type="checkbox" id="g_editsreditor" name="checkbox"><label for="g_editsreditor">Edits\reg. Editor</label>
+
+				</div>
+			</div>
+
+			<br>
+			<br>
+			<form style="margin-top: 1em;">
+				<div id="comp_content" style="width:95%;height:500px;"></div>
+				<br>
+				<br>
+				<div id="comp_content_overview" style="width:90%;height:50px;margin-left: 3em;"></div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div id="comp_graph_i_dialog" class="help_dialog" title="Comparison">
+
+	<p>This section contains a graph which shows whether a particular internal Wikipedia link (<b>anchor</b>) is present or not in the definition section of the article.</p>
+
+	<p>The <b>x-axis</b>of the graph is time while <b>y-axis</b> represents a binary state (<b>present\absent</b>): if the anchor is present in the definition section the graph indicates present, if not - absent.</p>
+
+	<p>The name of the currently selected anchor for the graph is displayed above the graph. You can click on it in order to open the corresponding Wikipedia article in a new window. To change the selected anchor you can select other anchor by clicking at corresponding entry in the tables provided in sections below (<b>Anchor table </b>and <b>Anchor snapshots</b>).</p>
+
+	<p>The graph is <b>interactive</b>. You can choose the time frame of your interest by either selecting the corresponding range (mouse click and drag) on the actual graph or on the small overview graph below the actual graph. Use overview graph too zoom out.</p>
+
+	<p>Note that it is often needed to zoom several times by sequentially selecting smaller time frames in order to see in the graph the time an anchor was present/absent in the definition part of the article. Otherwise, the period of time an anchor is present\absent may be represented as a vertical line.</p>
+
+</div>
+<br>
+<!----- talk page comparisons-->
+<!---------------------------------------------------------------------------------------------------------------->
+
+
+<div id="talk_comp_graph_part" class="accordition_element">
+	<h3 id="talk_comp_graph_part_header"><b>Talk Comparison graph</b> (click to expand)</h3>
+	<div>
+		<i class="fa fa-info-circle" title="click to get info" style="font-size: 20px; position:relative; top:10px;" id = "talk_comp_graph_i"></i>
+		<ol class=" charts_icons"  style ="float:right; position:relative; top:20px;">
+			<i class="fas fa-chart-line" style="font-size:24px;margin-right:20px;"> </i>
+			<i class="far fa-chart-bar" style="font-size:24px;margin-right:20px;"> </i>
+			<i class="far fa-circle"   style="font-size:24px;margin-right:20px;"> </i>
+		</ol>
+		<div style="margin-top: 1em;margin-left: 2em;"><p><b>Choose statistics to compare:</b></p></div>
+		<div style="margin-top: 1em;">
+			<div id="talk_graph_type" style="margin-left:2em;">
+				<input type="checkbox" id="talk_g_edits" name="checkbox"><label for="talk_g_edits">Edits</label>
+				<input type="checkbox" id="talk_g_editors" name="checkbox"><label for="talk_g_editors">Editors</label>
+				<input type="checkbox" id="talk_g_editseditor" name="checkbox"><label for="talk_g_editseditor">Edits\Editor</label>
+				<input type="checkbox" id="talk_g_editsreditor" name="checkbox"><label for="talk_g_editsreditor">Edits\reg. Editor</label>
+			</div>
+		</div>
+
+		<br>
+		<br>
+		<div style="margin-top: 1em;">
+			<div id="talk_comp_content" style="width:95%;height:500px;"></div>
+			<br>
+			<br>
+			<div id="talk_comp_content_overview" style="width:90%;height:50px;margin-left: 3em;"></div>
+		</div>
+	</div>
+</div>
+
+
+
+<div id="talk_comp_graph_i_dialog" class="help_dialog" title="Comparison">
+	<p>This section contains a graph which shows whether a particular internal Wikipedia link (<b>anchor</b>) is present or not in the definition section of the article.</p>
+
+	<p>The <b>x-axis</b>of the graph is time while <b>y-axis</b> represents a binary state (<b>present\absent</b>): if the anchor is present in the definition section the graph indicates present, if not - absent.</p>
+
+	<p>The name of the currently selected anchor for the graph is displayed above the graph. You can click on it in order to open the corresponding Wikipedia article in a new window. To change the selected anchor you can select other anchor by clicking at corresponding entry in the tables provided in sections below (<b>Anchor table </b>and <b>Anchor snapshots</b>).</p>
+
+	<p>The graph is <b>interactive</b>. You can choose the time frame of your interest by either selecting the corresponding range (mouse click and drag) on the actual graph or on the small overview graph below the actual graph. Use overview graph too zoom out.</p>
+
+	<p>Note that it is often needed to zoom several times by sequentially selecting smaller time frames in order to see in the graph the time an anchor was present/absent in the definition part of the article. Otherwise, the period of time an anchor is present\absent may be represented as a vertical line.</p>
+</div>
+<br>
+
+
+<div id="anchor_comp_graph_part" class="accordition_element">
+	<h3 id="anchor_comp_graph_part_header"><b> Anchor Comparison graph</b> (click to expand)</h3>
+	<div>
+		<i class="fa fa-info-circle" title="click to get info" style="font-size: 20px; position:relative; top:10px;" id = "anchor_comp_graph_i"></i>
+		<ol class=" charts_icons"  style ="float:right; position:relative; top:20px;">
+			<i class="fas fa-chart-line" style="font-size:24px;margin-right:20px;"> </i>
+			<i class="far fa-chart-bar" style="font-size:24px;margin-right:20px;"> </i>
+			<i class="far fa-circle"   style="font-size:24px;margin-right:20px;"> </i>
+		</ol>
+
+		<div style="margin-top: 1em;margin-left: 2em;"><p><b>Choose statistics to compare:</b></p></div>
+		<div style="margin-top: 1em;">
+			<div id="anchor_graph_type" style="margin-left:2em;">
+				<input type="checkbox" id="g_indirect_1" name="checkbox"><label for="g_indirect_1">New anchors</label>
+				<input type="checkbox" id="g_indirect_2" name="checkbox"><label for="g_indirect_2">Removed anchors</label>
+				<input type="checkbox" id="g_ewars" name="checkbox"><label for="g_ewars">Edit war level</label>
+				<input type="checkbox" id="g_diss" name="checkbox"><label for="g_diss">Dissimilarity</label>
+				<input type="checkbox" id="g_coverage" name="checkbox"><label for="g_coverage">Coverage</label>
+
+
+			</div>
+		</div>
+
+		<br>
+		<br>
+		<div style="margin-top: 1em;">
+			<div id="anchor_comp_content" style="width:95%;height:500px;"></div>
+			<br>
+			<br>
+			<div id="anchor_comp_content_overview" style="width:90%;height:50px;margin-left: 3em;"></div>
+		</div>
+	</div>
+</div>
+
+
+<div id="anchor_comp_graph_i_dialog" class="help_dialog" title=" Anchor Comparison">
+	<p>This section contains a graph which shows whether a particular internal Wikipedia link (<b>anchor</b>) is present or not in the definition section of the article.</p>
+
+	<p>The <b>x-axis</b>of the graph is time while <b>y-axis</b> represents a binary state (<b>present\absent</b>): if the anchor is present in the definition section the graph indicates present, if not - absent.</p>
+
+	<p>The name of the currently selected anchor for the graph is displayed above the graph. You can click on it in order to open the corresponding Wikipedia article in a new window. To change the selected anchor you can select other anchor by clicking at corresponding entry in the tables provided in sections below (<b>Anchor table </b>and <b>Anchor snapshots</b>).</p>
+
+	<p>The graph is <b>interactive</b>. You can choose the time frame of your interest by either selecting the corresponding range (mouse click and drag) on the actual graph or on the small overview graph below the actual graph. Use overview graph too zoom out.</p>
+
+	<p>Note that it is often needed to zoom several times by sequentially selecting smaller time frames in order to see in the graph the time an anchor was present/absent in the definition part of the article. Otherwise, the period of time an anchor is present\absent may be represented as a vertical line.</p>
+</div>
+<br>
+
+
+<script  src="{% static 'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
+<script  src="{% static 'css/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+
+<script  src="{% static  'js/src-frontend/get_article_name.js' %}"></script>
+
+<script  src="{% static 'js/flot/jquery.flot.js' %}"></script>
+<script  src="{% static 'js/flot/jquery.flot.multi.js' %}"></script>
+<script  src="{% static 'js/flot/jquery.flot.selection.js' %}"></script>
+<script  src="{% static 'js/flot/jquery.flot.dashes.js' %}"></script>
+<script  src="{% static 'js/flot/jquery.flot.resize.js' %}"></script>
+
+
+<script src="{% static 'js/wikigen-frontend/wikigen_statistics.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_ploting.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_config.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_utils.js' %}" type="application/javascript"></script>
+
+<script src="{% static  'js/src-frontend/edit_statistics.js' %}" type="application/javascript"></script>
+<script src="{% static  'js/src-frontend/anchor_statistics.js' %}" type="application/javascript"></script>
+
+<!-- Page specific js-->
+<script src="{% static  'js/login/login.js' %}" ></script>
+<script src="{% static  'js/registration/registration.js' %}"></script>
+<script src="{% static  'js/user/profile.js' %}" ></script>
+<script src="{% static  'js/src-frontend/comparisons.js' %}" type="application/javascript"></script>

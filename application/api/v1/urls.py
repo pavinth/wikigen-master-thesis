@@ -10,4 +10,6 @@ urlpatterns = [
     path('docs/', schema_view),
     path('utils/', include('application.utils.api.v1.urls'), name='utils'),
     path('stats/', include('application.stats.api.v1.urls'), name='stats'),
+    path('profile/', include('application.profile.api.v1.urls'), name='profile'),
+    path('registration/', include('application.registration.api.v1.urls'), name='registration'),
 ]
