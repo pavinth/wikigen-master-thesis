@@ -10,6 +10,7 @@ class Article(viewsets.ModelViewSet):
     serializer_class = serializers.Article
     queryset = models.Article.objects.all()
 
+
 class Revision(viewsets.ModelViewSet):
     lookup_field = 'revid'
     filterset_class = filters.Revision
