@@ -35,6 +35,7 @@ PROJECT_APPS = [
     'application.home',
     'application.stats',
     'application.utils',
+    'application.registration',
 ]
 
 THIRD_PARTY_APPS = [
@@ -69,7 +70,7 @@ ROOT_URLCONF = 'wiki.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'static')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
