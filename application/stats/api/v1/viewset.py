@@ -16,3 +16,10 @@ class Revision(viewsets.ModelViewSet):
     filterset_class = filters.Revision
     serializer_class = serializers.Revision
     queryset = models.Revision.objects.all()
+
+
+class Anchor(viewsets.ModelViewSet):
+    lookup_field = 'id'
+    filterset_class = filters.Anchor
+    serializer_class = serializers.Anchor
+    queryset = models.Anchor.objects.all()
