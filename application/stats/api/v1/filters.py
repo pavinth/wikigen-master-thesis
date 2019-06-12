@@ -13,3 +13,9 @@ class Revision(filters.FilterSet):
     class Meta:
         model = models.Revision
         fields = '__all__'
+
+
+class Anchor(filters.FilterSet):
+    class Meta:
+        model = models.Anchor
+        fields = '__all__'

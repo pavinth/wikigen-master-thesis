@@ -27,3 +27,9 @@ class Revision(serializers.ModelSerializer):
 
 	def get_year(self, revision):
 		return revision.timestamp.year
+
+
+class Anchor(serializers.ModelSerializer):
+	class Meta:
+		model = models.Anchor
+		fields = '__all__'

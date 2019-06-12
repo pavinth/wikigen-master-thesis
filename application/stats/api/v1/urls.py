@@ -1,5 +1,4 @@
 from django.urls import include, path
-from rest_framework.routers import DefaultRouter
 
 from rest_framework_nested import routers
 
@@ -12,6 +11,7 @@ router.register(r'article', viewset.Article)
 
 article_router = routers.NestedSimpleRouter(router, r'article', lookup='article')
 article_router.register(r'revision', viewset.Revision, base_name='revision')
+article_router.register(r'anchor', viewset.Anchor, base_name='anchor')
 
 urlpatterns = [
     path('', include(router.urls)),
