@@ -1,7 +1,8 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
-from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework import response, status
+from rest_framework.decorators import api_view
+from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.response import Response
 
 from application.registration.api.v1 import serializers
@@ -23,3 +24,12 @@ class LoginWikiUser(CreateAPIView):
                 login(request, user)
                 return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def log_out(request):
+    if request.user.is_authenticated:
+        logout(request)
+        return response.Response(status=status.HTTP_200_OK)
+    message = {'data': 'Logged in Session not found!'}
+    return response.Response(data=message, status=status.HTTP_400_BAD_REQUEST)
