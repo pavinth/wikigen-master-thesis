@@ -23,3 +23,9 @@ class Anchor(viewsets.ModelViewSet):
     filterset_class = filters.Anchor
     serializer_class = serializers.Anchor
     queryset = models.Anchor.objects.all()
+
+
+class Category(viewsets.ModelViewSet):
+    lookup_field = 'id'
+    serializer_class = serializers.Category
+    queryset = models.Category.objects.all()

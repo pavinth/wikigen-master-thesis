@@ -1,10 +1,12 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 from application.utils.mixins import DateTime
 
 
 class Article(DateTime):
-    id = models.IntegerField(primary_key=True)
+    article_id = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     ns = models.CharField(max_length=8)
     anon = models.CharField(max_length=64, null=True, blank=True)
     title = models.CharField(max_length=128)
@@ -30,6 +32,13 @@ class Revision(ArticleMixin, DateTime):
         return f'{self.revid} - {self.user} at: {self.timestamp}'
 
 
+class Category(DateTime):
+    name = models.CharField(max_length=256)
+
+    def __str__(self):
+        return f'Category: {self.name}'
+
+
 class Anchor(ArticleMixin, DateTime):
     anchor = models.CharField(max_length=256)
     strength = models.FloatField()
@@ -38,7 +47,7 @@ class Anchor(ArticleMixin, DateTime):
     days_survived = models.FloatField()
     re_introductions = models.PositiveIntegerField()
     revision_survived = models.PositiveIntegerField()
-    category = models.CharField(max_length=256, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f'{self.anchor}'

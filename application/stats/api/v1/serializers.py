@@ -33,3 +33,9 @@ class Anchor(serializers.ModelSerializer):
 	class Meta:
 		model = models.Anchor
 		fields = '__all__'
+
+
+class Category(serializers.ModelSerializer):
+	class Meta:
+		model = models.Category
+		fields = '__all__'
