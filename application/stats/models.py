@@ -5,9 +5,9 @@ from application.utils.mixins import DateTime
 
 
 class Article(DateTime):
-    article_id = models.IntegerField()
+    article_id = models.IntegerField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    ns = models.CharField(max_length=8)
+    ns = models.CharField(max_length=8, null=True, blank=True)
     anon = models.CharField(max_length=64, null=True, blank=True)
     title = models.CharField(max_length=128)
 
