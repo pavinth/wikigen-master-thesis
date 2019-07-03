@@ -6,6 +6,7 @@ from application.stats import models
 
 
 class Article(serializers.Serializer):
+	id = serializers.IntegerField(read_only=True)
 	username = serializers.CharField(write_only=True)
 	password = serializers.CharField(write_only=True)
 	anchor = serializers.CharField(max_length=256, write_only=True)
