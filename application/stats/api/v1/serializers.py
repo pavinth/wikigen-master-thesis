@@ -59,6 +59,15 @@ class Revision(serializers.ModelSerializer):
 
 
 class Anchor(serializers.ModelSerializer):
+	anchor = serializers.CharField(max_length=256)
+	strength = serializers.FloatField()
+	last_seen = serializers.DateField()
+	first_seen = serializers.DateField()
+	days_survived = serializers.FloatField()
+	re_introductions = serializers.IntegerField()
+	revision_survived = serializers.IntegerField()
+	category = serializers.CharField(source='category.name')
+
 	class Meta:
 		model = models.Anchor
 		fields = '__all__'
