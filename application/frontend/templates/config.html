@@ -1,0 +1,244 @@
+<!-- page for configuration -->
+<div id="configuration_description_accordion" class="accordition_element">
+	<h3 id="configuration_description_accordion_header">Tab description (click to expand)</h3>
+	<div>
+		<p>On this tab you can configure WikiGen.</p>
+
+		<p>There are different options sections:</p>
+
+		<p style="margin-left: 2em;"><b>Data</b>: to change the source of the data which is one of the Wikipedia platform corresponding to one of the languages supported by Wikipedia.</p>
+
+		<p style="margin-left: 2em;"><b>Visuals:</b> to control the appearance of displayed graphs
+			<br><br>
+			<span style="color: #4155ba; "><b>Note:</b></span> already generated graphs will not change appearance, only the newly generated ones.</p>
+
+		<p>Change article after changing setting.</p>
+		<hr style="border: none;height: 3px; color: #333;background-color: #333;">
+	</div>
+</div>
+<br>
+<br>
+<p><b>Data:</b></p>
+<div class="ui-widget" id="language_div" style="margin-top: 1em;">
+	<div id = "lang_loading"><br>Wait for languages to be loaded:</div>
+	<div id="inner_lang_div">
+		<table border="0">
+			<tr>
+			<td>
+				<label for="select_language">Select Wikipedia language: </label>
+				<input id="select_language" />
+			</td>
+			<td>
+				<ul id="select_language_b" class="ui-widget ui-helper-clearfix icon_class"><li class="ui-state-default ui-corner-all ui-infoicon" title="click to switch the language"><span class="ui-icon ui-icon-transferthick-e-w"></span></li></ul>
+			</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+</div>
+
+<hr>
+<p><b>Visuals:</b></p>
+<table border="0" id="o_t_1">
+	<col width="100">
+	<col width="200">
+	<tr>
+	<td>
+		<p>Display bars:</p>
+	</td>
+
+	<td style="padding:0 25px 0 25px;">
+		<div id="bars_cb">
+			<input type="radio" id="bars" name="bars"><label for="bars">Yes</label>
+			<input type="radio" id="no_bars" name="bars"><label for="no_bars">No</label>
+		</div>
+	</td>
+	</tr>
+</table>
+
+<table border="0" id="o_t_2">
+	<col width="100">
+	<col width="200">
+	<tr>
+	<td>
+		<p>Display lines:</p>
+	</td>
+
+	<td style="padding:0 25px 0 25px;">
+		<div id="lines_cb">
+			<input type="radio" id="lines" name="lines"><label for="lines">Yes</label>
+			<input type="radio" id="no_lines" name="lines"><label for="no_lines">No</label>
+		</div>
+	</td>
+	</tr>
+</table>
+
+<table border="0" id="o_t_3">
+	<col width="100">
+	<col width="200">
+	<tr>
+	<td>
+		<p>Display dashes:</p>
+	</td>
+
+	<td style="padding:0 25px 0 25px;">
+		<div id="dashes_cb">
+			<input type="radio" id="dashes" name="dashes"><label for="dashes">Yes</label>
+			<input type="radio" id="no_dashes" name="dashes"><label for="no_dashes">No</label>
+		</div>
+	</td>
+	</tr>
+</table>
+
+
+<table border="0" id="o_t_4">
+	<col width="100">
+	<col width="200">
+	<tr>
+	<td>
+		<p>Display points:</p>
+	</td>
+
+	<td style="padding:0 25px 0 25px;">
+		<div id="points_cb">
+			<input type="radio" id="points" name="points"><label for="points">Yes</label>
+			<input type="radio" id="no_points" name="points"><label for="no_points">No</label>
+		</div>
+	</td>
+	</tr>
+</table>
+<br>
+<table border="0" id="o_t_1">
+	<col width="100">
+	<col width="200">
+	<tr>
+	<td>
+		<p>Allow visual override:</p>
+	</td>
+
+	<td style="padding:0 25px 0 25px;">
+		<div id="visoverride_cb">
+			<input type="radio" id="vis_override" name="override"><label for="vis_override">Yes</label>
+			<input type="radio" id="no_vis_override" name="override"><label for="no_vis_override">No</label>
+		</div>
+	</td>
+	</tr>
+</table>
+<br>
+<!-- Page specific js -->
+<script>
+	$(function() {
+		$(".accordition_element").accordion({
+			collapsible: true,
+			active: true,
+			heightStyle: "content"
+		});
+
+		$(".ui-widget li" ).hover(
+			function() {
+				$( this ).addClass( "ui-state-hover" );
+			},
+			function() {
+				$( this ).removeClass( "ui-state-hover" );
+			}
+		);
+		$('#inner_lang_div').hide();
+
+		initializeLanguages(
+			function(languageData){
+				$( "#inner_lang_div" ).show();
+				$( "#lang_loading" ).hide();
+				$( "#select_language" ).autocomplete({
+					source: languageData
+				});
+			},
+			function() {
+				console.log("Could not load the languages!");
+			}
+		);
+
+		$("#configuration_description_accordion_header").click();
+
+		$("#select_language_b").bind('click', function(event) {
+			setWikiLang(getLangAbrByName($('#select_language').val()));
+			$('#change_article').click();
+		});
+
+		function initializeChartDisplayOptions() {
+			if(bars) {
+				$("#bars").prop("checked", 'checked');
+			} else {
+				$("#no_bars").prop("checked", 'checked');
+			}
+			$("#bars_cb").buttonset();
+
+			if(lines) {
+				$("#lines").prop("checked", 'checked');
+			} else {
+				$("#no_lines").prop("checked", 'checked');
+			}
+
+			$("#lines_cb").buttonset();
+
+			if(dashes) {
+				$("#dashes").prop("checked", 'checked');
+			} else {
+				$("#no_dashes").prop("checked", 'checked');
+			}
+			$("#dashes_cb").buttonset();
+
+			if(points) {
+				$("#points").prop("checked", 'checked');
+			} else {
+				$("#no_points").prop("checked", 'checked');
+			}
+			$("#points_cb").buttonset();
+
+			if(visualOverrideAllowed) {
+				$("#vis_override").prop("checked", 'checked');
+			} else {
+				$("#no_vis_override").prop("checked", 'checked');
+			}
+			$("#visoverride_cb").buttonset();
+		}
+		initializeChartDisplayOptions();
+
+		$("#bars_cb").bind('click', function(event) {
+			if ($('#bars').is(':checked')) {
+				bars = true;
+			} else {
+				bars = false;
+			}
+		});
+		$("#lines_cb").bind('click', function(event) {
+			if ($('#lines').is(':checked')) {
+				lines = true;
+			} else {
+				lines = false;
+			}
+		});
+		$("#dashes_cb").bind('click', function(event) {
+			if ($('#dashes').is(':checked')) {
+				dashes = true;
+			} else {
+				dashes = false;
+			}
+		});
+		$("#points_cb").bind('click', function(event) {
+			if ($('#points').is(':checked')) {
+				points = true;
+			} else {
+				points = false;
+			}
+		});
+
+		$("#visoverride_cb").bind('click', function(event) {
+			if ($('#vis_override').is(':checked')) {
+				visualOverrideAllowed = true;
+			} else {
+				visualOverrideAllowed = false;
+			}
+		});
+
+	});
+</script>

@@ -16,7 +16,7 @@ class Article(DateTime):
 
 
 class ArticleMixin(models.Model):
-    title = models.ForeignKey(Article, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
@@ -34,6 +34,7 @@ class Revision(ArticleMixin, DateTime):
 
 class Category(DateTime):
     name = models.CharField(max_length=256)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Category: {self.name}'

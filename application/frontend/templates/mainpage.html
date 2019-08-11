@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags-->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="{% static 'res/images/logo.png' %}">
+	<link rel='stylesheet'  href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link rel="stylesheet"  href="{% static 'css/jquery-ui-1.12.1/jquery-ui.css' %}">
+    <link rel="stylesheet"  href="{% static 'css/material.min.css' %}">
+	<link rel="stylesheet"  href="{% static 'css/wikigen.css' %}">
+	<link rel="stylesheet"  href="{% static 'css/user-dashboard.css' %}">
+
+	<!-- Title Page-->
+	<title>Article Selection</title>
+
+	<!-- CSS References -->
+
+</head>
+<body>
+
+<div id="particles-js"> </div>
+<div id="WikiGen_content"></div>
+<!-- Main Page -->
+<!--<nav id="top_div"><h1 align="center"><img src = "res/images/small_logo.png" align="center"></h1></nav>-->
+
+<div id="top_div_2">
+	<img  style="float:left; margin-left: 20px; padding:10px; margin-top: 20px;" src = "{% static 'res/images/wiki_name.png' %}"  id="wikigen-logo"  alt="wikigen">
+	<span id="selected_article">Selected article is: undefined</span> &emsp;
+	<button id="change-article"><i class="fas fa-angle-double-left" style="font-size:16px;margin-right:10px;"></i>Change Article</button>
+
+	<div class="logged-in-user" style="position:relative;float:right;">
+		<i class="fas fa-user-circle " style="font-size:35px;position:relative;top:1px;right:-30px;color:white;"></i>
+		<ul class = "dropdown-list">
+			<li><a href="#"><i class="fas fa-user" style="font-size: 20px; margin-right:10px;"></i> <p id="lusername"></p></a></li>
+			<li><a href="/dashboard-page/"><i class="fas fa-calendar" style="font-size: 20px; margin-right:10px;"></i> <p>Dashboard</p></a></li>
+			<li><a href="#"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-right:10px;"></i><p id="logout-submit">Logout</p></a><
+		</ul>
+
+	</div>
+
+</div>
+
+<nav id="tabs">
+	<ol style="margin-top:-30px;">
+		<li class="tabs-item"><a href="/article-page/" id="article_tab_link"> <i  class="fab fa-wikipedia-w" style="font-size:15px;margin-right:10px;"></i>Article</a></li>
+		<li class="tabs-item"><a href="/edit-page/" id="edit_tab_link"> <i class="far fa-chart-bar" style="font-size:15px;margin-right:10px;"></i>Collaboration </a></li>
+		<li class="tabs-item"><a href="/anchor-page/" id="anchor_tab_link"> <i class="fab fa-autoprefixer" style="font-size:15px;margin-right:10px;"></i>Anchoring </a></li>
+		<li class="tabs-item"><a href="/blink-page/" id="blink_tab_link"> <i class="fas fa-chart-line" style="font-size:15px;margin-right:10px;"></i>Objectification</a></li>
+		<li class="tabs-item"><a href="/comparison-page/" id="comp_tab_link"> <i class="fa fa-tasks" style="font-size:15px;;margin-right:10px;"></i>Comparison</a></li>
+		<li class="tabs-item"><a href="/about-page/" id="about_tab_link"> <i class="fas fa-university" style="font-size:15px;;margin-right:10px;"></i>About</a></li>
+
+	</ol>
+
+	<div id="article_tab">
+		<div id="article_tab_content">
+		</div>
+	</div>
+
+	<div id="edits_tab">
+		<div id="edit_tab_content"></div>
+	</div>
+
+	<div id="anchor_tab">
+		<div id="anchor_tab_content">
+		</div>
+	</div>
+
+	<div id="blink_tab">
+		<div id="blink_tab_content">
+		</div>
+	</div>
+
+
+	<div id="comp_tab">
+		<div id="comp_tab_content">
+		</div>
+	</div>
+
+	<div id="about_tab">
+		<div id="about_tab_content">
+		</div>
+	</div>
+</nav>
+
+<!-- Page specific js -->
+<!--jquery script -->
+<script src="{% static 'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
+
+<!--particles script-->
+<script src="{% static 'js/particles/particles.js' %}"></script>
+<script src="{% static 'js/particles/particles_app.js' %}"></script>
+
+<!-- jQuery reference-->
+<script   src="{% static 'css/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+<script  src="{% static 'js/jquery-related/spin.min.js' %}"></script>
+
+
+<script  src="{% static 'js/flot/jquery.flot.js' %}"></script>
+<script  src="{% static 'js/flot/jquery.flot.multi.js' %}"></script>
+<script  src="{% static 'js/flot/jquery.flot.selection.js' %}"></script>
+<script  src="{% static 'js/flot/jquery.flot.dashes.js' %}"></script>
+<script  src="{% static 'js/flot/jquery.flot.resize.js' %}"></script>
+
+
+<script src="{% static 'js/wikigen-frontend/wikigen_statistics.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_ploting.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_config.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_utils.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/src-frontend/mainpage.js' %}" type="application/javascript"></script>
+</body>
+</html>
