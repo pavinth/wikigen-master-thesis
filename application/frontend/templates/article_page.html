@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon"        href="{% static 'res/images/logo.png' %}">
+    <link rel='stylesheet'  href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
+    <link rel="stylesheet"  href="{% static 'css/jquery-ui-1.12.1/jquery-ui.css' %}">
+    <link rel="stylesheet"  href="{% static 'css/material.min.css' %}">
+    <link rel="stylesheet"  href="{% static 'css/wikigen.css' %}">
+
+
+    <!-- Title Page-->
+    <title>Article Selection</title>
+
+    <!-- CSS References -->
+
+</head>
+<body style="background-image: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);">
+
+<div id="particles-js"> </div>
+
+<div id="top_div_2">
+	<img  style="float:left; margin-left: 20px; padding:10px; margin-top: 5px;" src = "{% static 'res/images/wiki_name.png' %}"  id="wikigen-logo"  alt="wikigen">
+	<span id="selected_article"></span> &emsp;
+	<button type="button" id="change_article">
+		<i class="fas fa-angle-double-left" style="font-size:16px;margin-right:10px;"></i>Change Article</button>
+
+
+	<div class="logged-in-user" style="position:relative;float:right;">
+		<i class="fas fa-user-circle " style="font-size:35px;position:relative;top:1px;right:-30px;color:white;"></i>
+		<ul class = "dropdown-list">
+			<li><a href="#"><i class="fas fa-user" style="font-size: 20px; margin-right:10px;"></i> <p id="lusername"></p></a></li>
+			<li><a href="/dashboard-page/"><i class="fas fa-calendar" style="font-size: 20px; margin-right:10px;"></i> <p>Dashboard</p></a></li>
+			<li><a href="#"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-right:10px;"></i><p id="logout-submit">Logout</p></a><
+		</ul>
+
+	</div>
+
+</div>
+
+<nav id="tabs">
+	<ol style="margin-top:-30px;">
+		<li class="tabs-item"><a href="/article-page/" id="article_tab_link"> <i  class="fab fa-wikipedia-w" style="font-size:15px;margin-right:10px;"></i>Article</a></li>
+		<li class="tabs-item"><a href="/edit-page/" id="edit_tab_link"> <i class="far fa-chart-bar" style="font-size:15px;margin-right:10px;"></i>Collaboration </a></li>
+		<li class="tabs-item"><a href="/anchor-page/" id="anchor_tab_link"> <i class="fab fa-autoprefixer" style="font-size:15px;margin-right:10px;"></i>Anchoring </a></li>
+		<li class="tabs-item"><a href="/blink-page/" id="blink_tab_link"> <i class="fas fa-chart-line" style="font-size:15px;margin-right:10px;"></i>Objectification</a></li>
+		<li class="tabs-item"><a href="/comparison-page/" id="comp_tab_link"> <i class="fa fa-tasks" style="font-size:15px;;margin-right:10px;"></i>Comparison</a></li>
+		<li class="tabs-item"><a href="/about-page/" id="about_tab_link"> <i class="fas fa-university" style="font-size:15px;;margin-right:10px;"></i>About</a></li>
+
+	</ol>
+
+
+
+	<div id="article_tab">
+		<div id="article_tab_content">
+		</div>
+	</div>
+
+	<div id="edits_tab">
+		<div id="edit_tab_content"></div>
+	</div>
+
+	<div id="anchor_tab">
+		<div id="anchor_tab_content">
+		</div>
+	</div>
+
+	<div id="blink_tab">
+		<div id="blink_tab_content">
+		</div>
+	</div>
+
+
+	<div id="comp_tab">
+		<div id="comp_tab_content">
+		</div>
+	</div>
+
+
+	<div id="about_tab">
+		<div id="about_tab_content">
+		</div>
+	</div>
+</nav>
+
+<div id="page_description_accordion" class="accordition_element">
+    <h3 id="page_description_accordion_header">Tab description (click to expand)</h3>
+    <div style="font-size:16px;text-align:justify;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+        <p> Explore the original Wikipedia article you have chosen in the frame below. You can browse to other articles
+            and return to the chosen article by pressing <b>Return to article</b>. Note that by right clicking on any
+            wikipedia link while exploration you can copy the link name and use its last part, which is the unique name
+            of the article, in order to select another article. To do this, you can press <b>Change article</b> in the
+            top of the page and then paste the copied link into the search field and deleting the link details except
+            for the mentioned article name.<br><br>After the preloading process is finished you can select any revision
+            of the article by entering the <b>Revision date</b>. The input field has auto-complete function helping to
+            select one of the existing dates. Start inputing the year, for example 2012 and continue selecting the date
+            in the format <b>yyyymmddhhmmss</b></p>
+        <hr style="border: none;height: 3px; color: #333;background-color: #333;">
+    </div>
+</div>
+
+<br>
+<button type="button" id="get_article">Return to article<i class="fas fa-angle-double-left" style="font-size:18px;margin-left:30px;"></i></button>
+<style>
+    #get_article {
+        display: flex;
+        padding: 10px 45px;
+        text-decoration: none;
+        font: 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        color: white;
+        background: rgb(101, 58, 194);
+        transition: 2s;
+        box-shadow: 3px 3px 0 rgb(105, 103, 103);
+        transform: skewX(-1deg);
+    }
+
+    #get_article:focus {
+        outline: none;
+    }
+
+    #get_article:hover {
+        transition: 0.5s;
+        box-shadow: 5px 5px 0 rgb(231, 136, 28);
+    }
+</style>
+<br>
+<div class="ui-widget" id="revision_date_div" style="margin-top: 1em;">
+    <table border="0">
+        <tr>
+            <td>
+                <label for="revision_date">Revision date: </label>
+                <input id="revision_date"/>
+            </td>
+            <td>
+                <ul id="open_revision" class="ui-widget ui-helper-clearfix icon_class">
+                    <li class="ui-state-default ui-corner-all ui-infoicon" title="click to open the revision"><span class="ui-icon ui-icon-extlink"></span></li></ul>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+<div id="article_content"></div>
+
+<!-- Page specific js -->
+
+<script   src="{% static 'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
+<script   src="{% static 'css/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+
+<script  src="{% static 'js/wikigen-frontend/wikigen_statistics.js' %}" type="application/javascript"></script>
+<script  src="{% static 'js/wikigen-frontend/wikigen_ploting.js' %}"   type="application/javascript"></script>
+<script  src="{% static 'js/wikigen-frontend/wikigen_config.js' %}"  type="application/javascript"></script>
+<script  src="{% static 'js/wikigen-frontend/wikigen_utils.js' %}"  type="application/javascript"></script>
+
+
+<script src="{% static 'js/src-frontend/article_page.js' %}" type="application/javascript" ></script>
+
+</body>
+</html>

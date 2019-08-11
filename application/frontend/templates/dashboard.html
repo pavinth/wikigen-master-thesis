@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Dashboard</title>
+        <link rel="icon" href="{% static 'res/images/logo.png' %}">
+
+        <!-- CSS References -->
+        <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet"  href="{% static 'css/jquery-ui-1.12.1/jquery-ui.css' %}">
+        <link rel="stylesheet"  href="{% static 'css/material.min.css' %}" >
+        <link rel="stylesheet"  href="{% static 'css/wikigen.css'%}">
+        <link rel="stylesheet"  href="{% static 'css/user-dashboard.css' %}">
+
+    </head>
+
+<body>
+<div id="particles-js"></div>
+
+<div  style="float:left; margin-left: 20px; padding:10px; margin-top: 20px;">
+    <img src="{% static 'res/images/wiki_name.png' %}" alt="wikigen-logo" >
+</div>
+<div class="logged-in-user" style="position:relative;float:right;right:30px;margin-top:20px;">
+    <i class="fa fa-user-circle-o" style="font-size:35px;position:relative;top:1px;right:-30px;color:white;" aria-hidden="true"></i>
+    <ul>
+        <li><a href="#"><i class="fa fa-user" style="font-size: 20px; margin-right:10px;"></i> <p id="lusername"></p></a></li>
+        <li><a href="#"><i class="fa fa-sign-out" style="font-size: 20px; margin-right:10px;"></i><p id="logout-submit">Logout</p></a></li>
+    </ul>
+
+</div>
+
+
+    <div class="container-table100" style="position: relative;">
+        <div class="wrap-table100" >
+
+                <table id = "detailTable">
+                    <thead>
+                    <tr class="table100-head">
+                        <th class="column1" style="width:250px;text-align: center;">Article Name</th>
+                        <th class="column2" style="width:200px;">Number of Categories</th>
+                        <th class="column3" style="width:200px;">Number of Anchors</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+
+    </div>
+</div>
+
+
+            <div class="table100"  id ="article-category-table"   >
+                <table id="categoryTable">
+                    <thead>
+                    <tr class="table100-head">
+                        <th class="column1">Category Name</th>
+                        <th class="column2">Anchor</th>
+                        <th class="column3">Days Survived</th>
+                        <th class="column4">Revision Survived</th>
+                        <th class="column5">ReIntroduction</th>
+                        <th class="column6">Anchor Strength</th>
+                        <th class="column7">First Seen</th>
+                        <th class="column8">Last Seen</th>
+
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+
+
+<script src="{% static  'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static  'js/particles/particles.js' %}"></script>
+<script src="{% static  'js/particles/particles_app.js' %}"></script>
+<script src="{% static  'js/api/category-types.js' %} "></script>
+</body>
+</html>

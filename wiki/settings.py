@@ -32,10 +32,10 @@ ALLOWED_HOSTS = ['0.0.0.0']
 
 PROJECT_APPS = [
     'application.api',
-    'application.home',
     'application.stats',
     'application.utils',
     'application.registration',
+    'application.frontend',
 ]
 
 THIRD_PARTY_APPS = [
