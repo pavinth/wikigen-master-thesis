@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from rest_framework import response, status
 from rest_framework.decorators import api_view
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
 from application.registration.api.v1 import serializers

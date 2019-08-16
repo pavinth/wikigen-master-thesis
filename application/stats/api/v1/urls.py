@@ -8,7 +8,7 @@ app_name = 'stats'
 
 router = routers.SimpleRouter()
 router.register(r'article', viewset.Article)
-router.register(r'category', viewset.Category)
+router.register(r'category', viewset.Category, basename='category')
 
 article_router = routers.NestedSimpleRouter(router, r'article', lookup='article')
 article_router.register(r'revision', viewset.Revision, base_name='revision')

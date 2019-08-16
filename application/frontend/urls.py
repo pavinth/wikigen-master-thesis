@@ -15,6 +15,4 @@ urlpatterns = [
     path('login-page/', views.LoginPageView.as_view(), name='login-page'),
     path('registration-page/', views.RegistrationPageView.as_view(), name='registration-page'),
     path('dashboard-page/', views.DashboardPageView.as_view(), name='dashboard-page'),
-
-
 ]

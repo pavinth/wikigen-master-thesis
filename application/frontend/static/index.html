@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>WikiGen</title>
+    <link rel="icon" href="res/images/logo.png">
+
+    <!-- CSS References -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400&display=swap" rel="stylesheet">
+    <link rel='stylesheet'  href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="stylesheet"  href="css/jquery-ui-1.12.1/jquery-ui.css">
+    <link rel="stylesheet"  href="css/preloading/preloading.css">
+    <link rel="stylesheet"  href="css/material.min.css" >
+    <link rel="stylesheet"  href="css/wikigen.css">
+    <link rel="stylesheet"  href="css/data-table.css">
+
+</head>
+
+<body>
+
+
+<!-- Website title -->
+<!-- Main content div which is replaced during the navigation -->
+<div id="particles-js"> </div>
+<div id="WikiGen_content"></div>
+
+<!-- For execution time statistics -->
+<!--<div id="time"></div>-->
+<div id="loading_dialog" title="Loading">
+    <p style="text-align: center;">Speeding up ........ </p>
+    <div id="edit_stats_loading" style="height: 110px; margin-left:40%;">
+
+    </div>
+</div>
+
+<div id="loader-wrapper">
+    <div id="loader"></div>
+
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-bottom"></div>
+
+</div>
+<!--jquery script -->
+<script src="js/jquery-related/jquery-3.3.1.min.js"></script>
+<script src="js/jquery-related/jquery.tinysort.min.js"></script>
+<script src="js/jquery-related/jquery.tagcloud.js"></script>
+<script src="css/preloading/modernizer-2.6.2.min.js"></script>
+<script src="css/preloading/main.js"></script>
+
+<!--particles script-->
+<script src="js/particles/particles.js"></script>
+<script src="js/particles/particles_app.js"></script>
+
+<script>
+    $(function() {
+
+        $('#WikiGen_content').load("html/article_selection.html", function() {
+            $(this).trigger('create');
+        });
+
+        $('#loading_dialog').hide();
+    });
+</script>
+
+<!-- jQuery References -->
+
+<script   src="css/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+
+<!-- Chart Libraries References -->
+
+<script  src="js/flot/jquery.flot.js"></script>
+<script  src="js/flot/jquery.flot.multi.js"></script>
+<script  src="js/flot/jquery.flot.selection.js"></script>
+<script  src="js/flot/jquery.flot.dashes.js"></script>
+<script  src="js/flot/jquery.flot.resize.js"></script>
+
+
+<!-- Table Libraries-->
+<script  src="js/jquery-related/jquery.dataTables.min.js"></script>
+
+<!-- WikiGen Scripts -->
+<script  src="js/wikigen-frontend/wikigen_statistics.js"></script>
+<script  src="js/wikigen-frontend/wikigen_utils.js"></script>
+<script  src="js/wikigen-frontend/wikigen_ploting.js"></script>
+<script  src="js/wikigen-frontend/wikigen_config.js"></script>
+
+<!-- Spin Scripts -->
+<script  src="js/jquery-related/spin.min.js"></script>
+
+<!-- Backend API Calls -->
+
+<!-- Makes API Calls to fetch Logged in user's info -->
+<script src="js/user/profile.js" type="application/javascript"></script>
+
+</body>
+
+</html>
