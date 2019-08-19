@@ -16,6 +16,8 @@ class Article(serializers.Serializer):
 	revision_survived = serializers.IntegerField(write_only=True)
 	category = serializers.CharField(write_only=True)
 	title = serializers.CharField()
+	category_count = serializers.IntegerField(read_only=True)
+	anchor_count = serializers.IntegerField(read_only=True)
 
 	class Meta:
 		fields = '__all__'

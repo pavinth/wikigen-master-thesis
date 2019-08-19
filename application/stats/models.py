@@ -14,6 +14,14 @@ class Article(DateTime):
     def __str__(self):
         return f'Article: {self.title}'
 
+    @property
+    def category_count(self):
+        return self.anchor_set.filter(category__isnull=False).count()
+
+    @property
+    def anchor_count(self):
+        return self.anchor_set.count()
+
 
 class ArticleMixin(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
