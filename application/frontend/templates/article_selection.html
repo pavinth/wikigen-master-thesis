@@ -48,16 +48,19 @@
         </div>
     </td>
     <td>
-        <div class="logged-in-user">
-            <i class="fas fa-user-circle" style="font-size:35px;margin-left:120px;color:white;" aria-hidden="true"></i>
+       <div class="logged-in-user" >
+		<i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;color:white;"></i>
 
-        <ul>
-            <li><a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-right:10px;"></i> <p id="lusername"></p></a></li>
-            <li><a onclick="window.location.href='http://0.0.0.0:8000/dashboard-page/'"><i class="fas fa-calendar" style="font-size: 20px; margin-right:10px;"></i><p>Dashboard</p></a></li>
-            <li><a href="/#/"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-right:10px;"></i><p id="logout-submit">Logout</p></a></li>
-        </ul>
+		<div class = "dropdown-content">
+			<a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i> <p id="lusername" style="text-align:center;"></p></a>
+			<a onclick = "window.location.href='http://0.0.0.0:8000/dashboard-page/'">
+				<i class="fas fa-calendar" style="font-size:20px;margin-left:10px;position:relative;top:20px;"></i>
+				<p style=" text-align:center;cursor:pointer;">Dashboard</p></a>
+			<a href="/#/"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
+				<p id="logout-submit" style="text-align:center;">Logout</p></a>
+		</div>
 
-        </div>
+	</div>
 
     </td>
 </tr>

@@ -13,11 +13,10 @@ $(document).ready(function(){
           crossDomain: true,
           statusCode: {
               200: function(){
-                  alert('Login Successful!');
                   window.location.replace('http://0.0.0.0:8000/');
               },
               400: function(){
-                  alert('Error in Loggin in! Are you registered?');
+                  alert('Error in Login! Are you registered?');
               },
               404: function(){
                   alert('Invalid URL! Is server running?');
@@ -30,21 +29,13 @@ $(document).ready(function(){
   });
   // logout code is article_selection.js
   $("#logout-submit").on("click", function(e){
-        e.preventDefault();
-        if($(this).hasClass("open")) {
-            $(this).removeClass("open");
-            $(this).children("ul").slideUp("fast");
-        } else {
-            $(this).addClass("open");
-            $(this).children("ul").slideDown("fast");
-        }
+
         const LOGOUT_URL = 'http://0.0.0.0:8000/api/v1/registration/logout/';
         $.ajax({
           url: LOGOUT_URL,
           method: 'GET',
           statusCode: {
               200: function(){
-                  alert('Logout Successful!');
                   window.location.replace('http://0.0.0.0:8000/');
               },
               400: function(){
@@ -58,11 +49,6 @@ $(document).ready(function(){
               }
           }
       })
-    });
-
-    $(".fa.fa-columns ").on("click", function(e){
-        window.open('dashboard.html', '_self');
-
     });
 
 

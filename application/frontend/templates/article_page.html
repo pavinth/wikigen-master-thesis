@@ -28,19 +28,24 @@
 	<span id="selected_article"></span> &emsp;
 	<button type="button" id="change_article">
 		<i class="fas fa-angle-double-left" style="font-size:16px;margin-right:10px;"></i>Change Article</button>
+</div>
 
+ <div class="logged-in-user" >
+		<i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;position:relative; top:-100px;color:white;"></i>
 
-	<div class="logged-in-user" style="position:relative;float:right;">
-		<i class="fas fa-user-circle " style="font-size:35px;position:relative;top:1px;right:-30px;color:white;"></i>
-		<ul class = "dropdown-list">
-			<li><a href="#"><i class="fas fa-user" style="font-size: 20px; margin-right:10px;"></i> <p id="lusername"></p></a></li>
-			<li><a href="/dashboard-page/"><i class="fas fa-calendar" style="font-size: 20px; margin-right:10px;"></i> <p>Dashboard</p></a></li>
-			<li><a href="#"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-right:10px;"></i><p id="logout-submit">Logout</p></a><
-		</ul>
+		<div class = "dropdown-content" style="position:absolute;top:-65px;" >
+			<a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i> <p id="lusername" style="text-align:center;"></p></a>
+			<a onclick = "window.location.href='http://0.0.0.0:8000/dashboard-page/'">
+				<i class="fas fa-calendar" style="font-size:20px;margin-left:10px;position:relative;top:20px;"></i>
+				<p style=" text-align:center;cursor:pointer;">Dashboard</p></a>
+			<a href="/#/"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
+				<p id="logout-submit" style="text-align:center;">Logout</p></a>
+		</div>
 
 	</div>
 
-</div>
+
+
 
 <nav id="tabs">
 	<ol style="margin-top:-30px;">
@@ -104,30 +109,7 @@
 </div>
 
 <br>
-<button type="button" id="get_article">Return to article<i class="fas fa-angle-double-left" style="font-size:18px;margin-left:30px;"></i></button>
-<style>
-    #get_article {
-        display: flex;
-        padding: 10px 45px;
-        text-decoration: none;
-        font: 18px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-        color: white;
-        background: rgb(101, 58, 194);
-        transition: 2s;
-        box-shadow: 3px 3px 0 rgb(105, 103, 103);
-        transform: skewX(-1deg);
-    }
 
-    #get_article:focus {
-        outline: none;
-    }
-
-    #get_article:hover {
-        transition: 0.5s;
-        box-shadow: 5px 5px 0 rgb(231, 136, 28);
-    }
-</style>
-<br>
 <div class="ui-widget" id="revision_date_div" style="margin-top: 1em;">
     <table border="0">
         <tr>
@@ -142,7 +124,6 @@
         </tr>
     </table>
 </div>
-<br>
 <div id="article_content"></div>
 
 <!-- Page specific js -->
@@ -155,7 +136,9 @@
 <script  src="{% static 'js/wikigen-frontend/wikigen_config.js' %}"  type="application/javascript"></script>
 <script  src="{% static 'js/wikigen-frontend/wikigen_utils.js' %}"  type="application/javascript"></script>
 
-
+<script src="{% static  'js/login/login.js' %}" ></script>
+<script src="{% static  'js/registration/registration.js' %}"></script>
+<script src="{% static  'js/user/profile.js' %}" ></script>
 <script src="{% static 'js/src-frontend/article_page.js' %}" type="application/javascript" ></script>
 
 </body>

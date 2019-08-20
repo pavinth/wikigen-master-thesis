@@ -18,7 +18,6 @@ $(document).ready(function(){
             },
             statusCode: {
                 201: function(){
-                    alert('Registration Successful! Please login');
                     window.location.replace('http://0.0.0.0:8000/');
                 },
                 400: function(){
