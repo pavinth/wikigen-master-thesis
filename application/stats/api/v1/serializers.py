@@ -17,7 +17,8 @@ class Article(serializers.Serializer):
 	category = serializers.CharField(write_only=True)
 	title = serializers.CharField()
 	category_count = serializers.IntegerField(read_only=True)
-	anchor_count = serializers.IntegerField(read_only=True)
+	total_anchor_count = serializers.IntegerField(required=False)
+	created_at = serializers.DateTimeField(read_only=True)
 
 	class Meta:
 		fields = '__all__'
@@ -25,8 +26,12 @@ class Article(serializers.Serializer):
 	def create(self, validated_data):
 		title = validated_data.pop('title')
 		category_name = validated_data.pop('category')
+		total_anchor_count = validated_data.pop('total_anchor_count')
 
 		article, _ = models.Article.objects.get_or_create(title=title, user=self.context['request'].user)
+		if article.total_anchor_count != total_anchor_count:
+			article.total_anchor_count = total_anchor_count
+			article.save()
 		category, _ = models.Category.objects.get_or_create(name=category_name, user=self.context['request'].user)
 		anchor, _ = models.Anchor.objects.get_or_create(article=article, category=category, **validated_data)
 

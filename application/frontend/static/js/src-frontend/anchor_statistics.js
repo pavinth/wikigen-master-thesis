@@ -316,9 +316,6 @@ $(function() {
                     }
                 );
                 getAnchorDissimilatyArrayForYear(anchorYearSnapshots, i);
-                // REVIEW Graphs removed
-                // plotYearDataGraph($("#year_dissimilarity_chart_" + year), dissimilarityYears, "Dissimilarity of anchors in " + year + " to other years", 1.1, '#CFA600', true, true, visualOverride);
-                //}
 
                 // Add an accordition
                 $('#anchor_evolution_results').append('<div id="anchor_snapshot_' + i + '">	' +
@@ -381,9 +378,6 @@ $(function() {
                                 }
                             );
                             dissimilarityMonths = getAnchorDissimilatyArrayForMonth(anchorMonthSnapshots, i, j);
-                            // REVIEW Graphs removed
-                            // plotMonthDataGraph($("#year_dissimilarity_chart_" + year + "_" + month), dissimilarityMonths, "Dissimilarity of anchors in " + getMonthName(month) + " to other months in " + year, 1.1, '#CFA600', true, true, visualOverride)
-                            //replotLinesWithDissimilarityData(dissimilarityMonths, $("#year_dissimilarity_chart_" + year + "_" + month), "Dissimilarity to other month", '#CFA600');
                         }
                         j++;
                     }
@@ -785,13 +779,6 @@ $(function() {
                 //console.log('No Success while generating anchors');
             }
         );
-        /*
-        $(document).on('click', ".anchor-cat", function(event) {
-            var category = prompt('Enter Category Name: ')
-            if(category != '')
-                $(this).parent().html('<p>'+category+'</p>')
-        });
-        */
     });
 
     function plotTagCloud(div, array, month) {

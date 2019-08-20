@@ -365,7 +365,6 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
 	var lastRevision;
 	var temp;
 	const GET_CAT_URL = 'http://0.0.0.0:8000/api/v1/stats/category/';
-
     $.ajax({
         async: false,
         url: GET_CAT_URL,
@@ -435,6 +434,7 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
 
                     }
 	            }
+	            sessionStorage.setItem('anchor_count', result.length);
             },
             400: function() {
                 //  alert('Error in creating anchor!');
@@ -978,33 +978,6 @@ function getNewAnchorsMonthArray(anchorSnapshots) {
 		}
 		i++;
 	}
-		
-		
-		
-		
-		/*j = 0;
-		while(j < 12) {		//anchorSnapshots[i][1][j]
-			currentMonth = getArrayForMonth(anchorSnapshots, i, j);
-			newDate = new Date(parseInt(anchorSnapshots[i][0]), j, 1, 0, 0, 0);
-			if(!(i == 0 && j == 0)) {
-				if(j == 0) {
-					previousMonth = getArrayForMonth(anchorSnapshots, i - 1, 11);
-				} else {
-					previousMonth = getArrayForMonth(anchorSnapshots, i, j - 1);
-				}
-				newDate = new Date(parseInt(anchorSnapshots[i][0]), j, 1, 0, 0, 0);
-				resultArray.push([newDate.getTime(), getNewAnchorsFromArrays(previousMonth, currentMonth)]); 	
-			} else {
-				
-				resultArray.push([newDate.getTime(), getNewAnchorsFromArrays([], currentMonth)]); 
-			}
-			j++;
-			//console.log("j:" + j);
-		}
-				
-		i++;
-		//console.log("i:" + i);
-	}*/
 	return resultArray;
 }
 
@@ -1157,16 +1130,6 @@ function constructColumnsFromAnchorCompareData(array, anchorYearSnapshots) {
 	}
 	resultColumns.push({ "sTitle": "Strength (sum)"});
 	resultColumns.push({ "sTitle": "Strength (sum, adjusted)"});
-	/*
-	[
-								{ "sTitle": "Anchor", "sWidth": "25%" },
-								{ "sTitle": "First seen", "sWidth": "15%" },
-								{ "sTitle": "Last seen", "sWidth": "15%" },
-								{ "sTitle": "Days survived", "sClass": "center", "sWidth": "15%" },
-								{ "sTitle": "(Re)Introductions", "sClass": "center", "sWidth": "15%" },
-								{ "sTitle": "Revisions survived", "sClass": "center", "sWidth": "15%" }
-							]
-							*/
 	return resultColumns;
 }
 

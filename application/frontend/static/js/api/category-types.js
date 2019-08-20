@@ -3,10 +3,12 @@ $(function() {
                 var articleName ='';
                 var articleId = '';
                 $.each(data.results, function(key, value){
+                    date = new Date(value.created_at)
                     articleName += '<tr>';
                     articleName += '<td style="text-align: center">' + "<a href='#' class='articleDetailInfo'>" + value.title + "</a>"+'</td>';
                     articleName += '<td style="text-align: center">' + "<a href='#' class='articleDetailInfo'>" + value.category_count + "</a>"+'</td>';
-                    articleName += '<td style="text-align: center">' + "<a href='#' class='articleDetailInfo'>" + value.anchor_count + "</a>"+'</td>';
+                    articleName += '<td style="text-align: center">' + "<a href='#' class='articleDetailInfo'>" + value.total_anchor_count + "</a>"+'</td>';
+                    articleName += '<td style="text-align: center">' + "<a href='#' class='articleDetailInfo'>" + date.toDateString() + "</a>"+'</td>';
                     articleName += '</tr>';
                     articleId = value.id;
                 });

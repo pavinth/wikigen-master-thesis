@@ -1,7 +1,7 @@
 
 
 $(document).on('click', "#category-submit", function(event) {
-        $('.fas.fa-edit').show();
+    $('.fas.fa-edit').show();
 
     var minNumber = 100;
     var maxNumber = 0;
@@ -10,7 +10,7 @@ $(document).on('click', "#category-submit", function(event) {
     {
         return Math.floor(Math.random()*(max-min+1)+min);
     }
-var category = $('#category-input').val();
+    var category = $(this).siblings('input').val();
 
     var p_id;
     var p_html;
@@ -39,6 +39,7 @@ var category = $('#category-input').val();
 
         anchor_details['title'] = sessionStorage.getItem('selected_article');
         anchor_details['category'] = category;
+        anchor_details['total_anchor_count'] = parseInt(sessionStorage.getItem("anchor_count"));
         var ADD_CAT_URL = 'http://0.0.0.0:8000/api/v1/stats/article/';
         $.ajax({
             url: ADD_CAT_URL,
