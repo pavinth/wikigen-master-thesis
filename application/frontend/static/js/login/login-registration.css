@@ -263,7 +263,7 @@ body {
   -ms-border-radius: 5px;
   padding: 17px 20px;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
@@ -337,16 +337,16 @@ input[type=checkbox]:not(old):checked + label > span:before {
 .term-service {
   color: #555; }
 
-.loginhere {
+.login-here {
   color: #555;
   font-weight: 500;
   text-align: center;
   margin-top: 91px;
   margin-bottom: 5px; }
 
-.loginhere-link {
+.login-here-link {
   font-weight: 700;
-  color: #222; }
+  color: #ff7f2a; }
 
 .field-icon {
   float: right;

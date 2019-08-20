@@ -10,9 +10,14 @@ class Article(DateTime):
     ns = models.CharField(max_length=8, null=True, blank=True)
     anon = models.CharField(max_length=64, null=True, blank=True)
     title = models.CharField(max_length=128)
+    total_anchor_count = models.IntegerField(null=True)
 
     def __str__(self):
         return f'Article: {self.title}'
+
+    @property
+    def category_count(self):
+        return self.anchor_set.filter(category__isnull=False).count()
 
 
 class ArticleMixin(models.Model):

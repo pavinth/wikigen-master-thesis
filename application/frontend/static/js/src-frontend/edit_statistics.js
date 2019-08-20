@@ -3,7 +3,7 @@ var EditStats = {
     getDate: function (datePickerElement) {
         var date;
         try {
-            date = $.datepicker.parseDate( "mm/dd/yy", datePickerElement.value );
+            date = $.datePicker.parseDate( "mm/dd/yy", datePickerElement.value );
         } catch( error ) {
             date = null;
         }
@@ -272,6 +272,18 @@ $("#generate_edit_stat").bind('click', function () {
 });
 
 $(function () {
+
+
+
+ $("#edit_tab_link").on('click', function(event) {
+        var editStatsGenerated = sessionStorage.getItem('edit_stats_generated');
+        if(editStatsGenerated === undefined || editStatsGenerated === null || editStatsGenerated === "") {
+            sessionStorage.setItem('edit_stats_generated', 'true');
+            $('#edit_tab_content').load("/edit-page/", function() {
+                $(this).trigger('create');
+            });
+        }
+        });
 
 
     function initializeChartDisplayOptions() {

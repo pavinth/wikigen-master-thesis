@@ -24,17 +24,21 @@
 	<button type="button" id="change_article">
 		<i class="fas fa-angle-double-left" style="font-size:16px;margin-right:10px;"></i>Change Article</button>
 
-	<div class="logged-in-user" style="position:relative;float:right;">
-		<i class="fas fa-user-circle " style="font-size:35px;position:relative;top:1px;right:-30px;color:white;"></i>
-		<ul class = "dropdown-list">
-			<li><a href="#"><i class="fas fa-user" style="font-size: 20px; margin-right:10px;"></i> <p id="lusername"></p></a></li>
-			<li><a href="/dashboard-page/"><i class="fas fa-calendar" style="font-size: 20px; margin-right:10px;"></i> <p>Dashboard</p></a></li>
-			<li><a href="#"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-right:10px;"></i><p id="logout-submit">Logout</p></a><
-		</ul>
+</div>
+
+<div class="logged-in-user" >
+		<i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;position:relative; top:-100px;color:white;"></i>
+
+		<div class = "dropdown-content" style="position:absolute;top:-65px;" >
+			<a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i> <p id="lusername" style="text-align:center;"></p></a>
+			<a onclick = "window.location.href='http://0.0.0.0:8000/dashboard-page/'">
+				<i class="fas fa-calendar" style="font-size:20px;margin-left:10px;position:relative;top:20px;"></i>
+				<p style=" text-align:center;cursor:pointer;">Dashboard</p></a>
+			<a href="/#/"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
+				<p id="logout-submit" style="text-align:center;">Logout</p></a>
+		</div>
 
 	</div>
-
-</div>
 
 <nav id="tabs">
 	<ol style="margin-top:-30px;">
@@ -269,23 +273,8 @@
 <script src="{% static 'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
 <script   src="{% static 'css/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
 
+<script src="{% static  'js/src-frontend/get_article_name.js' %}"></script>
 
-<script>
-$(function(){
-
-$("#selected_article").append("Selected article is: " + "<a target='_blank' href='http://"+wikiLang+".wikipedia.org/wiki/" + "'>" + sessionStorage.getItem('selected_article')+ "</a>  ");
-
-$("#wikigen-logo").click( function() {
-        window.location.replace("http://0.0.0.0:8000/");
-    });
-
-
-$("#change_article").click( function() {
-        window.location.replace("http://0.0.0.0:8000/");
-    });
-
-});
-</script>
 <script  src="{% static 'js/flot/jquery.flot.js' %}"></script>
 <script  src="{% static 'js/flot/jquery.flot.multi.js' %}"></script>
 <script  src="{% static 'js/flot/jquery.flot.selection.js' %}"></script>
@@ -301,4 +290,7 @@ $("#change_article").click( function() {
 
 
 <!-- Page specific js-->
+<script src="{% static  'js/login/login.js' %}" ></script>
+<script src="{% static  'js/registration/registration.js' %}"></script>
+<script src="{% static  'js/user/profile.js' %}" ></script>
 <script src="{% static 'js/src-frontend/comparisons.js' %}" type="application/javascript"></script>

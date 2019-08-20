@@ -8,7 +8,8 @@
         <link rel="icon" href="{% static 'res/images/logo.png' %}">
 
         <!-- CSS References -->
-        <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    	<link rel='stylesheet'  href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
         <link rel="stylesheet"  href="{% static 'css/jquery-ui-1.12.1/jquery-ui.css' %}">
         <link rel="stylesheet"  href="{% static 'css/material.min.css' %}" >
         <link rel="stylesheet"  href="{% static 'css/wikigen.css'%}">
@@ -22,16 +23,17 @@
 <div  style="float:left; margin-left: 20px; padding:10px; margin-top: 20px;">
     <img src="{% static 'res/images/wiki_name.png' %}" alt="wikigen-logo" >
 </div>
-<div class="logged-in-user" style="position:relative;float:right;right:30px;margin-top:20px;">
-    <i class="fa fa-user-circle-o" style="font-size:35px;position:relative;top:1px;right:-30px;color:white;" aria-hidden="true"></i>
-    <ul>
-        <li><a href="#"><i class="fa fa-user" style="font-size: 20px; margin-right:10px;"></i> <p id="lusername"></p></a></li>
-        <li><a href="#"><i class="fa fa-sign-out" style="font-size: 20px; margin-right:10px;"></i><p id="logout-submit">Logout</p></a></li>
-    </ul>
 
-</div>
+   <div class="logged-in-user" >
+		<i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;margin-top:20px;color:white;"></i>
 
+		<div class = "dropdown-content">
+			<a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-right:10px;position:relative;top:20px;"></i> <p id="lusername" style="text-align:center;"></p></a>
+			<a href="/#/"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-right:10px;position:relative;top:20px;"></i>
+				<p id="logout-submit" style="text-align:center;">Logout</p></a>
+		</div>
 
+	</div>
     <div class="container-table100" style="position: relative;">
         <div class="wrap-table100" >
 
@@ -39,46 +41,42 @@
                     <thead>
                     <tr class="table100-head">
                         <th class="column1" style="width:250px;text-align: center;">Article Name</th>
-                        <th class="column2" style="width:200px;">Number of Categories</th>
-                        <th class="column3" style="width:200px;">Number of Anchors</th>
-
+                        <th class="column2" style="width:200px;">No. of Categories</th>
+                        <th class="column3" style="width:200px;">No. of total Anchors</th>
+                        <th class="column3" style="width:200px;">Created At</th>
                     </tr>
                     </thead>
                     <tbody>
 
                     </tbody>
                 </table>
-
-
     </div>
 </div>
+<div class="table100"  id ="article-category-table">
+    <table id="categoryTable">
+        <thead>
+        <tr class="table100-head">
+            <th class="column1">Category Name</th>
+            <th class="column2">Anchor</th>
+            <th class="column3">Days Survived</th>
+            <th class="column4">Revision Survived</th>
+            <th class="column5">ReIntroduction</th>
+            <th class="column6">Anchor Strength</th>
+            <th class="column7">First Seen</th>
+            <th class="column8">Last Seen</th>
 
-
-            <div class="table100"  id ="article-category-table"   >
-                <table id="categoryTable">
-                    <thead>
-                    <tr class="table100-head">
-                        <th class="column1">Category Name</th>
-                        <th class="column2">Anchor</th>
-                        <th class="column3">Days Survived</th>
-                        <th class="column4">Revision Survived</th>
-                        <th class="column5">ReIntroduction</th>
-                        <th class="column6">Anchor Strength</th>
-                        <th class="column7">First Seen</th>
-                        <th class="column8">Last Seen</th>
-
-                    </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-
-
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
 <script src="{% static  'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static  'js/particles/particles.js' %}"></script>
 <script src="{% static  'js/particles/particles_app.js' %}"></script>
 <script src="{% static  'js/api/category-types.js' %} "></script>
+<script src="{% static  'js/login/login.js' %}" ></script>
+<script src="{% static  'js/registration/registration.js' %}"></script>
 <script src="{% static  'js/user/profile.js' %}" ></script>
 </body>
 </html>

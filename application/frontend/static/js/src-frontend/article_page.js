@@ -34,13 +34,15 @@ $("#change_article").click( function() {
 
     $("#wikiframe").height(screen.height + 300);
 
+
+   /*
     $("#get_article").bind('click', function() {
-        //alert("<object id='wikiframe' data='http://"+wikiLang+".wikipedia.org/wiki/"+ sessionStorage.getItem('selected_article')+"' width='100%'>Error: Embedded data could not be displayed or requested article does not exist.  </object>");
+        alert("<object id='wikiframe' data='http://"+wikiLang+".wikipedia.org/wiki/"+ sessionStorage.getItem('selected_article')+"' width='100%'>Error: Embedded data could not be displayed or requested article does not exist.  </object>");
         $('#article_tab_content').load("http://0.0.0.0:8000/article-page/", function() {
             $(this).trigger('create');
         });
     });
-
+*/
     $("#open_revision").bind('click', function() {
         $('#article_content').empty();
         $('#article_content').append("<object id='wikiframe' data='http://"+wikiLang+".wikipedia.org/w/index.php?title="+ sessionStorage.getItem('selected_article')+" &oldid=" + getRevisionIdByDateString($("#revision_date").val()) +"' width='100%'>Error: Embedded data could not be displayed or requested article does not exist. </object>");
