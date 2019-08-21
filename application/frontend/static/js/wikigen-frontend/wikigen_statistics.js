@@ -118,7 +118,7 @@ function updateEditProgressbar() {
 }
 
 function recursiveAnchorPBUpdate(inc, times) {
-	console.log("recursiveAnchorPBUpdate called!");
+	//console.log("recursiveAnchorPBUpdate called!");
 	if(times > 0) {
 		var curValue = $("#anchor_progressbar").progressbar('value');
 		curValue += inc;

@@ -47,6 +47,7 @@ function clearSessionStorage() {
 	sessionStorage.setItem('anchor_stats_generated', '');
 	sessionStorage.setItem('blink_stats_generated', '');
 	sessionStorage.setItem('comp_stats_generated', '');
+	sessionStorage.setItem('anchor_count', '');
 	revisionCount = 0;
 	revisionsArray = [[],[],[]];
 	talkRevisionsArray = [[],[],[]];
@@ -364,6 +365,7 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
 	var firstRevision;
 	var lastRevision;
 	var temp;
+	var category;
 	const GET_CAT_URL = 'http://0.0.0.0:8000/api/v1/stats/category/';
     $.ajax({
         async: false,
@@ -407,11 +409,12 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
                         }
 
                         // create category
+
                         var category = "<div id='category-form'> " +
                             "  <input type='text' list='category-list' id='category-input' size='35' style='line-height:1.8;position:relative;top:18px; ' name='category'>\n" +
                             existing_category +
                             "  <input type=\"submit\" id=\'category-submit\' value='save' style='color:#ffffff;width:50px;height:30px;background:#343434;position:relative;bottom:13px;left:8px;text-align:center;float:right;border-radius: 4px; border: 1px solid black; margin-left:15px; '>\n" +
-                            "</div>" + "<i class=\"fas fa-edit\" id =\'edit-icon'\ title='click to edit' style=\"font-size:20px;float:right;display:none;position:relative;top:-25px;\"></i>"
+                             "<i class=\"fas fa-edit\" id =\'edit-icon'\ title='click to edit' style=\"font-size:20px;float:right;display:none;position:relative;top:-25px;\"></i>" + "</div>"
 
                         // Writing the prepared data into the table row
                         // ToDo Restore

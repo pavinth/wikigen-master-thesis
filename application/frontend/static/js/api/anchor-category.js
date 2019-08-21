@@ -1,7 +1,6 @@
 
 
 $(document).on('click', "#category-submit", function(event) {
-    $('.fas.fa-edit').show();
 
     var minNumber = 100;
     var maxNumber = 0;

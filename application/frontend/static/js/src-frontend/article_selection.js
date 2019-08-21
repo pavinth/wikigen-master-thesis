@@ -6,15 +6,15 @@ $(function() {
 
 
 
-    
+
     // thapa changes
     if (localStorage['user'] === undefined)
         $('.logged-in-user').hide();
-    
+
     function logout(){
         const LOGOUT_URL = 'http://0.0.0.0:8000/api/v1/registration/logout/';
         var user = JSON.parse(localStorage.getItem('user'));
-    
+
         if(user === undefined){
             //alert('You are not logged in!');
             return;
@@ -22,7 +22,7 @@ $(function() {
         delete localStorage['user'];
       //  alert('Logged out successfully!');
         window.location.replace('http://0.0.0.0:8000');
-        /* TODO THAPA 
+        /* TODO THAPA
             $.ajax({
             url: LOGOUT_URL,
             method: 'POST',
@@ -46,9 +46,9 @@ $(function() {
         })
 
         */
-        
+
       }
-    
+
     $(".logged-in-user ").on("click", function(e){
         e.preventDefault();
         if(e.target.id === "logout-submit"){
@@ -84,7 +84,7 @@ $(function() {
             $("#no_query").dialog();
         } else {
             // Save chosen element
-            //sessionStorage.setItem('selected_article', $("#searchbar").val());
+            sessionStorage.setItem('selected_article', $("#searchbar").val());
             // Go to main page
             getArticleAPIName(selectedArticle, function(apiName) { // name found
                     sessionStorage.setItem('selected_article', apiName);
@@ -110,7 +110,7 @@ $(function() {
                     var spinner = new Spinner(opts).spin(spinnerTarget);
                     precalculateRevisionCount(apiName, function(revisionCount) {
                             spinner.stop();
-                            //$("#loading_dialog").dialog('close');
+                            $("#loading_dialog").dialog('close');
                             setRevisionCountCalculated();
                             var revisionDates = getRevisionDates();
                             var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";

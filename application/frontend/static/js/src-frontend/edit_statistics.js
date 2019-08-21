@@ -273,65 +273,6 @@ $("#generate_edit_stat").bind('click', function () {
 
 $(function () {
 
-
-
- $("#edit_tab_link").on('click', function(event) {
-        var editStatsGenerated = sessionStorage.getItem('edit_stats_generated');
-        if(editStatsGenerated === undefined || editStatsGenerated === null || editStatsGenerated === "") {
-            sessionStorage.setItem('edit_stats_generated', 'true');
-            $('#edit_tab_content').load("/edit-page/", function() {
-                $(this).trigger('create');
-            });
-        }
-        });
-
-
-    function initializeChartDisplayOptions() {
-        if(bars) {
-            $("#bar-chart").prop("checked", 'checked');
-        } else {
-            $("#bar-chart").prop("checked", 'checked');
-        }
-
-        if(lines) {
-            $("#line-chart").prop("checked", 'checked');
-        } else {
-            $("#bar-chart").prop("checked", 'checked');
-        }
-
-        if(points) {
-            $("#point-chart").prop("checked", 'checked');
-        } else {
-            $("#bar-chart").prop("checked", 'checked');
-        }
-
-    }
-    initializeChartDisplayOptions();
-
-    $(".fa .fa-line-chart").bind('click', function(event) {
-        if ($('#bar-chart').is(':checked')) {
-            bars = true;
-        } else {
-            bars = false;
-        }
-    });
-    $(".fa.fa-line-chart").bind('click', function(event) {
-        if ($('#line-chart').is(':checked')) {
-            lines = true;
-        } else {
-            lines = false;
-        }
-    });
-
-    $(".fa.fa-circle-o").bind('click', function(event) {
-        if ($('#point-chart').is(':checked')) {
-            points = true;
-        } else {
-            points = false;
-        }
-    });
-
-
     var from = $("#e_datepicker_from")
         .datepicker({
             defaultDate: "+1w",
@@ -2046,5 +1987,13 @@ $(function () {
         EditStats.bindClickOnTabs("talk_", value);
     });
 
-
+     $("#edit_tab_link").on('click', function(event) {
+        var editStatsGenerated = sessionStorage.getItem('edit_stats_generated');
+        if(editStatsGenerated === undefined || editStatsGenerated === null || editStatsGenerated === "") {
+            sessionStorage.setItem('edit_stats_generated', 'true');
+            $('#edit_tab_content').load("/edit-page/", function() {
+                $(this).trigger('create');
+            });
+        }
+    });
 });

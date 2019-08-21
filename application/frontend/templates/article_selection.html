@@ -17,8 +17,6 @@
 
     <!-- CSS References -->
 
-
-
     </head>
 
 <body>
@@ -72,7 +70,7 @@
                 <td>
                    <div style="max-width:100%;max-height:100%;">
                     <div style="text-align: center;margin-top:-80px;">
-                        <img src="{% static 'res/images/wikigen_logo.png' %}" alt="mainlogo" >
+                        <img src="{% static 'res/images/wikigen_logo.png' %}"  id ="wiki_main_page_logo" alt="mainlogo" >
                     </div>
 
                     <br>
@@ -127,7 +125,7 @@
                       </td></tr>
                   </table>
 
-              <div id="language_changer" align="center">
+              <div id="language_changer" align="center" disply="none">
                       <div id = "lang_loading_start" ><br><font size="3" color="white">Wait for languages to be loaded:</font></div>
                       <div id="inner_lang_div_start" align="center">
                           <span align="center">
@@ -186,6 +184,7 @@
                 <p>After you have selected the article, <b>WikiGen</b> applicaton will start. It will display the Wikipedia article and allow switching between different functionalities the application provides.</p>
 
                 </div>
+</div>
 
 
 <!--jquery script -->

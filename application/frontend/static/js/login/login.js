@@ -13,7 +13,8 @@ $(document).ready(function(){
           crossDomain: true,
           statusCode: {
               200: function(){
-                  window.location.replace('http://0.0.0.0:8000/');
+              alert('login successfull');
+                 window.location.replace('http://0.0.0.0:8000/');
               },
               400: function(){
                   alert('Error in Login! Are you registered?');
@@ -36,6 +37,7 @@ $(document).ready(function(){
           method: 'GET',
           statusCode: {
               200: function(){
+                 alert('logout successfully');
                   window.location.replace('http://0.0.0.0:8000/');
               },
               400: function(){

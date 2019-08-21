@@ -1,6 +1,7 @@
 
 
 $(function() {
+
     var currentYear = 0;
     var currentMonth = 0;
     var tagYearArray;

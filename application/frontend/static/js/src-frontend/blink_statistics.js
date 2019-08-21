@@ -244,5 +244,18 @@ $(function() {
         var timelineData = getAllWoIndirectOccurencesData();
         reloadGraphWithNewData(timelineData, $("#timeline_content"));
     });
+
+
+    $("#blink_tab_link").on('click', function() {
+        var referenceStatsGenerated = sessionStorage.getItem('blink_stats_generated');
+        if(referenceStatsGenerated === undefined || referenceStatsGenerated === null ||referenceStatsGenerated === "") {
+            sessionStorage.setItem('blink_stats_generated', 'true');
+            $('#blink_tab_content').load("/blink-page/", function() {
+                $(this).trigger('create');
+            });
+        }
+    });
+
+
 });
 

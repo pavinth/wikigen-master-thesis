@@ -162,7 +162,6 @@ margin: 0;
     top: 0;
     z-index: -1;
     background: url("../images/background.jpg") no-repeat center fixed;
-    max-width: 100%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -469,8 +468,6 @@ border-radius:5px;
 
 @media screen and (max-width: 480px) {
   #maindiv {
-    width: calc(100% - 40px);
-    max-width: 100%;
      padding: 50px 25px;}
      }
 
@@ -486,13 +483,6 @@ border-radius:5px;
   }
 }
 
-
-@media screen and (max-width: 480px) {
-  #top_div_2{
-  max-width: 100%;
-  padding: 10px 15px;
-  }
-}
 
 
 @media screen and (max-width: 480px) {
@@ -516,3 +506,36 @@ border-radius:5px;
     padding: 10px 15px;
   }
 }
+
+
+
+@media screen and (max-width: 480px) {
+  #searchbar{
+    padding: 10px 15px;
+  }
+}
+
+
+
+@media screen and (max-width: 480px) {
+  #searchbtn{
+    padding: 10px 15px;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  table{
+    padding: 10px 15px;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  #wiki_main_page_logo{
+    padding: 10px 15px;
+  }
+}
+
+
+

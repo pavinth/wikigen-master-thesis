@@ -223,15 +223,10 @@ $(function() {
         plotAnchorComparisonMultiGraph();
     });
 
-
-
-
     var overrideForEdits = constructVisualOverride(false, false, false, false);
     var overrideForEditors = constructVisualOverride(false, false, false, false);
     var overrideForEditsEditor = constructVisualOverride(false, false, false, false);
     var overrideForEditsEditor2 = constructVisualOverride(false, false, false, false);
-
-
 
     function plotEditsComparisonMultiGraph() {
         var overallEditData = getOverallEditData();
@@ -285,8 +280,6 @@ $(function() {
             true
         );
 
-
-
         plotEditsMonthMultiGraph9(
             $("#comp_content"),
             $("#comp_content_overview"),
@@ -298,7 +291,6 @@ $(function() {
             true
         );
     }
-
 
     var overrideForTalkEdits = constructVisualOverride(false, false, false, false);
     var overrideForTalkEditors = constructVisualOverride(false, false, false, false);

@@ -43,14 +43,18 @@ $(function() {
 
                 var analysis_html = '<tr>';
                 analysis_html+= '<td style="text-align: left;" colspan="2"><b>Average</b></td>';
-                analysis_html+= '<td style="text-align: left">' + (avg_days_survived / number_of_cats).toFixed(2) +'</td>';
-                analysis_html+= '<td style="text-align: center">' + (avg_rev_survived / number_of_cats).toFixed(2) +'</td>';
-                analysis_html+= '<td style="text-align: center">' + (avg_re_introductions / number_of_cats).toFixed(2) +'</td>';
-                analysis_html+= '<td style="text-align: left">' + (avg_anchor_strength / number_of_cats).toFixed(2) +'</td>';
+                analysis_html+= '<td style="text-align: left">' + '<b>' + (avg_days_survived / number_of_cats).toFixed(2) + '</b>' +'</td>';
+                analysis_html+= '<td style="text-align: center">' + '<b>' + (avg_rev_survived / number_of_cats).toFixed(2) +'</b>'+'</td>';
+                analysis_html+= '<td style="text-align: center">' + '<b>' +(avg_re_introductions / number_of_cats).toFixed(2) +'</b>'+'</td>';
+                analysis_html+= '<td style="text-align: left">' + '<b>' + (avg_anchor_strength / number_of_cats).toFixed(2) +'</b>'+'</td>';
                 analysis_html+= '<td style="text-align: left" colspan="2"></td>';
                 analysis_html+= '</tr>';
 
                 $('#categoryTable').append(analysis_html);
             });
         });
+
+$("#wikigen-logo").click( function() {
+        window.location.replace("http://0.0.0.0:8000/");
+    });
 });
