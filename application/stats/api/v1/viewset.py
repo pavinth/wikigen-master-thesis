@@ -11,7 +11,6 @@ class Article(viewsets.ModelViewSet):
     filterset_class = filters.Article
     serializer_class = serializers.Article
     permission_classes = [IsAuthenticated, ]
-    queryset = models.Article.objects.all()
 
     def get_queryset(self):
         return models.Article.objects.filter(user=self.request.user)
@@ -30,7 +29,7 @@ class Anchor(viewsets.ModelViewSet):
     serializer_class = serializers.Anchor
 
     def get_queryset(self):
-        return models.Anchor.objects.filter(article__user=self.request.user)
+        return models.Anchor.objects.filter(article__user=self.request.user, article__id=self.kwargs['article_id'])
 
 
 class Category(viewsets.ModelViewSet):

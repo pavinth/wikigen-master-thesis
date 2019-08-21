@@ -7,7 +7,7 @@ from application.stats.api.v1 import viewset
 app_name = 'stats'
 
 router = routers.SimpleRouter()
-router.register(r'article', viewset.Article)
+router.register(r'article', viewset.Article, basename='article')
 router.register(r'category', viewset.Category, basename='category')
 
 article_router = routers.NestedSimpleRouter(router, r'article', lookup='article')
