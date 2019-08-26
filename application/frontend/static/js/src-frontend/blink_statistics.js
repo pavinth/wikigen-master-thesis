@@ -64,7 +64,7 @@ $(function() {
     // Define html global variables
     //var spinnerGraph;
     resetBacklinkStats();
-    countBackLinks(sessionStorage.getItem('selected_article'),
+    countBackLinks(localStorage.getItem('selected_article'),
         function(backlinksCount) {
             //spinnerCount.stop();
             $('#loading_blcount').hide();
@@ -152,7 +152,7 @@ $(function() {
             startMeasuringTime();
             startMeasuringNetworkDelay();
 
-            generateReferenceTimelineStats(sessionStorage.getItem('selected_article'),
+            generateReferenceTimelineStats(localStorage.getItem('selected_article'),
                 function(referenceTimelineData) {
                     $("#generate_reference_button").hide();
                     $("#blink_stats_loading_form").hide();

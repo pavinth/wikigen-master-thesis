@@ -710,16 +710,16 @@ $(function() {
         startMeasuringTime();
         startMeasuringNetworkDelay();
 
-        startAnchorAnalysis(sessionStorage.getItem('selected_article'),
+        startAnchorAnalysis(localStorage.getItem('selected_article'),
             function(jsonData) { // Successfully generated the data for the anchor analysis
                 var firstRevision;
                 var lastRevision;
                 // Get the first date
                 console.log("Get first revision date");
-                getFirstRevisionDate(sessionStorage.getItem('selected_article'), function(data) { // success in recieving data
+                getFirstRevisionDate(localStorage.getItem('selected_article'), function(data) { // success in recieving data
                         firstRevision = data;
                         //console.log("the first date is " + data);
-                        getLastRevisionDate(sessionStorage.getItem('selected_article'), function(data) { // success in recieving data
+                        getLastRevisionDate(localStorage.getItem('selected_article'), function(data) { // success in recieving data
                                 lastRevision = data;
                                 console.log("the first date is " + firstRevision);
                                 console.log("the last date is " + lastRevision);

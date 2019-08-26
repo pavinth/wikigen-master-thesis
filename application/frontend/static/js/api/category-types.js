@@ -5,8 +5,8 @@ $(function() {
                 $.each(data.results, function(key, value){
                     date = new Date(value.created_at)
                     articleName += '<tr>';
-                    articleName += '<td style="text-align: center" id="dashboard-article"><p class="articleDetailInfo">' + value.title + '</p><input type="hidden" id="article_id" value='+ value.id +'></td>';
-                    articleName += '<td style="text-align: center">' + "<p class='articleDetailInfo'>" + value.category_count + "</p>"+'</td>';
+                    articleName += '<td style="text-align: center" id="dashboard-article">' + "<a href='#'>" + '<p style="text-decoration:underline;"  class="articleDetailInfo">' + value.title + '</p><input type="hidden" id="article_id" value='+ value.id +'></td>';
+                    articleName += '<td style="text-align: center">' + "<p  class='articleDetailInfo'>" +  value.category_count + "</p>"+'</td>';
                     articleName += '<td style="text-align: center">' + "<p class='articleDetailInfo'>" + value.total_anchor_count + "</p>"+'</td>';
                     articleName += '<td style="text-align: center">' + "<p class='articleDetailInfo'>" + date.toDateString() + "</p>"+'</td>';
                     articleName += '</tr>';

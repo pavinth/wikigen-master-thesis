@@ -261,8 +261,8 @@ var EditStats = {
 $("#generate_edit_stat").bind('click', function () {
     EditStats.initialize();
 
-    var selectArticle = sessionStorage.getItem('selected_article');
-    var talkSelectArticle = sessionStorage.getItem('talk_selected_article');
+    var selectArticle = localStorage.getItem('selected_article');
+    var talkSelectArticle = localStorage.getItem('talk_selected_article');
 
     var successCallback = EditStats.revisionDateSuccessCallback(selectArticle, '');
     var talkSuccessCallback = EditStats.revisionDateSuccessCallback(talkSelectArticle, 'talk_');

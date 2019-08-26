@@ -162,19 +162,20 @@ tbody tr:hover {
 }
 
 .column3 {
-    width: 100px;
+    width: 120px;
+    padding-left:60px;
     text-align: left;
 }
 
 .column4 {
-    width: 120px;
-    padding-left:30px;
+    width: 200px;
+    margin-left:200px;
     text-align: left;
 }
 
 .column5 {
-    width: 100px;
-    padding-left:70px;
+    width: 120px;
+    padding-right:200px;
     text-align: left;
 }
 .column6 {
@@ -253,18 +254,15 @@ tbody tr:hover {
         content: "Last Seen";
     }
 
-    .column4,
-    .column5,
-    .column6 {
-        text-align: left;
-    }
 
-    .column4,
-    .column5,
+    .column8,
+    .column7,
     .column6,
-    .column1,
+    .column5,
+    .column4,
+    .column3,
     .column2,
-    .column3 {
+    .column1 {
         width: 100%;
     }
 
