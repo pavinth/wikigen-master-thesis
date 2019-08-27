@@ -1389,7 +1389,10 @@ a.ui-button:active,
 	}
 
 	#tabs {
-		top:-40px;
+		position:relative;
+		top:1px;
+		left:80px;
+
 
 	}
 	#tabs > ol {

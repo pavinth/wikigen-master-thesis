@@ -26,10 +26,10 @@
    <div class="logged-in-user" >
 		<i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;margin-top:20px;color:white;"></i>
 
-		<div class = "dropdown-content">
-			<a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-right:10px;position:relative;top:20px;"></i> <p id="lusername" style="text-align:center;"></p></a>
-			<a href="/#/"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-right:10px;position:relative;top:20px;"></i>
-				<p id="logout-submit" style="text-align:center;">Logout</p></a>
+		<div class = "dropdown-content" style="margin-bottom:5px;">
+			<a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i> <p id="lusername" style="margin-bottom:15px;text-align:center;"></p></a>
+			<a href="/#/"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
+				<p id="logout-submit" style="text-align:center;margin-bottom:15px;">Logout</p></a>
 		</div>
 
 	</div>
@@ -39,10 +39,10 @@
                 <table id = "detailTable">
                     <thead>
                     <tr class="table100-head">
-                        <th class="column1" style="width:250px;text-align: center;">Article Name</th>
-                        <th class="column2" style="width:200px;">Number of Categories</th>
-                        <th class="column3" style="width:200px;">Number of Total Anchors</th>
-                        <th class="column3" style="width:200px;">Created At</th>
+                        <th class="column1" style="width:150px;text-align:left;">Article Name</th>
+                        <th class="column2" style="width:180px;text-align:left;">Number of Categories</th>
+                        <th class="column3" style="width:180px;text-align:left;">Number of Total Anchors</th>
+                        <th class="column3" style="width:180px;text-align:left;">Created At</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,7 +72,7 @@
 <script src="{% static  'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static  'js/particles/particles.js' %}"></script>
 <script src="{% static  'js/particles/particles_app.js' %}"></script>
-<script src="{% static  'js/api/category-types.js' %} "></script>
+<script src="{% static  'js/api/dashboard-category-types.js' %} "></script>
 <script src="{% static  'js/login/login.js' %}" ></script>
 <script src="{% static  'js/registration/registration.js' %}"></script>
 <script src="{% static  'js/user/profile.js' %}" ></script>

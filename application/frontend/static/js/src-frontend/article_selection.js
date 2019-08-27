@@ -4,10 +4,6 @@ $(function() {
 
         $('#selection_i_dialog').hide();
 
-
-
-
-    // thapa changes
     if (localStorage['user'] === undefined)
         $('.logged-in-user').hide();
 
@@ -65,7 +61,7 @@ $(function() {
 
 
 
-    clearSessionStorage();
+    clearLocalStorage();
     $("#selected_language span").text(getWikiLang());
     $("#language_changer").hide();
     $( "#inner_lang_div_start" ).hide();
@@ -84,10 +80,10 @@ $(function() {
             $("#no_query").dialog();
         } else {
             // Save chosen element
-            sessionStorage.setItem('selected_article', $("#searchbar").val());
+            localStorage.setItem('selected_article', $("#searchbar").val());
             // Go to main page
             getArticleAPIName(selectedArticle, function(apiName) { // name found
-                    sessionStorage.setItem('selected_article', apiName);
+                    localStorage.setItem('selected_article', apiName);
 
                     $("#loading_dialog" ).dialog({
                         autoOpen: true,
@@ -145,7 +141,7 @@ $(function() {
 
 
             getArticleAPIName(talkSelectedArticle, function(apiName) { // name found
-                sessionStorage.setItem('talk_selected_article', apiName);
+               localStorage.setItem('talk_selected_article', apiName);
                 precalculateRevisionCount(apiName, function(revisionCount) {
                         var revisionDates = getRevisionDates();
                         var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";

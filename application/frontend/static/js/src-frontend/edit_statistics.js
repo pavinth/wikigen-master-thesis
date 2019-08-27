@@ -1988,9 +1988,9 @@ $(function () {
     });
 
      $("#edit_tab_link").on('click', function(event) {
-        var editStatsGenerated = sessionStorage.getItem('edit_stats_generated');
+        var editStatsGenerated = localStorage.getItem('edit_stats_generated');
         if(editStatsGenerated === undefined || editStatsGenerated === null || editStatsGenerated === "") {
-            sessionStorage.setItem('edit_stats_generated', 'true');
+            localStorage.setItem('edit_stats_generated', 'true');
             $('#edit_tab_content').load("/edit-page/", function() {
                 $(this).trigger('create');
             });

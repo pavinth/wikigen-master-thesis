@@ -603,7 +603,7 @@ $(function() {
                     { "sTitle": "Anchor Strength", "sClass": "left", "sWidth": "10%" },
                     { "sTitle": "First Seen","sClass": "left", "sWidth": "10%" },
                     { "sTitle": "Last Seen", "sClass": "left","sWidth": "10%" },
-                    { "sTitle": "Category","sClass": "center", "sWidth": "20%" }
+                    { "sTitle": "Category","sClass": "center", "sWidth": "30%" }
                 ]
             }
         );
@@ -673,7 +673,7 @@ $(function() {
             var revisionID = getRevisionIdByDate(date);
             $("#article_tab_link").click();
             $('#article_content').empty();
-            $('#article_content').append("<object id='wikiframe' data='http://"+wikiLang+".wikipedia.org/w/index.php?title="+ sessionStorage.getItem('selected_article')+" &oldid=" + revisionID +"' width='100%'>Error: Embedded data could not be displayed or requested article does not exist. </object>");
+            $('#article_content').append("<object id='wikiframe' data='http://"+wikiLang+".wikipedia.org/w/index.php?title="+localStorage.getItem('selected_article')+" &oldid=" + revisionID +"' width='100%'>Error: Embedded data could not be displayed or requested article does not exist. </object>");
             $("#wikiframe").height(screen.height - 300);
             //alert("date is: " + date);
         });
@@ -735,14 +735,14 @@ $(function() {
                                         "aaSorting": [[ 4, "desc" ]],
                                         "bAutoWidth": false,
                                         "aoColumns": [
-                                            { "sTitle": "Anchor", "sClass": "center", "sWidth": "15%" },
+                                            { "sTitle": "Anchor", "sClass": "center", "sWidth": "20%" },
                                             { "sTitle": "Days Survived", "sClass": "left", "sWidth": "10%" },
                                             { "sTitle": "Revisions Survived", "sClass": "left", "sWidth": "10%" },
                                             { "sTitle": "(Re)Introductions", "sClass": "left", "sWidth": "10%" },
                                             { "sTitle": "Anchor Strength", "sClass": "left", "sWidth": "10%" },
                                             { "sTitle": "First Seen", "sClass": "left", "sWidth": "10%" },
                                             { "sTitle": "Last Seen","sClass": "left", "sWidth": "10%" },
-                                            { "sTitle": "Category","sClass": "center", "sWidth": "20%" }
+                                            { "sTitle": "Category","sClass": "center", "sWidth": "30%" }
                                         ]
                                     }
                                 );
@@ -826,5 +826,16 @@ $(function() {
             ]
         }
     );
+
+     $("#anchor_tab_link").on('click', function() {
+        var referenceStatsGenerated = localStorage.getItem('anchor_stats_generated');
+        if(referenceStatsGenerated === undefined || referenceStatsGenerated === null ||referenceStatsGenerated === "") {
+            localStorage.setItem('anchor_stats_generated', 'true');
+            $('#anchor_tab_content').load("/anchor-page/", function() {
+                $(this).trigger('create');
+            });
+        }
+    });
+
 });
 

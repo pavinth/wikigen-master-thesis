@@ -2029,7 +2029,7 @@ function checkForLinkOccurenceInPlain(data, referenedTitle, callbackFound, callb
 				var currentRevision = revisions[revid];
 				if(currentRevision['*']) {
 					var content = currentRevision['*'].toLowerCase();
-					var searchString = sessionStorage.getItem('selected_article').toLowerCase();
+					var searchString = localStorage.getItem('selected_article').toLowerCase();
 					var foundTermPos = content.indexOf('[[' + searchString);
 					var foundCategoryPos = content.indexOf('[[category:' + searchString); //[[Category:Cloud computing
 					//var foundDefinition = content.indexOf('==');

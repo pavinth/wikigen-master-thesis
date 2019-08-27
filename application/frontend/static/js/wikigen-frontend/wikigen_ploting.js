@@ -481,7 +481,7 @@ function plotRevisionMapOverviewGraph(graph, overviewGraph, graphData, graphLabe
 		var revisionID = getRevisionIdByDate(date);
 		$("#article_tab_link").click();
 		$('#article_content').empty();
-		$('#article_content').append("<object id='wikifrarevisionIDme' data='http://"+wikiLang+".wikipedia.org/w/index.php?title="+ sessionStorage.getItem('selected_article')+" &oldid=" +  +"' width='100%'>Error: Embedded data could not be displayed or requested article does not exist. </object>");
+		$('#article_content').append("<object id='wikifrarevisionIDme' data='http://"+wikiLang+".wikipedia.org/w/index.php?title="+ localStorage.getItem('selected_article')+" &oldid=" +  +"' width='100%'>Error: Embedded data could not be displayed or requested article does not exist. </object>");
 		$("#wikiframe").height(screen.height - 300);
 		//alert("date is: " + date);
 	});

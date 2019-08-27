@@ -14,8 +14,7 @@
 
     <!-- Title Page-->
     <title>Article Selection</title>
-
-    <!-- CSS References -->
+     <!-- CSS References -->
 
     </head>
 
@@ -51,8 +50,8 @@
 
 		<div class = "dropdown-content">
 			<a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i> <p id="lusername" style="text-align:center;"></p></a>
-			<a onclick = "window.location.href='http://0.0.0.0:8000/dashboard-page/'">
-				<i class="fas fa-calendar" style="font-size:20px;margin-left:10px;position:relative;top:20px;"></i>
+            <a href="http://0.0.0.0:8000/dashboard-page/" rel="noopener noreferrer" >
+				<i class="fas fa-calendar" style="font-size:20px;margin-left:10px;position:relative;top:20px;cursor: pointer;"></i>
 				<p style=" text-align:center;cursor:pointer;">Dashboard</p></a>
 			<a href="/#/"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
 				<p id="logout-submit" style="text-align:center;">Logout</p></a>
@@ -96,7 +95,7 @@
                                     <span style="color: white;font-size:25px;">Select Wikipedia article to analyze:</span>
                                 </p>
                             </td><td>
-                                <i class="fa fa-info-circle"  style="font-size:20px;color:white;top:-5px;position:relative;" id="selection_i"  title="view how to search Wikipedia Article"></i>
+                                <i class="fa fa-info-circle"  style="font-size:20px;color:white;top:-7px;position:relative;" id="selection_i"  title="view how to search Wikipedia Article"></i>
                             </td></tr>
                         </table>
 
@@ -184,7 +183,6 @@
                 <p>After you have selected the article, <b>WikiGen</b> applicaton will start. It will display the Wikipedia article and allow switching between different functionalities the application provides.</p>
 
                 </div>
-</div>
 
 
 <!--jquery script -->
@@ -192,17 +190,13 @@
 <script src="{% static 'css/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
 
 
-<script src="{% static 'js/wikigen-frontend/wikigen_statistics.js' %}" type="application/javascript"></script>
-<script src="{% static 'js/wikigen-frontend/wikigen_ploting.js' %}" type="application/javascript"></script>
 <script src="{% static 'js/wikigen-frontend/wikigen_config.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_statistics.js' %}" type="application/javascript"></script>
 <script src="{% static 'js/wikigen-frontend/wikigen_utils.js' %}" type="application/javascript"></script>
-
-<script src="{% static 'js/user/profile.js' %}" type="application/javascript"></script>
-
+<script src="{% static 'js/wikigen-frontend/wikigen_ploting.js' %}" type="application/javascript"></script>
 <!--particles script-->
 <script src="{% static 'js/particles/particles.js' %}"></script>
 <script src="{% static 'js/particles/particles_app.js' %}"></script>
-
 
 <!-- Spin Scripts -->
 <script  src="{% static 'js/jquery-related/spin.min.js' %}"></script>
