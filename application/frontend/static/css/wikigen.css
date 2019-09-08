@@ -7,7 +7,7 @@ html,body{
     background-image: linear-gradient(to top, rgba(67, 67, 78, 0.76) 0%, rgba(59, 59, 59, 0.91) 52%, #484848 100%);
     z-index: 999;
     overflow-y:auto;
-    overflow-x:auto;
+    overflow-x:hidden;
     scroll-behavior:smooth;
 
 }
@@ -459,4 +459,30 @@ border-radius:5px;
  animation:5s;
 }
 
+.loader {
+  height: 4px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #ddd;
+}
+.loader:before{
+  display: block;
+  position: absolute;
+  content: "";
+  left: -200px;
+  width: 200px;
+  height: 4px;
+  background-color: #2980b9;
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    from {left: -200px; width: 30%;}
+    50% {width: 30%;}
+    70% {width: 70%;}
+    80% { left: 50%;}
+    95% {left: 120%;}
+    to {left: 100%;}
+}
 

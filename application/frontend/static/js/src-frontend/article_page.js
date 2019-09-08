@@ -1,6 +1,7 @@
 $(function() {
 
-$("#selected_article").append("Selected article is: " + "<a target='_blank' href='http://"+wikiLang+".wikipedia.org/wiki/" + "'>" + localStorage.getItem('selected_article')+ "</a>  ");
+
+$("#selected_article").prepend("Selected article is: " + "<a target='_blank' href='http://"+wikiLang+".wikipedia.org/wiki/" + "'>" + localStorage.getItem('selected_article')+ "</a>  ");
 
 
 $("#wikigen-logo").click( function() {
@@ -12,9 +13,6 @@ $("#change_article").click( function() {
         window.location.replace("http://0.0.0.0:8000/");
     });
 
-
-
-
     // Render elements
     $("#page_description_accordion").accordion({
         collapsible: true,
@@ -25,6 +23,7 @@ $("#change_article").click( function() {
     $("#page_description_accordion_header").click();
 
     $("#get_article").button();
+
 
     $( "#revision_date_div" ).hide();
 

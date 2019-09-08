@@ -632,7 +632,7 @@ button.ui-button::-moz-focus-inner {
 	right: -5px;
 	top: -5px;
 }
-.ui-progressbar { height:1.5em; text-align: left; }
+.ui-progressbar { height:1.5em; text-align: left;margin:2px; }
 .ui-progressbar .ui-progressbar-value {margin: -1px; height:100%;
 
   color: #ffffff;

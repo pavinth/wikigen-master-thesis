@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon"  href="{% static 'res/images/logo.png' %}">
     <link rel='stylesheet'  href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link rel="stylesheet"  href="{% static 'css/preloading/preloading.css' %}">
     <link rel="stylesheet"  href="{% static 'css/jquery-ui-1.12.1/jquery-ui.css' %}">
     <link rel="stylesheet"  href="{% static 'css/material.min.css' %}">
     <link rel="stylesheet"  href="{% static 'css/wikigen.css' %}">
@@ -19,18 +20,22 @@
     </head>
 
 <body>
-
+<div class="loader" style="display: none;"></div>
 
 <!-- Website title -->
 <!-- Main content div which is replaced during the navigation -->
 <div id="particles-js"> </div>
 <div id="WikiGen_content"></div>
-
 <div id="loading_dialog" title="Loading">
     <div id="edit_stats_loading" style="height: 110px; margin-left:40%;"></div>
 </div>
+<div id="loader-wrapper">
+    <div id="loader"></div>
 
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-bottom"></div>
 
+</div>
 <table style="float:right;" cellspacing="15" width=50 cellpadding=5>
 <tr>
     <td>
@@ -45,7 +50,7 @@
         </div>
     </td>
     <td>
-       <div class="logged-in-user" >
+       <div class="logged-in-user"  style="display:none;">
 		<i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;color:white;"></i>
 
 		<div class = "dropdown-content">
@@ -66,7 +71,7 @@
             <div style="margin-left:5em;"></div>
             <table class="function_table" style='max-width:100%;max-height:100%;margin: 12% auto 1%;overflow-x:auto'>
                <tr>
-                <td>
+                <td>i
                    <div style="max-width:100%;max-height:100%;">
                     <div style="text-align: center;margin-top:-80px;">
                         <img src="{% static 'res/images/wikigen_logo.png' %}"  id ="wiki_main_page_logo" alt="mainlogo" >
@@ -75,7 +80,7 @@
                     <br>
                     <br>
                     <br>
-                    <p style ="position:relative;line-height: 10pt; left:20px;" > <span style="font-size: 30px;color: white; ">WikiGen is a set of analysis tools providing different statistics for <a href="http://en.wikipedia.org" target="_blank" style="font-size:30px;">Wikipedia </a> articles. </span></p>
+                    <p style ="position:relative;line-height: 10pt; left:30px;" > <span style="font-size: 30px;color: white; "> &nbsp;&nbsp;&nbsp;WikiGen is an analytical tool that provides different  <a href="http://en.wikipedia.org" target="_blank" style="font-size:30px;">Wikipedia </a>articles statistics. </span></p>
                     <br>
                     <p><span style="font-size: 30px;color: white; ">It aims to explore the dynamic nature of the process of forming social representations.</span></p>
                 </div>
@@ -154,9 +159,7 @@
 
             </div>
 
-
-
-             <div id="no_query" title="No article">
+            <div id="no_query" title="No article">
             <p>Please type in the name of an article to be analyzed.</p>
                </div>
 
@@ -188,6 +191,8 @@
 <!--jquery script -->
 <script src="{% static 'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'css/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+<script src="{% static 'css/preloading/modernizer-2.6.2.min.js' %}"></script>
+<script src="{% static 'css/preloading/main.js' %}"></script>
 
 
 <script src="{% static 'js/wikigen-frontend/wikigen_config.js' %}" type="application/javascript"></script>

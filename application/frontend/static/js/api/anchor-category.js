@@ -2,6 +2,7 @@
 
 $(document).on('click', "#category-submit", function(event) {
 
+  $("#category-save").hide();
     var minNumber = 100;
     var maxNumber = 0;
 
@@ -21,7 +22,7 @@ $(document).on('click', "#category-submit", function(event) {
             're_introductions',
             'revision_survived',
             'days_survived',
-            'anchor',
+            'anchor'
         ];
         var anchor_details = {};
         var randomNumber = randomNumberFromRange(minNumber, maxNumber);
@@ -57,7 +58,6 @@ $(document).on('click', "#category-submit", function(event) {
                 }
             }
         });
-
     }
 
 });

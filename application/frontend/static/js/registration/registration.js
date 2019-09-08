@@ -5,7 +5,7 @@ $(document).ready(function(){
         var lastname = $('#lname').val();
         var email = $('#email').val();
         var password = $('#password').val();
-        const REGISTRATION_URL = 'http://0.0.0.0:8000/api/v1/registration/create/';
+        var REGISTRATION_URL = 'http://0.0.0.0:8000/api/v1/registration/create/';
         $.ajax({
             url: REGISTRATION_URL,
             method: 'POST',

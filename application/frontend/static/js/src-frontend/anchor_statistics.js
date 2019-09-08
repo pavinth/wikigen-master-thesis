@@ -603,7 +603,8 @@ $(function() {
                     { "sTitle": "Anchor Strength", "sClass": "left", "sWidth": "10%" },
                     { "sTitle": "First Seen","sClass": "left", "sWidth": "10%" },
                     { "sTitle": "Last Seen", "sClass": "left","sWidth": "10%" },
-                    { "sTitle": "Category","sClass": "center", "sWidth": "30%" }
+                    { "sTitle": "Category","sClass": "center", "sWidth": "20%" },
+                    { "sTitle": "Save/Edit","sClass": "center", "sWidth": "30%" }
                 ]
             }
         );
@@ -742,7 +743,8 @@ $(function() {
                                             { "sTitle": "Anchor Strength", "sClass": "left", "sWidth": "10%" },
                                             { "sTitle": "First Seen", "sClass": "left", "sWidth": "10%" },
                                             { "sTitle": "Last Seen","sClass": "left", "sWidth": "10%" },
-                                            { "sTitle": "Category","sClass": "center", "sWidth": "30%" }
+                                            { "sTitle": "Category","sClass": "center", "sWidth": "20%" },
+                                            { "sTitle": "Save/Edit","sClass": "center", "sWidth": "30%" }
                                         ]
                                     }
                                 );

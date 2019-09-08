@@ -2,7 +2,7 @@ $(document).ready(function(){
   $('#login-submit').click(function(){
       var username = $('#username').val();
       var password = $('#password').val();
-      const LOGIN_URL = 'http://0.0.0.0:8000/api/v1/registration/login/';
+      var LOGIN_URL = 'http://0.0.0.0:8000/api/v1/registration/login/';
       $.ajax({
           url: LOGIN_URL,
           method: 'POST',
@@ -13,7 +13,7 @@ $(document).ready(function(){
           crossDomain: true,
           statusCode: {
               200: function(){
-              alert('login successfull');
+                  //alert('login successfull');
                  window.location.replace('http://0.0.0.0:8000/');
               },
               400: function(){
@@ -31,13 +31,13 @@ $(document).ready(function(){
   // logout code is article_selection.js
   $("#logout-submit").on("click", function(e){
 
-        const LOGOUT_URL = 'http://0.0.0.0:8000/api/v1/registration/logout/';
+        var LOGOUT_URL = 'http://0.0.0.0:8000/api/v1/registration/logout/';
         $.ajax({
           url: LOGOUT_URL,
           method: 'GET',
           statusCode: {
               200: function(){
-                 alert('logout successfully');
+                // alert('logout successfully');
                   window.location.replace('http://0.0.0.0:8000/');
               },
               400: function(){
@@ -67,5 +67,6 @@ $(document).ready(function(){
         } else {
             input.attr("type", "password");
         }
-    });
+});
+
 });
