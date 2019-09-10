@@ -366,7 +366,6 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
 	var lastRevision;
 	var temp;
 	var category;
-	var saveEdit;
 	var GET_CAT_URL = 'http://0.0.0.0:8000/api/v1/stats/category/';
     $.ajax({
         async: false,
@@ -374,10 +373,11 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
         method: 'GET',
         statusCode: {
             200: function(data) {
+                  $('category-edit').show();
                 //alert('Anchor with Category Created Successfully');
-                var existing_category = '<datalist id="category-list">';
+                var existing_category = '<datalist id="category-list" >';
                 $.each(data.results, function(key, value){
-                    existing_category += '<option value="'+ value.name +'">'
+                    existing_category += '<option  value="'+ value.name +'">'
                 });
 
                 existing_category += '</datalist>';
@@ -411,12 +411,11 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
 
                         // create category
 
+						var saveCategory = "<input type=\"submit\" id=\'category-submit\' value='save' style='color:#ffffff;width:50px;height:30px;background:#343434;position:relative;bottom:14px;left:25px;text-align:center;float:right;border-radius: 4px; border: 1px solid black; '>" ;
+						var editCategory = "<input type=\"submit\" id=\'category-edit\' value='edit' style='color:#ffffff;width:50px;height:30px;background:#343434;position:relative;bottom:14px;left:25px;text-align:center;float:right;border-radius: 4px; border: 1px solid black;display:none; '>" ;
                         var category = "<div id='category-form'> " +
-                            "  <input type='text' list='category-list' id='category-input' size='40' style='line-height:1.8;position:relative;top:2px;' name='category'>\n" +
-                             existing_category + "</div>";
-
-						var saveEdit = "<input type=\"submit\" id=\'category-submit\' value='save' style='color:#ffffff;width:50px;height:30px;background:#343434;position:relative;bottom:-3px;left:-5px;text-align:center;float:right;border-radius: 4px; border: 1px solid black;display:inline-block; '>" +
-                        "<input type=\"button\" id=\'category-edit\'  value='edit' style='color:#ffffff;width:50px;height:30px;background:#343434;position:relative;bottom:-3px;left:-5px;text-align:center;float:right;border-radius: 4px; border: 1px solid black;display:inline-block; '>";
+                            "<input type='text' list='category-list' id='category-input' size='35' style='line-height:1.8;position:relative;top:17px;border-radius:4px;' name='category'>\n" +
+                             existing_category + saveCategory + editCategory + "</div>";
 
                         // Writing the prepared data into the table row
                         // ToDo Restore
@@ -434,7 +433,6 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
                             row.push("<a href='http://"+wikiLang+".wikipedia.org/w/index.php?title=" + anchor + "&oldid=" + lastRevision +"' target='_blank'>" + lastSeen.getFullYear() + "-" + getMonthNumber(lastSeen) +  "-" + getDayNumber(lastSeen) + "</a>");
                             //row.push("<div><a class='anchor-cat' href='#'>Add Category</a></div>");
                             row.push(category);
-                            row.push(saveEdit);
                             result.push(row);
                         }
 

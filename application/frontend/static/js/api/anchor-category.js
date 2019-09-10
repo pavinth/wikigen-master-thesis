@@ -2,7 +2,6 @@
 
 $(document).on('click', "#category-submit", function(event) {
 
-  $("#category-save").hide();
     var minNumber = 100;
     var maxNumber = 0;
 
@@ -48,6 +47,7 @@ $(document).on('click', "#category-submit", function(event) {
             data: anchor_details,
             statusCode: {
                 201: function () {
+
                     //alert('Anchor with Category Created Successfully');
                 },
                 400: function () {

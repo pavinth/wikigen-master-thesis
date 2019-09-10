@@ -8,14 +8,20 @@ $(document).ready(function(){
           method: 'POST',
           data: {
               'username': username,
-              'password': password,
+              'password': password
           },
           crossDomain: true,
           statusCode: {
               200: function(){
-                  //alert('login successfull');
-                 window.location.replace('http://0.0.0.0:8000/');
-              },
+                  $("#LoginSuccessful")
+                      .prepend("<h2 style ='font-style: italic;background:white;width:300px;border-radius:4px;position:relative;right:100px;float:right;'>Login Successful </h2> ")
+                       .children(':first')
+                       .fadeOut(2000);
+                            setTimeout(function () {
+                            window.location.replace('http://0.0.0.0:8000/');
+                            },
+                         2000);
+                  },
               400: function(){
                   alert('Error in Login! Are you registered?');
               },
@@ -37,8 +43,8 @@ $(document).ready(function(){
           method: 'GET',
           statusCode: {
               200: function(){
-                // alert('logout successfully');
-                  window.location.replace('http://0.0.0.0:8000/');
+
+                 window.location.replace('http://0.0.0.0:8000/');
               },
               400: function(){
                   alert('Error in Loggin in! Are you registered?');

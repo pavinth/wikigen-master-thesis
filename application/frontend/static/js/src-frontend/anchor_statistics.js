@@ -429,14 +429,14 @@ $(function() {
             }
             var dataObject1 = constructMonthDataObject(
                  addedAnchorsArray,
-                '#1aeb2a',
+                '#0ddbf8',
                 'New anchors per month',
                 true,
                  visualOverride,2
             );
             var dataObject2 = constructMonthDataObject(
                 removedAnchorsArray,
-                '#cc4520',
+                '#cc2a1b',
                 'Removed anchors per month',
                 true,
                 visualOverride,
@@ -603,8 +603,8 @@ $(function() {
                     { "sTitle": "Anchor Strength", "sClass": "left", "sWidth": "10%" },
                     { "sTitle": "First Seen","sClass": "left", "sWidth": "10%" },
                     { "sTitle": "Last Seen", "sClass": "left","sWidth": "10%" },
-                    { "sTitle": "Category","sClass": "center", "sWidth": "20%" },
-                    { "sTitle": "Save/Edit","sClass": "center", "sWidth": "30%" }
+                    { "sTitle": "Category","sClass": "center", "sWidth": "40%" }
+
                 ]
             }
         );
@@ -743,8 +743,7 @@ $(function() {
                                             { "sTitle": "Anchor Strength", "sClass": "left", "sWidth": "10%" },
                                             { "sTitle": "First Seen", "sClass": "left", "sWidth": "10%" },
                                             { "sTitle": "Last Seen","sClass": "left", "sWidth": "10%" },
-                                            { "sTitle": "Category","sClass": "center", "sWidth": "20%" },
-                                            { "sTitle": "Save/Edit","sClass": "center", "sWidth": "30%" }
+                                            { "sTitle": "Category","sClass": "center", "sWidth": "40%" }
                                         ]
                                     }
                                 );

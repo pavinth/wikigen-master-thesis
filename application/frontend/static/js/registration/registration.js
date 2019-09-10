@@ -14,7 +14,7 @@ $(document).ready(function(){
                 'first_name': firstname,
                 'last_name': lastname,
                 'password': password,
-                'email': email,
+                'email': email
             },
             statusCode: {
                 201: function(){
