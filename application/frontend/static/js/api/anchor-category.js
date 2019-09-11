@@ -21,7 +21,7 @@ $(document).on('click', "#category-submit", function(event) {
             're_introductions',
             'revision_survived',
             'days_survived',
-            'anchor',
+            'anchor'
         ];
         var anchor_details = {};
         var randomNumber = randomNumberFromRange(minNumber, maxNumber);
@@ -47,6 +47,7 @@ $(document).on('click', "#category-submit", function(event) {
             data: anchor_details,
             statusCode: {
                 201: function () {
+
                     //alert('Anchor with Category Created Successfully');
                 },
                 400: function () {
@@ -57,7 +58,6 @@ $(document).on('click', "#category-submit", function(event) {
                 }
             }
         });
-
     }
 
 });

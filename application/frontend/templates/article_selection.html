@@ -8,30 +8,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon"  href="{% static 'res/images/logo.png' %}">
     <link rel='stylesheet'  href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link rel="stylesheet"  href="{% static 'css/preloading/preloading.css' %}">
     <link rel="stylesheet"  href="{% static 'css/jquery-ui-1.12.1/jquery-ui.css' %}">
     <link rel="stylesheet"  href="{% static 'css/material.min.css' %}">
     <link rel="stylesheet"  href="{% static 'css/wikigen.css' %}">
 
     <!-- Title Page-->
     <title>Article Selection</title>
-
-    <!-- CSS References -->
+     <!-- CSS References -->
 
     </head>
 
 <body>
-
+<div class="loader" style="display: none;"></div>
 
 <!-- Website title -->
 <!-- Main content div which is replaced during the navigation -->
 <div id="particles-js"> </div>
 <div id="WikiGen_content"></div>
-
 <div id="loading_dialog" title="Loading">
     <div id="edit_stats_loading" style="height: 110px; margin-left:40%;"></div>
 </div>
+<div id="loader-wrapper">
+    <div id="loader"></div>
 
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-bottom"></div>
 
+</div>
 <table style="float:right;" cellspacing="15" width=50 cellpadding=5>
 <tr>
     <td>
@@ -46,13 +50,13 @@
         </div>
     </td>
     <td>
-       <div class="logged-in-user" >
+       <div class="logged-in-user"  style="display:none;">
 		<i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;color:white;"></i>
 
 		<div class = "dropdown-content">
 			<a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i> <p id="lusername" style="text-align:center;"></p></a>
-			<a onclick = "window.location.href='http://0.0.0.0:8000/dashboard-page/'">
-				<i class="fas fa-calendar" style="font-size:20px;margin-left:10px;position:relative;top:20px;"></i>
+            <a href="http://0.0.0.0:8000/dashboard-page/" rel="noopener noreferrer" >
+				<i class="fas fa-calendar" style="font-size:20px;margin-left:10px;position:relative;top:20px;cursor: pointer;"></i>
 				<p style=" text-align:center;cursor:pointer;">Dashboard</p></a>
 			<a href="/#/"><i class="fas fa-sign-out-alt" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
 				<p id="logout-submit" style="text-align:center;">Logout</p></a>
@@ -76,7 +80,7 @@
                     <br>
                     <br>
                     <br>
-                    <p style ="position:relative;line-height: 10pt; left:20px;" > <span style="font-size: 30px;color: white; ">WikiGen is a set of analysis tools providing different statistics for <a href="http://en.wikipedia.org" target="_blank" style="font-size:30px;">Wikipedia </a> articles. </span></p>
+                    <p style ="position:relative;line-height: 10pt; left:30px;" > <span style="font-size: 30px;color: white; "> &nbsp;&nbsp;&nbsp;WikiGen is an analytical tool that provides different  <a href="http://en.wikipedia.org" target="_blank" style="font-size:30px;">Wikipedia </a>articles statistics. </span></p>
                     <br>
                     <p><span style="font-size: 30px;color: white; ">It aims to explore the dynamic nature of the process of forming social representations.</span></p>
                 </div>
@@ -96,7 +100,7 @@
                                     <span style="color: white;font-size:25px;">Select Wikipedia article to analyze:</span>
                                 </p>
                             </td><td>
-                                <i class="fa fa-info-circle"  style="font-size:20px;color:white;top:-5px;position:relative;" id="selection_i"  title="view how to search Wikipedia Article"></i>
+                                <i class="fa fa-info-circle"  style="font-size:20px;color:white;top:-7px;position:relative;" id="selection_i"  title="view how to search Wikipedia Article"></i>
                             </td></tr>
                         </table>
 
@@ -155,9 +159,7 @@
 
             </div>
 
-
-
-             <div id="no_query" title="No article">
+            <div id="no_query" title="No article">
             <p>Please type in the name of an article to be analyzed.</p>
                </div>
 
@@ -184,25 +186,22 @@
                 <p>After you have selected the article, <b>WikiGen</b> applicaton will start. It will display the Wikipedia article and allow switching between different functionalities the application provides.</p>
 
                 </div>
-</div>
 
 
 <!--jquery script -->
 <script src="{% static 'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'css/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+<script src="{% static 'css/preloading/modernizer-2.6.2.min.js' %}"></script>
+<script src="{% static 'css/preloading/main.js' %}"></script>
 
 
-<script src="{% static 'js/wikigen-frontend/wikigen_statistics.js' %}" type="application/javascript"></script>
-<script src="{% static 'js/wikigen-frontend/wikigen_ploting.js' %}" type="application/javascript"></script>
 <script src="{% static 'js/wikigen-frontend/wikigen_config.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_statistics.js' %}" type="application/javascript"></script>
 <script src="{% static 'js/wikigen-frontend/wikigen_utils.js' %}" type="application/javascript"></script>
-
-<script src="{% static 'js/user/profile.js' %}" type="application/javascript"></script>
-
+<script src="{% static 'js/wikigen-frontend/wikigen_ploting.js' %}" type="application/javascript"></script>
 <!--particles script-->
 <script src="{% static 'js/particles/particles.js' %}"></script>
 <script src="{% static 'js/particles/particles_app.js' %}"></script>
-
 
 <!-- Spin Scripts -->
 <script  src="{% static 'js/jquery-related/spin.min.js' %}"></script>

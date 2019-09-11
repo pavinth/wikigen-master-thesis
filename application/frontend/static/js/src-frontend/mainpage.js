@@ -160,7 +160,7 @@ $(function() {
         }
     });
     $(".fas.fa-calendar ").on("click", function(e){
-        window.open("/dashboard-page/", '_self');
+        window.open("/dashboard-page/", '_blank');
 
 });
 });

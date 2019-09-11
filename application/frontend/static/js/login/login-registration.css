@@ -366,28 +366,5 @@ input[type=checkbox]:not(old):checked + label > span:before {
   }
 }
 
-.particles-js {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  z-index: -1;
-  background: url("../images/background.jpg") no-repeat center fixed;
-  max-width: 100%;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  image-rendering: optimizeSpeed;
-  animation: zoomout 30s ease-in infinite;
-}
-@keyframes zoomout{
-  0%   { background-size: 100% auto; }
-  50% { background-size: 120% auto; }
-  100% { background-size: 100% auto; }
-}
 
 

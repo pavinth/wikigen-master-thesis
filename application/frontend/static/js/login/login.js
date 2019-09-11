@@ -2,20 +2,26 @@ $(document).ready(function(){
   $('#login-submit').click(function(){
       var username = $('#username').val();
       var password = $('#password').val();
-      const LOGIN_URL = 'http://0.0.0.0:8000/api/v1/registration/login/';
+      var LOGIN_URL = 'http://0.0.0.0:8000/api/v1/registration/login/';
       $.ajax({
           url: LOGIN_URL,
           method: 'POST',
           data: {
               'username': username,
-              'password': password,
+              'password': password
           },
           crossDomain: true,
           statusCode: {
               200: function(){
-              alert('login successfull');
-                 window.location.replace('http://0.0.0.0:8000/');
-              },
+                  $("#LoginSuccessful")
+                      .prepend("<h2 style ='font-style: italic;background:white;width:300px;border-radius:4px;position:relative;right:100px;float:right;'>Login Successful </h2> ")
+                       .children(':first')
+                       .fadeOut(2000);
+                            setTimeout(function () {
+                            window.location.replace('http://0.0.0.0:8000/');
+                            },
+                         2000);
+                  },
               400: function(){
                   alert('Error in Login! Are you registered?');
               },
@@ -31,14 +37,14 @@ $(document).ready(function(){
   // logout code is article_selection.js
   $("#logout-submit").on("click", function(e){
 
-        const LOGOUT_URL = 'http://0.0.0.0:8000/api/v1/registration/logout/';
+        var LOGOUT_URL = 'http://0.0.0.0:8000/api/v1/registration/logout/';
         $.ajax({
           url: LOGOUT_URL,
           method: 'GET',
           statusCode: {
               200: function(){
-                 alert('logout successfully');
-                  window.location.replace('http://0.0.0.0:8000/');
+
+                 window.location.replace('http://0.0.0.0:8000/');
               },
               400: function(){
                   alert('Error in Loggin in! Are you registered?');
@@ -67,5 +73,6 @@ $(document).ready(function(){
         } else {
             input.attr("type", "password");
         }
-    });
+});
+
 });

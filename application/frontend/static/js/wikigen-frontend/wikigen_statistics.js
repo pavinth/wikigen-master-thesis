@@ -561,10 +561,6 @@ function retrieveDataBulk(mainUrl, continuePrefix, prevNextPartPointer, nextPart
 				//console.log('request failed');
 				callbackError();
 			}
-		},
-		error: function() {
-			//console.log('request failed');
-			callbackError();
 		}
 	});
 }
@@ -1263,7 +1259,7 @@ function generateDataForOverallEditStatsPlot(title, fromDate, untilDate, prevNex
 	var url = wikiAPIEndPoint + actionQuery + propRevisions + jsonFormat + rvpropPrefix + "ids|timestamp|flags|user" + rvlimitMax + titlePrefix + title + newerRevisionDir + callbackJsonp;
 
 	//var url = "http://localhost:8080/revisions";
-	console.log(url);
+	//console.log(url);
 	retrieveDataBulk(url, "rvcontinue", prevNextRevision, nextRevision,
 		function(data) { // success in recieving data
 			//console.log('successfully retrieved revision bulk');
@@ -1642,7 +1638,7 @@ function parseRevisionBulkLinks(data, callbackSuccess, callbackError) {
 function anchorAnalysisProcedure(title, prevNextRevision, nextRevision, callbackSuccess, callbackError) {
 	//console.log('startanchorAnalysisProcedure');
 	var url = wikiAPIEndPoint + actionQuery + propRevisions  + jsonFormat + rvpropPrefix + "timestamp|content|flags|user" + rvlimitMax + titlePrefix + title + rvFirstSection + newerRevisionDir + callbackJsonp;
-	console.log(url);
+	//console.log(url);
 	retrieveDataBulk(url, "rvcontinue", prevNextRevision, nextRevision,
 		function(data) { // success in receiving data
 			//console.log('successfully retrieved revision bulk');
@@ -1790,7 +1786,7 @@ function resetAnchorEvolutionStats() {
 	anchorRelevantRevisions = {};
 	anchorMovements = {};
 	uniqueAnchorIntroductions = {};
-	let addDataInitialized = false;
+	var addDataInitialized = false;
 }
 
 /*
@@ -2023,13 +2019,14 @@ function checkForLinkOccurenceInPlain(data, referenedTitle, callbackFound, callb
 	//console.log('Searching for occurences in article text for: ' + backlink);
 	if(data && data["query"] && data["query"]["pages"]) { // recieved not corrupted data
 		var pages = data.query.pages;
+
 		for (var id in pages) { // look for all pages
 			var revisions = pages[id].revisions;
 			for(var revid in revisions) { // look for all revisions of the page
 				var currentRevision = revisions[revid];
 				if(currentRevision['*']) {
 					var content = currentRevision['*'].toLowerCase();
-					var searchString = sessionStorage.getItem('selected_article').toLowerCase();
+					var searchString = localStorage.getItem('selected_article').toLowerCase();
 					var foundTermPos = content.indexOf('[[' + searchString);
 					var foundCategoryPos = content.indexOf('[[category:' + searchString); //[[Category:Cloud computing
 					//var foundDefinition = content.indexOf('==');
@@ -2143,7 +2140,7 @@ function saveBacklinkDataForReferenceStats(backlink, year, type, lastType) {
 function findEarlyBacklinkOccurenceFast(backlink, referenedTitle, nextYear, callbackSuccess, callbackError, lastType, lastRevisionYear) {
 	//console.log('Starting to search for early occurence FAST for ' + backlink + " in year " + nextYear + " and already found the first one in " + lastType);
 	var revisionURL = wikiAPIEndPoint + actionQuery + propRevisions + jsonFormat + rvpropPrefix + "ids|timestamp|content" + rvlimit1 + rvStartPrefix + nextYear + "-01-01T00:00:00Z" +rvNewerDirection + titlePrefix + backlink + callbackJsonp;
-	console.log(revisionURL);
+//	console.log(revisionURL);
 	retrieveDataBulk(revisionURL, "", "", "", function(data) { // success in recieving data (1 item which is the first revision in the given year)
 			//console.log('successfully retrieved revision of the given year for the backlink: ' + backlink);
 			getYearAndIdOfFirstRevision(data,
@@ -2571,10 +2568,6 @@ function getArticleAPIName(articleName, callbackSuccess, callbackError) {
 					//console.log('Data is corrupt');
 					callbackError();
 				}
-			},
-			function() {
-				//console.log('Could not receive data bulk');
-				callbackError();
 			}
 		);
 }

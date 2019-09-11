@@ -5,67 +5,7 @@ $(function() {
         $('#selection_i_dialog').hide();
 
 
-
-
-    // thapa changes
-    if (localStorage['user'] === undefined)
-        $('.logged-in-user').hide();
-
-    function logout(){
-        const LOGOUT_URL = 'http://0.0.0.0:8000/api/v1/registration/logout/';
-        var user = JSON.parse(localStorage.getItem('user'));
-
-        if(user === undefined){
-            //alert('You are not logged in!');
-            return;
-        }
-        delete localStorage['user'];
-      //  alert('Logged out successfully!');
-        window.location.replace('http://0.0.0.0:8000');
-        /* TODO THAPA
-            $.ajax({
-            url: LOGOUT_URL,
-            method: 'POST',
-            crossDomain: true,
-            data: {
-                'username': user.username,
-                'password': user.password,
-            },
-            statusCode: {
-                200: function(){
-                  delete localStorage['user'];
-                    alert('Logout Successful!');
-                },
-                400: function(){
-                    alert('Error in Logging out! Are you Logged in?');
-                },
-                404: function(){
-                    alert('Invalid URL! Is server running?');
-                }
-            },
-        })
-
-        */
-
-      }
-
-    $(".logged-in-user ").on("click", function(e){
-        e.preventDefault();
-        if(e.target.id === "logout-submit"){
-            logout();
-        }
-        if($(this).hasClass("open")) {
-            $(this).removeClass("open");
-            $(this).children("ul").slideUp("fast");
-        } else {
-            $(this).addClass("open");
-            $(this).children("ul").slideDown("fast");
-        }
-    });
-
-
-
-    clearSessionStorage();
+    clearLocalStorage();
     $("#selected_language span").text(getWikiLang());
     $("#language_changer").hide();
     $( "#inner_lang_div_start" ).hide();
@@ -84,33 +24,19 @@ $(function() {
             $("#no_query").dialog();
         } else {
             // Save chosen element
-            sessionStorage.setItem('selected_article', $("#searchbar").val());
+            //localStorage.setItem('selected_article', $("#searchbar").val());
             // Go to main page
             getArticleAPIName(selectedArticle, function(apiName) { // name found
-                    sessionStorage.setItem('selected_article', apiName);
+                    localStorage.setItem('selected_article', apiName);
 
-                    $("#loading_dialog" ).dialog({
-                        autoOpen: true,
-                        width: 800,
-                        modal: true,
-                        open: function() {
-                            $('.ui-widget-overlay').addClass('custom-overlay');
-                        },
-                        show: {
-                            effect: "fadeIn",
-                            duration: 2000
-                        },
-                        hide: {
-                            effect: "fadeOut",
-                            duration: 3000
-                        }
-                    });
 
-                    var spinnerTarget = $('#edit_stats_loading')[0];
-                    var spinner = new Spinner(opts).spin(spinnerTarget);
+                    $('.loader').show();
+                  // var spinnerTarget = $('#edit_stats_loading')[0];
+                    //var spinner = new Spinner(opts).spin(spinnerTarget);
                     precalculateRevisionCount(apiName, function(revisionCount) {
-                            spinner.stop();
-                            $("#loading_dialog").dialog('close');
+
+                          $('.loader').hide();  // spinner.stop();
+                           // $("#loading_dialog").dialog('close');
                             setRevisionCountCalculated();
                             var revisionDates = getRevisionDates();
                             var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";
@@ -126,7 +52,7 @@ $(function() {
                                     });
                                 }
                             });
-                            $( "#revision_date_div" ).show();
+                            $( "#revision_date_div" ).hide();
                         },
                         function () {
                         }
@@ -136,8 +62,6 @@ $(function() {
 
                 },
 
-
-
                 function() { // name not found
                     $("#no_article").dialog();
                 }
@@ -145,8 +69,9 @@ $(function() {
 
 
             getArticleAPIName(talkSelectedArticle, function(apiName) { // name found
-                sessionStorage.setItem('talk_selected_article', apiName);
+               localStorage.setItem('talk_selected_article', apiName);
                 precalculateRevisionCount(apiName, function(revisionCount) {
+                     setRevisionCountCalculated();
                         var revisionDates = getRevisionDates();
                         var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";
                         $( "#revision_date" ).autocomplete({

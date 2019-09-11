@@ -22,14 +22,12 @@
 	<img  style="float:left; margin-left: 20px; padding:10px; margin-top: 5px;" src = "{% static 'res/images/wiki_name.png' %}"  id="wikigen-logo"  alt="wikigen">
 	<span id="selected_article"></span> &emsp;
 	<button type="button" id="change_article">
-		<i class="fas fa-angle-double-left" style="font-size:16px;margin-right:10px;"></i>Change Article</button>
-
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Change Article<i class="fas fa-angle-double-left" style="font-size:16px;float:right;margin-left:15px;"></i></button>
 </div>
 
-<div class="logged-in-user" >
-		<i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;position:relative; top:-100px;color:white;"></i>
-
-		<div class = "dropdown-content" style="position:absolute;top:-65px;" >
+<div class="logged-in-user"  style="display:none;" >
+		<i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;position:relative; top:-80px;color:white;"></i>
+		<div class = "dropdown-content" style="position:absolute;top:-45px;" >
 			<a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i> <p id="lusername" style="text-align:center;"></p></a>
 			<a onclick = "window.location.href='http://0.0.0.0:8000/dashboard-page/'">
 				<i class="fas fa-calendar" style="font-size:20px;margin-left:10px;position:relative;top:20px;"></i>
@@ -131,8 +129,7 @@
 </div>
 
 <div id="edit_stats_loading_form" style="margin-top: 1em;">
-	<div id="edit_progressbar_div"><p>Wait for analysis to complete:<span> </span></p></div>
-	<br>
+	<div id="edit_progressbar_div"><p style="margin:2px;">Wait for analysis to complete:<span> </span></p></div>
 	<div id="edit_progressbar"></div>
 </div>
 <div style="margin-top: 1em;">
@@ -874,10 +871,11 @@
 <script  src="{% static 'js/flot/jquery.flot.resize.js' %}"></script>
 
 
-<script src="{% static 'js/wikigen-frontend/wikigen_statistics.js' %}" type="application/javascript"></script>
-<script src="{% static 'js/wikigen-frontend/wikigen_ploting.js' %}" type="application/javascript"></script>
 <script src="{% static 'js/wikigen-frontend/wikigen_config.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_ploting.js' %}" type="application/javascript"></script>
+<script src="{% static 'js/wikigen-frontend/wikigen_statistics.js' %}" type="application/javascript"></script>
 <script src="{% static 'js/wikigen-frontend/wikigen_utils.js' %}" type="application/javascript"></script>
+
 
 
 
@@ -885,7 +883,7 @@
 <script src="{% static  'js/login/login.js' %}" ></script>
 <script src="{% static  'js/registration/registration.js' %}"></script>
 <script src="{% static  'js/user/profile.js' %}" ></script>
-<script src="{% static  'js/src-frontend/edit_statistics.js' %}" type="application/javascript"></script>
+<script src="{% static  'js/src-frontend/edit_statistics.js' %}" ></script>
 
 </body>
 </html>
