@@ -11,7 +11,6 @@ router.register(r'article', viewset.Article, basename='article')
 router.register(r'category', viewset.Category, basename='category')
 router.register(r'dash', viewset.Dashboard, base_name='dash')
 
-
 article_router = routers.NestedSimpleRouter(router, r'article', lookup='article')
 #article_router.register(r'revision', viewset.Revision, base_name='revision')
 article_router.register(r'anchor', viewset.Anchor, base_name='anchor')

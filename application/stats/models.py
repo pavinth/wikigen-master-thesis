@@ -57,24 +57,3 @@ class Anchor(ArticleMixin, DateTime):
 
     def __str__(self):
         return f'{self.anchor}'
-
-
-class Dashboard:
-    created_at = models.DateField()
-    updated_at = models.DateField()
-    anchor = models.CharField()
-    strength = models.FloatField()
-    last_seen = models.DateField()
-    first_seen = models.DateField()
-    days_survived = models.FloatField()
-    re_introductions = models.FloatField()
-    revision_survived = models.FloatField()
-    article_id = models.IntegerField()
-    category_id = models.IntegerField()
-    name = models.CharField()
-    title = models.CharField()
-
-    objects = models.Manager()
-
-    def __str__(self):
-        return f'{self.anchor}'

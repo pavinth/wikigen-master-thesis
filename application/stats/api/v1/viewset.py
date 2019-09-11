@@ -41,25 +41,12 @@ class Category(viewsets.ModelViewSet):
 
 
 class Dashboard(viewsets.ModelViewSet):
-    serializer_class = serializers.DashboardSerializer
+    serializer_class = serializers.Anchor
 
     def get_queryset(self):
-        query = '''
-        select 
-            sa.*, 
-            sc.name, 
-            saa.title 
-        from
-            stats_anchor sa 
-        inner join
-            stats_category sc on sc.id = sa.category_id 
-        inner join 
-            stats_article saa on saa.id = sa.article_id 
-        where 
-            saa.title='He'; 
-            '''
+        anchor_list = models.Anchor.objects \
+            .select_related('article') \
+            .select_related('category') \
+            .filter(article__title="He")
 
-        anchor_list = models.Dashboard.objects.raw(query)
-
-        for anchor in anchor_list:
-            print(anchor_list)
+        return anchor_list

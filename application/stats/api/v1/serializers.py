@@ -82,37 +82,3 @@ class Category(serializers.ModelSerializer):
         user = self.context['request'].user
 
         return models.Category.objects.create(user=user, **validated_data)
-
-
-class DashboardSerializer(serializers.ModelSerializer):
-    created_at = serializers.DateField()
-    updated_at = serializers.DateField()
-    anchor = serializers.CharField()
-    strength = serializers.FloatField()
-    last_seen = serializers.DateField()
-    first_seen = serializers.DateField()
-    days_survived = serializers.FloatField()
-    re_introductions = serializers.FloatField()
-    revision_survived = serializers.FloatField()
-    article_id = serializers.IntegerField()
-    category_id = serializers.IntegerField()
-    name = serializers.CharField()
-    title = serializers.CharField()
-
-    class Meta:
-        model = models.Dashboard
-        fields = [
-            'created_at',
-            'updated_at',
-            'anchor',
-            'strength',
-            'last_seen',
-            'first_seen',
-            'days_survived',
-            're_introductions',
-            'revision_survived',
-            'article_id',
-            'category_id',
-            'name',
-            'title',
-        ]
