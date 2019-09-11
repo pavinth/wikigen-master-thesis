@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 	setTimeout(function(){
 		$('body').addClass('loaded');
-	}, 10);
+	}, 1500);
 
 });
 
