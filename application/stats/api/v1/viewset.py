@@ -5,6 +5,8 @@ from application.stats.api.v1 import filters, serializers
 
 from rest_framework import viewsets
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 class Article(viewsets.ModelViewSet):
     lookup_field = 'id'
@@ -25,12 +27,16 @@ class Revision(viewsets.ModelViewSet):
 
 class Anchor(viewsets.ModelViewSet):
     lookup_field = 'id'
-    filterset_class = filters.Anchor
+    filter_backends = [DjangoFilterBackend]
     serializer_class = serializers.Anchor
+    filterset_fields = ['category__name']
 
     def get_queryset(self):
-        return models.Anchor.objects.filter(article__user=self.request.user, article__id=self.kwargs['article_id'])
+        queryset =  models.Anchor.objects.filter(article__user=self.request.user)
 
+        if self.kwargs.get('article_id', None):
+            queryset.filter(article__id=self.kwargs['article_id'])
+        return queryset
 
 class Category(viewsets.ModelViewSet):
     lookup_field = 'id'
