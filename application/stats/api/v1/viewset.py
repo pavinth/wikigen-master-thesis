@@ -33,9 +33,9 @@ class Anchor(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset =  models.Anchor.objects.filter(article__user=self.request.user)
-
+        
         if self.kwargs.get('article_id', None):
-            queryset.filter(article__id=self.kwargs['article_id'])
+            queryset = queryset.filter(article__id=self.kwargs['article_id'])
         return queryset
 
 class Category(viewsets.ModelViewSet):
