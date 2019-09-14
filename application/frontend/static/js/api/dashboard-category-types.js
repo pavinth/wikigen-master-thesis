@@ -1,110 +1,159 @@
-$(function() {
-        $('#categoryTable').hide();
-        $.getJSON("http://0.0.0.0:8000/api/v1/stats/article/", function(data){
-                var articleName ='';
-                $.each(data.results, function(key, value){
-                    date = new Date(value.created_at);
-                    articleName += '<tr>';
-                    articleName += '<td id="dashboard-article">' + "<a href='#'>" + '<p style="text-decoration:underline;"  class="articleDetailInfo">' + value.title + '</p><input type="hidden" id="article_id" value='+ value.id +'></td>';
-                    articleName += '<td style="text-align: center">' + "<p   style=\"text-align: center\" class='articleDetailInfo'>" +  value.category_count + "</p>"+'</td>';
-                    articleName += '<td style="text-align: center">' + "<p  style= \"text-align: center\" class='articleDetailInfo'>" + value.total_anchor_count + "</p>"+'</td>';
-                  //  articleName += '<td style="text-align: left">' + "<p class='articleDetailInfo'>" + date.toDateString() + "</p>"+'</td>';
-                    articleName += '</tr>';
-                });
-                $('#detailTable').append(articleName);
+$(function () {
+    $('#categoryTable').hide();
+    $('#anchorTable').hide();
+    $.getJSON("http://0.0.0.0:8000/api/v1/stats/article/", function (data) {
 
-                $('.articleDetailInfo').click(function(){
-                    articleId = $(this).next().val();
-                    $.getJSON("http://0.0.0.0:8000/api/v1/stats/article/"+ articleId +"/anchor/", function (data) {
-                        var categoryDetail ='';
-                        var avg_days_survived = 0;
-                        var avg_rev_survived = 0;
-                        var avg_re_introductions = 0;
-                        var avg_anchor_strength = 0;
-                        var number_of_cats = 0;
-                        $.each(data.results, function(key, value){
-                            categoryDetail += '<tr>';
-                            categoryDetail+= '<td style="text-align: left" id="cat-analyse">' + value.category+'</td>';
-                            categoryDetail+= '<td style="text-align: left">' + "<a href='#'> " + value.anchor + "</a>"  +'</td>';
-                            categoryDetail+= '<td style="text-align: center">' + value.days_survived +'</td>';
-                            categoryDetail+= '<td style="text-align: center">' + value.revision_survived+'</td>';
-                            categoryDetail+= '<td style="text-align: center">' + value.re_introductions+'</td>';
-                            categoryDetail+= '<td style="text-align: center">' + value.strength+'</td>';
-                            categoryDetail+= '<td style="text-align: center">' + value.first_seen+'</td>';
-                            categoryDetail+= '<td style="text-align: left">' + value.last_seen+'</td>';
-                            categoryDetail+= '</tr>';
-                            avg_days_survived += value.days_survived;
-                            avg_rev_survived += value.revision_survived;
-                            avg_re_introductions += value.re_introductions;
-                            avg_anchor_strength += value.strength;
-                            number_of_cats += 1;
-                        });
-                        $('#categoryTable').show();
-                        $('#categoryTableBody').html(categoryDetail);
+        renderArticlesList(data.results);
 
-                        var analysis_html = '<tr>';
-                        analysis_html+= '<td style="text-align: left;" colspan="2"><b>Average</b></td>';
-                        analysis_html+= '<td style="text-align: center">' + '<b>' + (avg_days_survived / number_of_cats).toFixed(2) + '</b>' +'</td>';
-                        analysis_html+= '<td style="text-align: center">' + '<b>' + (avg_rev_survived / number_of_cats).toFixed(2) +'</b>'+'</td>';
-                        analysis_html+= '<td style="text-align: center">' + '<b>' +(avg_re_introductions / number_of_cats).toFixed(2) +'</b>'+'</td>';
-                        analysis_html+= '<td style="text-align: center">' + '<b>' + (avg_anchor_strength / number_of_cats).toFixed(2) +'</b>'+'</td>';
-                        analysis_html+= '<td style="text-align: left" colspan="2"></td>';
-                        analysis_html+= '</tr>';
+        $('.articleDetailInfo').click(function () {
 
-                        $('#categoryTable').append(analysis_html);
+            $('#anchor-list').html('');
+            $('#anchorTable').hide();
+            var articleId = $(this).attr("id");
 
-                        $(document).on('click', '#cat-analyse', function(){
-                            alert('starting category analysis..')
-                            var category = $(this).text();
-                            $.getJSON("http://0.0.0.0:8000/api/v1/stats/anchor/?category__name="+ category, function(data){
-                                var categoryDetail ='';
-                                var avg_days_survived = 0;
-                                var avg_rev_survived = 0;
-                                var avg_re_introductions = 0;
-                                var avg_anchor_strength = 0;
-                                var number_of_cats = 0;
-                                $.each(data.results, function(key, value){
-                                    categoryDetail += '<tr>';
-                                    categoryDetail+= '<td style="text-align: left" id="cat-analyse">' + value.category+'</td>';
-                                    categoryDetail+= '<td style="text-align: left">' + "<a href='#'> " + value.anchor + "</a>"  +'</td>';
-                                    categoryDetail+= '<td style="text-align: center">' + value.days_survived +'</td>';
-                                    categoryDetail+= '<td style="text-align: center">' + value.revision_survived+'</td>';
-                                    categoryDetail+= '<td style="text-align: center">' + value.re_introductions+'</td>';
-                                    categoryDetail+= '<td style="text-align: center">' + value.strength+'</td>';
-                                    categoryDetail+= '<td style="text-align: center">' + value.first_seen+'</td>';
-                                    categoryDetail+= '<td style="text-align: left">' + value.last_seen+'</td>';
-                                    categoryDetail+= '</tr>';
-                                    avg_days_survived += value.days_survived;
-                                    avg_rev_survived += value.revision_survived;
-                                    avg_re_introductions += value.re_introductions;
-                                    avg_anchor_strength += value.strength;
-                                    number_of_cats += 1;
-                                });
-                                $('#categoryTable').show();
-                                $('#categoryTableBody').html(categoryDetail);
-        
-                                var analysis_html = '<tr>';
-                                analysis_html+= '<td style="text-align: left;" colspan="2"><b>Average</b></td>';
-                                analysis_html+= '<td style="text-align: center">' + '<b>' + (avg_days_survived / number_of_cats).toFixed(2) + '</b>' +'</td>';
-                                analysis_html+= '<td style="text-align: center">' + '<b>' + (avg_rev_survived / number_of_cats).toFixed(2) +'</b>'+'</td>';
-                                analysis_html+= '<td style="text-align: center">' + '<b>' +(avg_re_introductions / number_of_cats).toFixed(2) +'</b>'+'</td>';
-                                analysis_html+= '<td style="text-align: center">' + '<b>' + (avg_anchor_strength / number_of_cats).toFixed(2) +'</b>'+'</td>';
-                                analysis_html+= '<td style="text-align: left" colspan="2"></td>';
-                                analysis_html+= '</tr>'; 
-
-                                $('#categoryTable').append(analysis_html);
-                            });
-                        });
-                    });
-                });
+            $.getJSON("http://0.0.0.0:8000/api/v1/stats/article/" + articleId + "/anchor/", function (data) {
+                renderCategoryList(groupAnchorsByCategory(data.results));
+                $('#categoryTable').show();
             });
+        });
+    });
 
-                $("#wikigen-logo").click( function() {
-                    window.location.replace("http://0.0.0.0:8000/");
-                });
+    $("#wikigen-logo").click(function () {
+        window.location.replace("http://0.0.0.0:8000/");
+    });
 
 
-                $("#change_article").click( function() {
-                        window.location.replace("http://0.0.0.0:8000/");
-                 });
+    $("#change_article").click(function () {
+        window.location.replace("http://0.0.0.0:8000/");
+    });
 });
+
+function renderArticlesList(results) {
+    var articlesListMarkup = '';
+    $.each(results, function (key, value) {
+        articlesListMarkup += '<tr>';
+        articlesListMarkup += '<td><p class="articleDetailInfo" id="' + value.id + '">' + value.title + '</td>';
+        articlesListMarkup += '<td><p>' + value.category_count + '</p></td>';
+        articlesListMarkup += '<td>' + value.total_anchor_count + '</td>';
+        articlesListMarkup += '</tr>';
+    });
+    $('#article-list').html(articlesListMarkup);
+}
+
+function renderCategoryList(result) {
+    var categoryList = '';
+    $.each(result, function (categoryName, anchors) {
+        categoryList += '<tr>';
+        categoryList += '<td><p class="category_name" id="' + categoryName + '">' + categoryName + '</p></td>';
+        categoryList += '<td><p>' + anchors.length + '</p></td>';
+        categoryList += '</tr>';
+    });
+
+
+    $('#category-list').html(categoryList);
+
+    $(".category_name").click(function () {
+        $("#anchorTable").show();
+
+        var categoryName = $(this).attr("id");
+        renderAnchors(flattenedAnchors(result[categoryName]));
+    });
+}
+
+function renderAnchors(anchors) {
+    var daysSurvived = [];
+    var reIntroductions = [];
+    var revisionSurvived = [];
+    var strength = [];
+    var earliestFirstSeen = anchors[0].first_seen;
+    var latestLastSeen = anchors[0].last_seen;
+
+    var anchorList = '';
+
+    $.each(anchors, function (id, anchor) {
+        daysSurvived.push(anchor.days_survived);
+        reIntroductions.push(anchor.re_introductions);
+        revisionSurvived.push(anchor.revision_survived);
+        strength.push(anchor.strength);
+
+        if (compareDates(earliestFirstSeen, anchor.first_seen)) {
+            earliestFirstSeen = anchor.first_seen;
+        }
+
+        if (!compareDates(latestLastSeen, anchor.last_seen)) {
+            latestLastSeen = anchor.last_seen;
+        }
+
+        anchorList += '<tr>';
+        anchorList += '<td>' + anchor.category + '</td>';
+        anchorList += '<td>' + anchor.anchor + '</td>';
+        anchorList += '<td>' + anchor.days_survived + '</td>';
+        anchorList += '<td>' + anchor.revision_survived + '</td>';
+        anchorList += '<td>' + anchor.re_introductions + '</td>';
+        anchorList += '<td>' + anchor.strength + '</td>';
+        anchorList += '<td>' + anchor.first_seen + '</td>';
+        anchorList += '<td>' + anchor.last_seen + '</td>';
+        anchorList += '</tr>';
+    });
+
+    anchorList += '<tr>';
+    anchorList += '<td><strong>Average</strong></td>';
+    anchorList += '<td></td>';
+    anchorList += '<td>' + calculateAverage(daysSurvived) + '</td>';
+    anchorList += '<td>' + calculateAverage(revisionSurvived) + '</td>';
+    anchorList += '<td>' + calculateAverage(reIntroductions) + '</td>';
+    anchorList += '<td>' + calculateAverage(strength) + '</td>';
+    anchorList += '<td>' + earliestFirstSeen + '</td>';
+    anchorList += '<td>' + latestLastSeen + '</td>';
+    anchorList += '</tr>';
+    anchorList += '</tr>';
+
+    $('#anchor-list').html(anchorList);
+}
+
+function compareDates(first, second) {
+    return new Date(first).getTime() > new Date(second).getTime();
+}
+
+function calculateAverage(values) {
+    var sum = 0;
+    for (var i = 0; i < values.length; i++) {
+        sum += parseFloat(values[i]);
+    }
+    return (sum / values.length).toFixed(2);
+}
+
+function flattenedAnchors(grouped) {
+    var flattened = [];
+    $.each(grouped, function (id, anchors) {
+        flattened.push(anchors['anchors']);
+    });
+
+    return flattened;
+}
+
+function groupAnchorsByCategory(unGroupedData) {
+    var dataToDisplay = {};
+    var final = {};
+
+    var categories = [];
+
+    $.each(unGroupedData, function (key, value) {
+        categories.push({
+            "category_name": value.category,
+            "anchors": value
+        });
+        final[value.category] = [];
+        dataToDisplay[value.category] = categories;
+    });
+
+    $.each(dataToDisplay, function (categoryName, anchors) {
+        $.each(anchors, function (key, anchor) {
+            if (anchor.category_name === categoryName) {
+                final[categoryName].push(anchor);
+            }
+        });
+    });
+
+    return final;
+}
