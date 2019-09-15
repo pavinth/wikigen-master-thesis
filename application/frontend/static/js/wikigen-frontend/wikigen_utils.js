@@ -335,10 +335,7 @@ function getIntroductionsInPeriod(anchorObject, fromDate, untilDate, save, ancho
 
 // ANCHOR NAME  |  FIRST SEEN   |    LAST SEEN    |   ACCUMULATED TIME IN THE ARTICLE     |     #REINTRODUCTIONS     |    #Revisions SURVIVed 
 function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
-	//console.log('convertAnchorDataToArray');
 
-	//anchorRelevantRevisions = anchorRelevantRevisions;
-	
 	if(!fromDate) {
 		fromDate = new Date("01/01/2000");
 	}
@@ -348,8 +345,7 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
 	}
 	
 	var analysisTime = getNumberOfDaysBetween(fromDate, untilDate);
-	//console.log("analysis time is " + analysisTime);
-	
+
 	var result = [];
 	var survivals;
 	var introductions;
@@ -373,8 +369,7 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
         method: 'GET',
         statusCode: {
             200: function(data) {
-                  $('category-edit').show();
-                //alert('Anchor with Category Created Successfully');
+            	$('category-edit').show();
                 var existing_category = '<datalist id="category-list" >';
                 $.each(data.results, function(key, value){
                     existing_category += '<option  value="'+ value.name +'">'
@@ -382,10 +377,11 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
 
                 existing_category += '</datalist>';
 
+                var anchorsToStore = [];
+
                 for (var anchor in jsonData) {
                     if(anchor !== "count") {
                         anchorObject = jsonData[anchor]; // Get the object
-                        // Preparing all the needed data for the table row
                         firstSeen = anchorObject[0].start; // Get the first seen date
                         introductions = anchorObject["count"];
                         recalculatedIntroductions = getIntroductionsInPeriod(anchorObject, fromDate, untilDate);
@@ -403,24 +399,21 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
                         } else {
                             survivals = 0;
                         }
-                        //survivals = anchorObject["survivals"];
 
                         if(fromDate > firstSeen || untilDate < lastSeen) {
                             survivals = null;
                         }
 
-                        // create category
-
 						var saveCategory = "<input type=\"submit\" id=\'category-submit\' value='save' style='color:#ffffff;width:50px;height:30px;background:#343434;position:relative;bottom:14px;left:25px;text-align:center;float:right;border-radius: 4px; border: 1px solid black; '>" ;
-						var editCategory = "<input type=\"submit\" id=\'category-edit\' value='edit' style='color:#ffffff;width:50px;height:30px;background:#343434;position:relative;bottom:14px;left:25px;text-align:center;float:right;border-radius: 4px; border: 1px solid black;display:none; '>" ;
                         var category = "<div id='category-form'> " +
                             "<input type='text' list='category-list' id='category-input' size='35' style='line-height:1.8;position:relative;top:17px;border-radius:4px;' name='category'>\n" +
-                             existing_category + saveCategory + editCategory + "</div>";
+                             existing_category + saveCategory + "</div>";
 
                         // Writing the prepared data into the table row
                         // ToDo Restore
                         rank =  0.5 * (recalculatedDaysSurvived / analysisTime) +  0.5 * (survivals / anchorRelevantRevisions["count"]);
                         if(recalculatedDaysSurvived > 1) { // filter 0 values
+
                             firstRevision = getRevisionIdByDate(firstSeen, true);
                             lastRevision = getRevisionIdByDate(lastSeen, true);
                             row = [];
@@ -429,15 +422,30 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
                             row.push(survivals);
                             row.push(recalculatedIntroductions);
                             row.push(rank.toFixed(2));
-                            row.push("<a href='http://"+wikiLang+".wikipedia.org/w/index.php?title=" + anchor + "&oldid=" + firstRevision +"' target='_blank'>" + firstSeen.getFullYear() + "-" + getMonthNumber(firstSeen) +  "-" + getDayNumber(firstSeen) + "</a>");
-                            row.push("<a href='http://"+wikiLang+".wikipedia.org/w/index.php?title=" + anchor + "&oldid=" + lastRevision +"' target='_blank'>" + lastSeen.getFullYear() + "-" + getMonthNumber(lastSeen) +  "-" + getDayNumber(lastSeen) + "</a>");
+                            row.push(firstSeen.getFullYear() + "-" + getMonthNumber(firstSeen) +  "-" + getDayNumber(firstSeen));
+                            row.push( lastSeen.getFullYear() + "-" + getMonthNumber(lastSeen) +  "-" + getDayNumber(lastSeen));
                             //row.push("<div><a class='anchor-cat' href='#'>Add Category</a></div>");
                             row.push(category);
+
+                            var storableAnchor = {
+								"anchor": anchor,
+								"title": localStorage.getItem('selected_article'),
+								"strength": rank.toFixed(2),
+								"last_seen": lastSeen,
+								"first_seen": firstSeen,
+								"days_survived": recalculatedDaysSurvived.toFixed(2),
+								"re_introductions": recalculatedIntroductions,
+								"revision_survived": survivals
+							};
+
+                            anchorsToStore.push(storableAnchor);
+
                             result.push(row);
                         }
 
                     }
 	            }
+                AnchorStorage.store(anchorsToStore);
 	            localStorage.setItem('anchor_count', result.length);
             },
             400: function() {

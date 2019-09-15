@@ -722,30 +722,10 @@ $(function() {
                         firstRevision = data;
                         getLastRevisionDate(localStorage.getItem('selected_article'), function(data) { // success in recieving data
                                 lastRevision = data;
-                                var aDataSet = convertAnchorDataToArray(jsonData, firstRevision, "");
-
-                                $('#anchor_table').dataTable(
-                                    {
-                                        "responsive": true,
-                                        "aaData": aDataSet,
-                                        "aaSorting": [[ 4, "desc" ]],
-                                        "bAutoWidth": false,
-                                        "aoColumns": [
-                                            { "sTitle": "Anchor", "sClass": "center", "sWidth": "20%" },
-                                            { "sTitle": "Days Survived", "sClass": "left", "sWidth": "10%" },
-                                            { "sTitle": "Revisions Survived", "sClass": "left", "sWidth": "10%" },
-                                            { "sTitle": "(Re)Introductions", "sClass": "left", "sWidth": "10%" },
-                                            { "sTitle": "Anchor Strength", "sClass": "left", "sWidth": "10%" },
-                                            { "sTitle": "First Seen", "sClass": "left", "sWidth": "10%" },
-                                            { "sTitle": "Last Seen","sClass": "left", "sWidth": "10%" },
-                                            { "sTitle": "Category","sClass": "center", "sWidth": "40%" }
-                                        ]
-                                    }
-                                );
+                                AnchorStorage.fetchAnchors(convertAnchorDataToArray(jsonData, firstRevision, ""));
                                 $(document).on('click', ".anchor_element", function() {
                                     var anchorName = this.text;
                                     redrawAnchorMap(anchorName);
-
                                 });
 
                                 if(!addDataInitialized) {

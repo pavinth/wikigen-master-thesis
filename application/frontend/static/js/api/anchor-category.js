@@ -1,5 +1,3 @@
-
-
 $(document).on('click', "#category-submit", function(event) {
 
     var minNumber = 100;
