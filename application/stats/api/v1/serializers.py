@@ -14,10 +14,10 @@ class Article(serializers.Serializer):
 	days_survived = serializers.FloatField(write_only=True)
 	re_introductions = serializers.IntegerField(write_only=True)
 	revision_survived = serializers.IntegerField(write_only=True)
-	category = serializers.CharField(write_only=True)
+	category = serializers.CharField(write_only=True, default='no_category')
 	title = serializers.CharField()
 	category_count = serializers.IntegerField(read_only=True)
-	total_anchor_count = serializers.IntegerField(required=False)
+	total_anchor_count = serializers.SerializerMethodField()
 	created_at = serializers.DateTimeField(read_only=True)
 
 	class Meta:
@@ -26,16 +26,16 @@ class Article(serializers.Serializer):
 	def create(self, validated_data):
 		title = validated_data.pop('title')
 		category_name = validated_data.pop('category')
-		total_anchor_count = validated_data.pop('total_anchor_count')
 
 		article, _ = models.Article.objects.get_or_create(title=title, user=self.context['request'].user)
-		if article.total_anchor_count != total_anchor_count:
-			article.total_anchor_count = total_anchor_count
-			article.save()
+
 		category, _ = models.Category.objects.get_or_create(name=category_name, user=self.context['request'].user)
 		anchor, _ = models.Anchor.objects.get_or_create(article=article, category=category, **validated_data)
 
 		return article
+
+	def get_total_anchor_count(self, article):
+		return article.anchor_set.count()
 
 
 class Revision(serializers.ModelSerializer):
