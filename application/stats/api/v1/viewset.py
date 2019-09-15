@@ -32,11 +32,12 @@ class Anchor(viewsets.ModelViewSet):
     filterset_fields = ['category__name']
 
     def get_queryset(self):
-        queryset =  models.Anchor.objects.filter(article__user=self.request.user)
+        queryset = models.Anchor.objects.filter(article__user=self.request.user)
         
         if self.kwargs.get('article_id', None):
             queryset = queryset.filter(article__id=self.kwargs['article_id'])
         return queryset
+
 
 class Category(viewsets.ModelViewSet):
     lookup_field = 'id'

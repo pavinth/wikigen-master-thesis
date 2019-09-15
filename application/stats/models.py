@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Q
 
 from application.utils.mixins import DateTime
 
@@ -17,7 +18,11 @@ class Article(DateTime):
 
     @property
     def category_count(self):
-        return self.anchor_set.filter(category__isnull=False).count()
+        return self.anchor_set.filter(~Q(category__name='no_category')).count()
+
+    @property
+    def total_anchor_count(self):
+        return self.anchor_set.count()
 
 
 class ArticleMixin(models.Model):
