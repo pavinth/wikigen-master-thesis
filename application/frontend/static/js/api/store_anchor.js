@@ -19,23 +19,28 @@ $(function () {
 
 var AnchorStorage = {
     store: function (anchorList) {
+        var dataToPost = {
+            "title": localStorage.getItem("selected_article"),
+            "anchors": []
+        };
         $.each(anchorList, function (idx, anchor) {
             anchor.first_seen = anchor.first_seen.toJSON().slice(0, 10);
             anchor.last_seen = anchor.last_seen.toJSON().slice(0, 10);
 
-            console.log(anchor);
-
-            $.ajax({
-                url: 'http://0.0.0.0:8000/api/v1/stats/article/',
-                headers: {"X-CSRFToken": getCookie('csrftoken')},
-                method: 'POST',
-                data: anchor,
-                statusCode: {
-                    201: function (data) {
-                        console.log(data);
-                    }
+            dataToPost["anchors"].push(anchor);
+        });
+        $.ajax({
+            url: 'http://0.0.0.0:8000/api/v1/stats/article/',
+            headers: {"X-CSRFToken": getCookie('csrftoken')},
+            method: 'POST',
+            data: JSON.stringify(dataToPost),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            statusCode: {
+                201: function (data) {
+                        AnchorStorage.renderStoredAnchors(data.result, data.count);
                 }
-            });
+            }
         });
     },
     fetchAnchors: function (convertedData) {
@@ -46,10 +51,9 @@ var AnchorStorage = {
             statusCode: {
                 200: function (data) {
                     if (data.count > 0) {
-                        console.log(data);
-                        AnchorStorage.renderStoredAnchors(data.result, data.count);
-                    } else {
                         AnchorStorage.renderStoredAnchors(AnchorStorage.cleanUpData(convertedData));
+                    } else {
+                        AnchorStorage.store(data.result);
                     }
                 }
             }
@@ -62,14 +66,12 @@ var AnchorStorage = {
             var anchor = data[0].replace(/<[^>]+>/g, '');
             var storableAnchor = {
                 "anchor": anchor,
-                "title": anchor,
                 "days_survived": data[1],
                 "revision_survived": data[2],
                 "re_introductions": data[3],
-                "strength": data[4],
+                "strength": parseFloat(data[4]),
                 "first_seen": new Date(data[5]),
                 "last_seen": new Date(data[6]),
-                //"category": "not_categorized",
                 "article": localStorage.getItem('selected_article')
             };
 
@@ -83,8 +85,9 @@ var AnchorStorage = {
         var result = [];
 
         $.each(anchors, function (ixd, anchor) {
+
             var row = [];
-            row.push("<a href='#anchor_chronology_part' class='anchor_element'>" + anchor.title + "</a>");
+            row.push("<a href='#anchor_chronology_part' class='anchor_element'>" + anchor.anchor + "</a>");
             row.push(anchor.days_survived);
             row.push(anchor.revision_survived);
             row.push(anchor.re_introductions);
@@ -92,6 +95,7 @@ var AnchorStorage = {
             row.push(anchor.first_seen.toJSON().slice(0, 10));
             row.push(anchor.last_seen.toJSON().slice(0, 10));
             row.push('<span id="category-select-container-' + anchor.title + '"></span>');
+            console.log(row);
             result.push(row);
         });
 
