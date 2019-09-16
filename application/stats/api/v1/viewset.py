@@ -38,6 +38,7 @@ class Anchor(viewsets.ModelViewSet):
             queryset = queryset.filter(article__id=self.kwargs['article_id'])
         return queryset
 
+
 class Category(viewsets.ModelViewSet):
     lookup_field = 'id'
     serializer_class = serializers.Category

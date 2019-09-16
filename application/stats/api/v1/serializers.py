@@ -28,9 +28,12 @@ class Article(serializers.Serializer):
 		category_name = validated_data.pop('category')
 
 		article, _ = models.Article.objects.get_or_create(title=title, user=self.context['request'].user)
+		print('Article created: ', _)
 
 		category, _ = models.Category.objects.get_or_create(name=category_name, user=self.context['request'].user)
 		anchor, _ = models.Anchor.objects.get_or_create(article=article, category=category, **validated_data)
+
+		print('Anchor created: ', _)
 
 		return article
 
