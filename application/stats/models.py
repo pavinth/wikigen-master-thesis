@@ -18,7 +18,7 @@ class Article(DateTime):
 
     @property
     def category_count(self):
-        return self.anchor_set.filter(~Q(category__name='no_category')).count()
+        return self.anchor_set.filter(~Q(category__name='no_category')).values_list('category').distinct().count()
 
     @property
     def total_anchor_count(self):
