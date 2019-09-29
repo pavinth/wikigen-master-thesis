@@ -37,10 +37,6 @@ var CategoryIndex = {
         });
     },
 
-    renderCategoryPieCharts: function (categoriesTableData) {
-        console.log(categoriesTableData);
-    },
-
     renderCategoriesTable: function () {
         $.getJSON("http://0.0.0.0:8000/api/v1/stats/category/", function (data) {
             var categoriesTableData = CategoryIndex.createCategoryTableData(data.results);

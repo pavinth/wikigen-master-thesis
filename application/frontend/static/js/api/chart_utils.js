@@ -1,21 +1,4 @@
 var ChartUtils = {
-    createColors: function () {
-        window.chartColors = {
-            red: 'rgb(255, 99, 132)',
-            orange: 'rgb(255, 159, 64)',
-            yellow: 'rgb(255, 205, 86)',
-            green: 'rgb(75, 192, 192)',
-            blue: 'rgb(54, 162, 235)',
-            purple: 'rgb(153, 102, 255)',
-            grey: 'rgb(201, 203, 207)',
-            olive: 'rgb(128,128,0)',
-            navy: 'rgb(0,0,128)',
-            magenta: 'rgb(255,0,255)',
-            cyan: 'rgb(0,255,255)',
-            sienna: 'rgb(160,82,45)'
-        };
-    },
-
     createDataSet: function (dataPoints) {
         var randomColor = ChartUtils.generateRandomColor();
         return {
@@ -36,10 +19,17 @@ var ChartUtils = {
     },
 
     createOptions: function (labelString) {
+        var label = labelString;
+        CategoryIndex.buttonsToGenerate.map(function (button) {
+            if (labelString === button.fieldToPlot) {
+                label = button.content
+            }
+        });
+
         return {
             legend: {
                 display: true,
-                position: 'right',
+                position: 'bottom',
                 labels: {
                     fontColor: '#333',
                     fontSize: 20
@@ -64,8 +54,8 @@ var ChartUtils = {
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: labelString,
-                        fontSize: 20,
+                        labelString: label,
+                        fontSize: 40,
                         fontFamily: "Times New Roman"
                     }
                 }]

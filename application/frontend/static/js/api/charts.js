@@ -1,9 +1,12 @@
 var Charts = {
     createDaysSurvivedChart(categories, fieldsToPlot, canvasId, dateRange) {
-        var context = ChartUtils.createContext(canvasId);
-
-        var chartOptions = Charts.createChartOptions(Charts.prepareDataToRender(categories, fieldsToPlot, dateRange), fieldsToPlot);
-        new Chart(context, chartOptions);
+        new Chart(
+            ChartUtils.createContext(canvasId),
+            Charts.createChartOptions(
+                Charts.prepareDataToRender(categories, fieldsToPlot, dateRange),
+                fieldsToPlot
+            )
+        );
     },
 
     prepareDataToRender: function (categories, fieldsToPlot, dateRange) {
@@ -70,13 +73,11 @@ var Charts = {
     },
 
     createChartOptions: function (dataToRender, filedToPlot) {
-        var datasets = Charts.createDataSets(dataToRender, filedToPlot);
-
         return {
             type: 'line',
             data: {
                 labels: Charts.createLabel(),
-                datasets: datasets
+                datasets: Charts.createDataSets(dataToRender, filedToPlot)
             },
             options: ChartUtils.createOptions(filedToPlot),
             tooltips: ChartUtils.createToolTip()

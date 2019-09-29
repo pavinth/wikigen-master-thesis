@@ -105,8 +105,8 @@ canvas {
 }
 
 .graph-canvas {
-    height: 700px !important;
-    width: 100% !important;
+    height: 900px !important;
+    width: 90% !important;
 }
 
 .card-group {
