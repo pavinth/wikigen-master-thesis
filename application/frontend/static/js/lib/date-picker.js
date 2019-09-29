@@ -1,9 +1,9 @@
 var DateRangePicker = {
-    dateFormat: "dd-mm-yy",
+    dateFormat: "DD-MM-YYYY",
 
     setDefaultDates: function (collapse) {
         $('#' + collapse + '-from')
-            .datepicker('setDate', moment().subtract(10, "years").format(DateRangePicker.dateFormat));
+            .datepicker('setDate', moment('01-01-2001').format(DateRangePicker.dateFormat));
 
         $('#' + collapse + '-to').datepicker('setDate', moment().format(DateRangePicker.dateFormat));
     },
@@ -11,20 +11,20 @@ var DateRangePicker = {
     createDatePickers: function (fromId, toId) {
         var from = $('#' + fromId)
             .datepicker({
-                defaultDate: "-10y",
                 changeMonth: true,
                 changeYear: true,
-                numberOfMonths: 1
+                numberOfMonths: 1,
+                dateFormat: 'dd-mm-yy'
             }).on("change", function () {
                 $('#' + fromId).attr('value', $(this).val());
                 to.datepicker("option", "minDate", DateRangePicker.getDate(this));
             });
 
         var to = $('#' + toId).datepicker({
-            defaultDate: "+1w",
             changeMonth: true,
             changeYear: true,
-            numberOfMonths: 1
+            numberOfMonths: 1,
+            dateFormat: 'dd-mm-yy'
         }).on("change", function () {
             $('#' + toId).attr('value', $(this).val());
             from.datepicker("option", "maxDate", DateRangePicker.getDate(this));

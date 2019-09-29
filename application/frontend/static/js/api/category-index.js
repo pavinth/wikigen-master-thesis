@@ -91,7 +91,13 @@ var CategoryIndex = {
                         );
                     });
                 });
-            CategoryPieChart.createGraphs(categoriesTableData)
+            CategoryPieChart.createGraphs(categoriesTableData);
+            $('#refresh-daysSurvivedGraph').trigger('click');
+            $('#refresh-revisionSurvivedGraph').trigger('click');
+            $('#refresh-anchorStrengthGraph').trigger('click');
+            $('#refresh-reIntroductionGraphHolder').trigger('click');
+
+            $('#days-survived-graph-button').trigger('click');
         });
     },
 
