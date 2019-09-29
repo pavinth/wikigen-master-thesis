@@ -188,6 +188,8 @@ function convert2JsonToInstabilityMonthArray(json1, json2) {
 }
 
 function convertArrayAndJsonToNoveltyYearArray(array, json) {
+	console.log(array);
+
 	var resultArray = [];
 	var currentYear = new Date().getFullYear();
 	var newDate;

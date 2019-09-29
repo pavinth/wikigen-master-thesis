@@ -4,7 +4,6 @@ html,body{
     font: 95% -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     height:100%;
     width:100%;
-    background-image: linear-gradient(to top, rgba(67, 67, 78, 0.76) 0%, rgba(59, 59, 59, 0.91) 52%, #484848 100%);
     z-index: 999;
     overflow-y:auto;
     overflow-x:hidden;
@@ -151,6 +150,17 @@ margin: 0;
    margin-bottom:10px;
 }
 
+
+#category_form {
+   height: 40px;
+   border: 1px solid #999;
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   background-color: #fff;
+   overflow: hidden;
+   margin-bottom:10px;
+}
 
 #particles-js {
     position: fixed;

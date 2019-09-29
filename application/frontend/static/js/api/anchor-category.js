@@ -1,14 +1,12 @@
-
-
-$(document).on('click', "#category-submit", function(event) {
+$(document).on('click', "#category-submit", function (event) {
 
     var minNumber = 100;
     var maxNumber = 0;
 
-    function randomNumberFromRange(min,max)
-    {
-        return Math.floor(Math.random()*(max-min+1)+min);
+    function randomNumberFromRange(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
+
     var category = $(this).siblings('input').val();
 
     var p_id;
@@ -36,15 +34,23 @@ $(document).on('click', "#category-submit", function(event) {
             anchor_details[anchor_column[key]] = obj.outerText;
         });
 
+        var dataToPost = {
+            "anchors": [],
+            "title": localStorage.getItem('selected_article')
+        };
+        dataToPost.anchors.push(anchor_details);
+
         anchor_details['title'] = localStorage.getItem('selected_article');
         anchor_details['category'] = category;
         anchor_details['total_anchor_count'] = parseInt(localStorage.getItem("anchor_count"));
         var ADD_CAT_URL = 'http://0.0.0.0:8000/api/v1/stats/article/';
         $.ajax({
             url: ADD_CAT_URL,
-            headers: { "X-CSRFToken": getCookie('csrftoken') },
+            headers: {"X-CSRFToken": getCookie('csrftoken')},
             method: 'POST',
-            data: anchor_details,
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(dataToPost),
             statusCode: {
                 201: function () {
 

@@ -2,101 +2,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Dashboard</title>
     <link rel="icon" href="{% static 'res/images/logo.png' %}">
 
-    <!-- CSS References -->
-
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'>
     <link rel="stylesheet" href="{% static 'css/jquery-ui-1.12.1/jquery-ui.css' %}">
-    <link rel="stylesheet" href="{% static 'css/material.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/wikigen.css' %}">
-    <link rel="stylesheet" href="{% static 'css/user-dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chart.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
 
 <body>
-<div id="particles-js"></div>
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+        <img src="{% static 'res/images/wiki_name.png' %}" id="wikigen-logo" alt="logo">
+    </a>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <br>
+                <ul class="nav flex-column">
 
-<div style="float:left; margin-left: 20px; padding:10px; margin-top: 20px;">
-    <img src="{% static 'res/images/wiki_name.png' %}" id="wikigen-logo" alt="logo">
-</div>
+                    <li class="nav-item">
+                        <a class="nav-link article-menu-link" href="#" id="dashboard-articles">
+                            <i class="fas fa-newspaper"></i>&nbsp;Articles
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="dashboard-categories">
+                            <i class="fas fa-bezier-curve"></i>&nbsp;Categories
+                        </a>
+                    </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-address-card"></i>&nbsp;<span id="lusername">Profile</span>
+                        </a>
+                    </li>
 
-
-
-<div class="logged-in-user">
-    <i class="fas fa-user-circle " style="font-size:35px;margin-left:120px;margin-top:20px;color:white;"></i>
-
-    <div class="dropdown-content" style="margin-bottom:5px;">
-        <a href="/#/"><i class="fas fa-user" style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
-            <p id="lusername" style="margin-bottom:15px;text-align:center;"></p></a>
-        <a href="/#/"><i class="fas fa-sign-out-alt"
-                         style="font-size: 20px; margin-left:10px;position:relative;top:20px;"></i>
-            <p id="logout-submit" style="text-align:center;margin-bottom:15px;">Logout</p></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="logout-submit">
+                            <i class="fas fa-sign-out-alt sign-out-icon"></i>&nbsp;Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
-
 </div>
-<div class="container-table100" style="position: relative;">
-    <div class="wrap-table100">
-
-        <table id="detailTable">
-            <thead>
-            <tr class="table100-head">
-                <th class="column1" style="width:80px;text-align:left;">Article Name</th>
-                <th class="column2" style="width:120px;text-align:center;">Number of Categories</th>
-                <th class="column3" style="width:100px;text-align:center;">Number of Total Anchors</th>
-            </tr>
-            </thead>
-            <tbody id="article-list">
-
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-<div class="table100" id="article-category-table">
-    <table id="categoryTable">
-        <thead>
-        <tr class="table100-head">
-            <th class="column1">Category Name</th>
-            <th class="column2">Number of Anchors</th>
-        </tr>
-        </thead>
-        <tbody id="category-list">
-
-        </tbody>
-    </table>
-</div>
-
-<div class="table100" id="category_anchor_table">
-    <table id="anchorTable">
-        <thead>
-        <tr class="table100-head">
-            <th class="column1">Category Name</th>
-            <th class="column2">Anchor</th>
-            <th class="column3">Days Survived</th>
-            <th class="column4">Revision Survived</th>
-            <th class="column5">Re-Introduction</th>
-            <th class="column6">Anchor Strength</th>
-            <th class="column7">First Seen</th>
-            <th class="column8">Last Seen</th>
-        </tr>
-        </thead>
-        <tbody id="anchor-list">
-
-        </tbody>
-    </table>
-</div>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="content-holder"></main>
 
 <script src="{% static  'js/jquery-related/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static  'js/particles/particles.js' %}"></script>
-<script src="{% static  'js/particles/particles_app.js' %}"></script>
-<script src="{% static  'js/api/dashboard-category-types.js' %} "></script>
 <script src="{% static  'js/login/login.js' %}"></script>
 <script src="{% static  'js/registration/registration.js' %}"></script>
 <script src="{% static  'js/user/profile.js' %}"></script>
+<script src="{% static  'js/bootstrap/bootstrap.min.js' %}"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="{% static  'js/moment/moment.min.js' %} "></script>
+<script src="{% static  'js/chart/Chart.bundle.min.js' %} "></script>
+<script src="{% static  'js/api/dashboard.js' %} "></script>
+<script src="{% static  'js/api/article-index.js' %} "></script>
+<script src="{% static  'js/api/category-index.js' %} "></script>
+<script src="{% static  'js/api/category-pie-chart.js' %} "></script>
+<script src="{% static  'js/api/charts.js' %} "></script>
+<script src="{% static  'js/api/chart_utils.js' %} "></script>
+<script src="{% static  'js/lib/table.js' %} "></script>
+<script src="{% static  'js/lib/button.js' %} "></script>
+<script src="{% static  'js/lib/chart-markup.js' %} "></script>
+<script src="{% static  'js/lib/date-picker.js' %} "></script>
+<script src="{% static  'js/jquery-related/jquery-ui.js' %} "></script>
 </body>
 </html>
