@@ -120,3 +120,8 @@ canvas {
     margin: 0 40px 0 0;
     padding-bottom: 40px;
 }
+
+.form-row {
+    position: relative;
+    left: 25%;
+}
