@@ -161,6 +161,15 @@ var CategoryIndex = {
         };
     },
 
+    calculateAverageAnchorStrength: function (anchors) {
+        var sum = 0;
+        anchors.forEach(function (anchor) {
+            sum += parseFloat(anchor.strength);
+        });
+
+        return (sum / anchors.length).toFixed(2);
+    },
+
     calculateAverageDaysSurvived: function (anchors) {
         var sum = 0;
         anchors.forEach(function (anchor) {

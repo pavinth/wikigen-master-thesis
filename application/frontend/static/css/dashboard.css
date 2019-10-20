@@ -125,3 +125,24 @@ canvas {
     position: relative;
     left: 25%;
 }
+
+.category-row {
+    padding: 5px;
+}
+
+.list-group-item {
+    border-radius: 0;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.list-group-item.active {
+    border-radius: 0;
+    z-index: 2;
+    color: #fff;
+    background-color: #FF7F2A;
+    border-color: #FF7F2A;
+}

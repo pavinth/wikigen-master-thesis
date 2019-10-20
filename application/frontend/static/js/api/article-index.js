@@ -25,6 +25,10 @@ var ArticleIndex = {
         $('.view-anchors').click(function () {
             ArticleIndex.createAnchorDetailTable($(this).attr('data'));
         });
+
+        $('.view-categories').click(function () {
+            ArticleCategory.createCategoryDetailTable($(this).attr('data'));
+        });
     },
 
     createAnchorDetailTable: function (articleTitle) {
@@ -87,8 +91,15 @@ var ArticleIndex = {
                                 data: article.title,
                                 class: 'view-anchors',
                                 identifier: article.id,
-                                content: '<i class="fas fa-table"></i>',
+                                content: '<i class="fas fa-anchor">&nbsp;&nbsp;</i>',
                                 title: 'View Anchors'
+                            },
+                            {
+                                data: article.title,
+                                class: 'view-categories',
+                                identifier: article.id,
+                                content: '<i class="fas fa-tags">&nbsp;&nbsp;</i>',
+                                title: 'View Categories'
                             }
                         ]
                 }
