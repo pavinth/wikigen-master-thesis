@@ -346,7 +346,10 @@ function convertAnchorDataToArray(jsonData, fromDate, untilDate) {
 		untilDate = removeTimeOffSet(new Date());
 		untilDate.setHours(untilDate.getHours() + 1);
 	}
-	
+
+	localStorage.setItem("anchorTableFromDate", fromDate);
+	localStorage.setItem("anchorTableUntilDate", untilDate);
+
 	var analysisTime = getNumberOfDaysBetween(fromDate, untilDate);
 	//console.log("analysis time is " + analysisTime);
 	

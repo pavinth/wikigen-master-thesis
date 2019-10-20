@@ -52,12 +52,12 @@ class Category(DateTime):
 
 class Anchor(ArticleMixin, DateTime):
     anchor = models.CharField(max_length=256)
-    strength = models.FloatField()
-    last_seen = models.DateField()
-    first_seen = models.DateField()
-    days_survived = models.FloatField()
-    re_introductions = models.PositiveIntegerField()
-    revision_survived = models.PositiveIntegerField()
+    strength = models.FloatField(null=True)
+    last_seen = models.DateField(null=True)
+    first_seen = models.DateField(null=True)
+    days_survived = models.FloatField(null=True)
+    re_introductions = models.PositiveIntegerField(null=True)
+    revision_survived = models.PositiveIntegerField(null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):

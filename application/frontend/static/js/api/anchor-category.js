@@ -31,7 +31,9 @@ $(document).on('click', "#category-submit", function (event) {
 
         $(this).parent().html(p_html);
         $("#" + p_id).parent().parent().prevAll().each(function (key, obj) {
-            anchor_details[anchor_column[key]] = obj.outerText;
+            if("" !== obj.outerText) {
+                anchor_details[anchor_column[key]] = obj.outerText;
+            }
         });
 
         var dataToPost = {
@@ -42,7 +44,12 @@ $(document).on('click', "#category-submit", function (event) {
 
         anchor_details['title'] = localStorage.getItem('selected_article');
         anchor_details['category'] = category;
+
+        // TODO HACKED (the field first_seen and last_seen on the database is not actually the first and last seen instead the date range selected by the user.)
         anchor_details['total_anchor_count'] = parseInt(localStorage.getItem("anchor_count"));
+        anchor_details['first_seen'] = formatDate(localStorage.getItem("anchorTableFromDate"));
+        anchor_details['last_seen'] = formatDate(localStorage.getItem("anchorTableUntilDate"));
+
         var ADD_CAT_URL = 'http://0.0.0.0:8000/api/v1/stats/article/';
         $.ajax({
             url: ADD_CAT_URL,
@@ -67,3 +74,14 @@ $(document).on('click', "#category-submit", function (event) {
     }
 
 });
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
