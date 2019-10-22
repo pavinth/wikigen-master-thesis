@@ -1,6 +1,6 @@
 var Table = {
     render: function (data, tableTitle, contentIdentifier) {
-        return '<div id="' + contentIdentifier + '"><h2>' + tableTitle + '</h2>' +
+        return '<div id="' + contentIdentifier + '">' + tableTitle  +
             this.createHead(data.headers) + this.createBody(data.data) + this.createTail() + '</div>';
     },
 

@@ -58,8 +58,6 @@ var ArticleIndex = {
                 "Revision Survived",
                 "Re-Introductions",
                 "Anchor Strength",
-                "First Seen",
-                "Last Seen"
             ],
             "data": anchors.map(anchor => {
                 return {
@@ -69,9 +67,7 @@ var ArticleIndex = {
                         anchor.days_survived,
                         anchor.revision_survived,
                         anchor.re_introductions,
-                        anchor.strength,
-                        anchor.first_seen,
-                        anchor.last_seen
+                        anchor.strength
                     ],
                     actionColumn: []
                 }

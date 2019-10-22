@@ -139,9 +139,7 @@ var CategoryIndex = {
                 "Anchor Count",
                 "Avg. Days Survived",
                 "Avg. Revision Survived",
-                "Avg. Re-Introduction",
-                "First Seen",
-                "Last Seen"
+                "Avg. Re-Introduction"
             ],
             "data": anchorsToRender
                 .map(anchorToRender => {
@@ -151,9 +149,7 @@ var CategoryIndex = {
                             anchorToRender.anchorCount,
                             anchorToRender.averageDaysSurvived,
                             anchorToRender.averageRevisionSurvived,
-                            anchorToRender.averageReintroduction,
-                            anchorToRender.firstSeen,
-                            anchorToRender.lastSeen,
+                            anchorToRender.averageReintroduction
                         ],
                         actionColumn: []
                     }

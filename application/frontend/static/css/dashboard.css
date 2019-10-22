@@ -146,3 +146,7 @@ canvas {
     background-color: #FF7F2A;
     border-color: #FF7F2A;
 }
+
+.article-category-form {
+    left: 0;
+}

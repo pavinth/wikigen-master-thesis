@@ -8,6 +8,13 @@ var DateRangePicker = {
         $('#' + collapse + '-to').datepicker('setDate', moment().format(DateRangePicker.dateFormat));
     },
 
+    setUserDefinedDefaultDates: function (collapse, fromDate, toDate) {
+        $('#' + collapse + '-from')
+            .datepicker('setDate', fromDate.format(DateRangePicker.dateFormat));
+
+        $('#' + collapse + '-to').datepicker('setDate', toDate.format(DateRangePicker.dateFormat));
+    },
+
     createDatePickers: function (fromId, toId) {
         var from = $('#' + fromId)
             .datepicker({
