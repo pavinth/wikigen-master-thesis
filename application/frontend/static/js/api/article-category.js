@@ -61,13 +61,11 @@ var ArticleCategory = {
                 filteredArticle.map(article => {
                     var categories = [];
                     article.anchors.forEach(anchor => {
-                        var isAfterFirstSeen = moment(fromDate, DateRangePicker.dateFormat)
-                            .isSameOrBefore(moment(anchor.first_seen));
+                        var fromDateIsAfterFirstSeen = ArticleCategory.dateBefore(fromDate, anchor.first_seen);
 
-                        var isBeforeLastSeen = moment(toDate, DateRangePicker.dateFormat)
-                            .isSameOrAfter(anchor.last_seen);
+                        var toDateIsBeforeLastSeen = ArticleCategory.dateAfter(toDate, anchor.last_seen);
 
-                        if (anchor.category === categoryTitle && (isAfterFirstSeen && isBeforeLastSeen)) {
+                        if (anchor.category === categoryTitle && (fromDateIsAfterFirstSeen && toDateIsBeforeLastSeen)) {
                             categories.push({
                                 name: anchor.category,
                                 daysSurvived: anchor.days_survived,
@@ -113,6 +111,14 @@ var ArticleCategory = {
         var articleLink = '<ol class="breadcrumb">' + '<li class="breadcrumb-item"><a href="#" class="article-menu-link"> Articles</a></li>';
         var articleName = '<li class="breadcrumb-item active" >' + articleTitle + '</li>';
         return articleLink + articleName + '</ol>' + ArticleCategory.createDatepickerMarkup();
+    },
+
+    dateBefore: function (date1, date2) {
+        return new Date(date2) >= new Date(date1);
+    },
+
+    dateAfter: function (date1, date2) {
+        return new Date(date2) <= new Date(date1);
     },
 
     getDate: function (element) {
