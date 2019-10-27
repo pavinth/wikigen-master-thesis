@@ -17,7 +17,7 @@ var ArticleIndex = {
         $('#content-holder').html(
             Table.render(
                 ArticleIndex.createArticleTableData(results),
-                "Articles",
+                '<ol class="breadcrumb"><li class="breadcrumb-item active"> Articles</li></ol>',
                 "article-dashboard"
             )
         );
@@ -41,7 +41,7 @@ var ArticleIndex = {
         $('#content-holder').html(
             Table.render(
                 dataToRender,
-                '<i><a href="#" class="article-menu-link"> Articles</a></i> <i class="fas fa-angle-double-right"></i> ' + articleTitle,
+                '<ol class="breadcrumb"><li class="breadcrumb-item"><a href="#" class="article-menu-link"> Articles </a></li><li class="breadcrumb-item active" >' + articleTitle + '</li></ol>',
                 "article-anchors-table"
             )
         );

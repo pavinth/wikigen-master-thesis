@@ -43,7 +43,7 @@ var CategoryIndex = {
             $('#content-holder').html(
                 Table.render(
                     categoriesTableData,
-                    "Categories",
+                    '<ol class="breadcrumb"><li class="breadcrumb-item active"> Categories </li></ol>',
                     "categories-dashboard"
                 )
             );
