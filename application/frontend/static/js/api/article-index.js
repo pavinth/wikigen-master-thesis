@@ -32,19 +32,20 @@ var ArticleIndex = {
     },
 
     createAnchorDetailTable: function (articleTitle) {
+        var contentHolderSelector =  $('#content-holder');
         var allAnchors = JSON.parse(localStorage.getItem('allStoredArticles'));
-
         var filteredArticle = allAnchors.results.filter(article => article.title === articleTitle);
 
-        var dataToRender = ArticleIndex.createAnchorsTableData(filteredArticle[0].anchors);
-
-        $('#content-holder').html(
+        contentHolderSelector.html(
             Table.render(
-                dataToRender,
+                ArticleIndex.createAnchorsTableData(filteredArticle[0].anchors),
                 '<ol class="breadcrumb"><li class="breadcrumb-item"><a href="#" class="article-menu-link"> Articles </a></li><li class="breadcrumb-item active" >' + articleTitle + '</li></ol>',
                 "article-anchors-table"
             )
         );
+
+        contentHolderSelector.append(ConfirmBox.createMarkup());
+        ConfirmBox.handleModel();
 
         ArticleIndex.triggerArticleLinkClick();
     },
@@ -58,8 +59,10 @@ var ArticleIndex = {
                 "Revision Survived",
                 "Re-Introductions",
                 "Anchor Strength",
+                "Action"
             ],
             "data": anchors.map(anchor => {
+                console.log(anchor);
                 return {
                     dataColumns: [
                         anchor.anchor,
@@ -69,7 +72,15 @@ var ArticleIndex = {
                         anchor.re_introductions,
                         anchor.strength
                     ],
-                    actionColumn: []
+                    actionColumn: [
+                        {
+                            data: anchor.article + '/anchor/' + anchor.id,
+                            class: 'delete-anchor',
+                            identifier: anchor.anchor,
+                            content: '<i class="fas fa-trash"></i>',
+                            title: 'Delete Anchor'
+                        }
+                    ]
                 }
             })
         };
